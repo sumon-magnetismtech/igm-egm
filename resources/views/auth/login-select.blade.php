@@ -75,7 +75,7 @@
                         </a>
                     </div>
                     <div class="col-sm-12">
-                        <a href="#">
+                        <a href="{{ route('egm-dashboard') }}">
                             <div class="card square-card">
                                 <span>EXPORT GENERAL MANIFEST (EGM)</span>
                             </div>

@@ -20,6 +20,7 @@ Route::group(['middleware'=>['auth', 'preventBackHistory']], function(){
 
     //redirect to igm dashboard
     Route::get('/igm-dashboard', 'HomeController@igmDashboard')->name('igm-dashboard');
+    Route::get('/egm-dashboard', 'HomeController@egmDashboard')->name('egm-dashboard');
 
     Route::view('change-password','users.changePassword')->name('change-password');
     Route::post('updatePassword','ChangePasswordController@updatePassword')->name('updatePassword');
