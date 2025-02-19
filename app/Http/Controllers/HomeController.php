@@ -47,6 +47,7 @@ class HomeController extends Controller
 compact('totalMasterbl', 'masterblCurrentMonth','totalHousebl', 'houseblCurrentMonth','totalMoneyReceipts', 'moneyReceiptCurrentMonth','totalDeliveryOrders', 'deliveryOrderCurrentMonth',
 'totalFeeder','feederCurrentMonth','totalBlInformation','blInformationCurrentMonth','totalMloMoneyReceipts','mloMoneyReceiptsCurrentMonth','totalMloDeliveryOrders','MloDeliveryOrderCurrentMonth'));
     }
-
-
+    public function selectDash(){
+        return view('auth.login-select');
+    }
 }

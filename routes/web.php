@@ -16,6 +16,7 @@ Auth::routes(['register' => false]);
 
 Route::group(['middleware'=>['auth', 'preventBackHistory']], function(){
 
+    Route::get('select-igm-egm', 'HomeController@selectDash')->name('selectDashboard');
     Route::get('/', 'HomeController@home')->name('home');
 
     Route::view('change-password','users.changePassword')->name('change-password');
