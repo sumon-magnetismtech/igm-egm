@@ -50,7 +50,7 @@
     <div class="container">
         <div class="row ml-5 mr-5">
             <div class="col-sm-6">
-                <a href="{{ route('home') }}">
+                <a href="{{ route('igm-dashboard') }}">
                     <div class="card square-card">
                         <span>IGM</span>
                     </div>

@@ -18,6 +18,12 @@ class HomeController extends Controller
 
     public function home()
     {
+        //Business Type Selection = IGM / EGM
+        return view('auth.login-select');        
+    }
+
+    public function igmDashboard()
+    {
         $totalMasterbl = Masterbl::all()->count();
         $masterblCurrentMonth = Masterbl::whereYear('created_at', Carbon::now()->year)->whereMonth('created_at', Carbon::now()->month)->count();
 
@@ -46,8 +52,7 @@ class HomeController extends Controller
         return view('welcome',
 compact('totalMasterbl', 'masterblCurrentMonth','totalHousebl', 'houseblCurrentMonth','totalMoneyReceipts', 'moneyReceiptCurrentMonth','totalDeliveryOrders', 'deliveryOrderCurrentMonth',
 'totalFeeder','feederCurrentMonth','totalBlInformation','blInformationCurrentMonth','totalMloMoneyReceipts','mloMoneyReceiptsCurrentMonth','totalMloDeliveryOrders','MloDeliveryOrderCurrentMonth'));
-    }
-    public function selectDash(){
-        return view('auth.login-select');
-    }
+    }    
+
+
 }
