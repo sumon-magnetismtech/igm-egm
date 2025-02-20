@@ -27,7 +27,7 @@ class EgmMasterBl extends Model
     }
 
     public function housebls(){
-        return $this->hasMany(Housebl::class, 'igm');
+        return $this->hasMany(EgmHouseBl::class, 'igm');
     }
 
     public function forwarding()
@@ -37,6 +37,6 @@ class EgmMasterBl extends Model
 
     public function containers()
     {
-        return $this->hasManyThrough(Container::class, Housebl::class, 'igm', 'housebl_id');
+        return $this->hasManyThrough(EgmHouseBlContainers::class, EgmHouseBl::class, 'igm', 'housebl_id');
     }
 }
