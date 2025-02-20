@@ -76,7 +76,7 @@
         <div class="pcoded-navigation-label text-uppercase bg-primary">Forwarding</div>
         <ul class="pcoded-item pcoded-left-item">
             @can('masterbl-view')
-            <li class="pcoded-hasmenu {{in_array(request()->route()->getName(), ['masterbls.create', 'masterbls.index']) ? "active pcoded-trigger" : null}}">
+            <li class="pcoded-hasmenu {{in_array(request()->route()->getName(), ['egmmasterbls.create', 'egmmasterbls.index']) ? "active pcoded-trigger" : null}}">
                 <a href="javascript:void(0)">
                     <span class="pcoded-micon"><i class="ti-package"></i><b>BC</b></span>
                     <span class="pcoded-mtext">Master BL</span>
@@ -84,8 +84,8 @@
                 </a>
                 <ul class="pcoded-submenu">
                 @can('masterbl-create')
-                    <li class="{{request()->routeIs('masterbls.create') ? "active" : null}}">
-                        <a href="{{route('masterbls.create')}}">
+                    <li class="{{request()->routeIs('egmmasterbls.create') ? "active" : null}}">
+                        <a href="{{route('egmmasterbls.create')}}">
                             <span class="pcoded-micon"><i class="ti-angle-right"></i></span>
                             <span class="pcoded-mtext">Create Master BL</span>
                             <span class="pcoded-mcaret"></span>
@@ -93,8 +93,8 @@
                     </li>
                 @endcan
 
-                    <li class="{{request()->routeIs('masterbls.index') ? "active" : null}}">
-                        <a href="{{route('masterbls.index')}}">
+                    <li class="{{request()->routeIs('egmmasterbls.index') ? "active" : null}}">
+                        <a href="{{route('egmmasterbls.index')}}">
                             <span class="pcoded-micon"><i class="ti-angle-right"></i></span>
                             <span class="pcoded-mtext">List of Master BL</span>
                             <span class="pcoded-mcaret"></span>
