@@ -114,7 +114,7 @@
                 <ul class="pcoded-submenu">
                     @can('housebl-create')
                     <li class="{{request()->routeIs('housebls.create') ? 'active' : null}}">
-                        <a href="{{route('housebls.create')}}">
+                        <a href="{{route('egmhousebls.create')}}">
                             <span class="pcoded-micon"><i class="ti-angle-right"></i></span>
                             <span class="pcoded-mtext">Create House BL</span>
                             <span class="pcoded-mcaret"></span>
@@ -122,7 +122,7 @@
                     </li>
                     @endcan
                     <li class="{{request()->routeIs('housebls.index') ? 'active' : null}}">
-                        <a href="{{route('housebls.index')}}">
+                        <a href="{{route('egmhousebls.index')}}">
                             <span class="pcoded-micon"><i class="ti-angle-right"></i></span>
                             <span class="pcoded-mtext">List of House BL</span>
                             <span class="pcoded-mcaret"></span>

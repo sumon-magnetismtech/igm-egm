@@ -1,11 +1,11 @@
-@extends('layouts.new-layout')
+@extends('layouts.egm-layout')
 @section('title', 'List of House BLs')
 
 @section('breadcrumb-title', 'List of House BL')
 
 @section('breadcrumb-button')
-    @can('housebl-create')
-    <a href="{{ route('housebls.create') }}" class="btn btn-out-dashed btn-sm btn-success"><i class="fa fa-plus"></i></a>
+    @can('egmhousebl-create')
+    <a href="{{ route('egmhousebls.create') }}" class="btn btn-out-dashed btn-sm btn-success"><i class="fa fa-plus"></i></a>
     @endcan
     <button type="button" class="btn btn-out-dashed btn-sm btn-warning d-none" id="bulkPrintBtn"> Bulk Print </button>
 @endsection
@@ -124,8 +124,8 @@
                         </td>
                         <td>
                             <div class="icon-btn">
-                                @can('housebl-edit')
-                                <a href="{{ url('housebls/'.$housebl->id.'/edit') }}" data-toggle="tooltip" title="Edit" class="btn btn-warning"><i class="fas fa-pen"></i></a>
+                                @can('egmhousebl-edit')
+                                <a href="{{ url('egmhousebls/'.$housebl->id.'/edit') }}" data-toggle="tooltip" title="Edit" class="btn btn-warning"><i class="fas fa-pen"></i></a>
                                 @endcan
                             </div>
                         </td>
@@ -184,20 +184,20 @@
                         <td>
                             <div class="icon-btn">
                                 <nobr>
-                                    <a href="{{url('housebls/'.$housebl->id)}}" data-toggle="tooltip" title="Details" class="btn btn-primary"><i class="fas fa-eye"></i></a>
+                                    <a href="{{url('egmhousebls/'.$housebl->id)}}" data-toggle="tooltip" title="Details" class="btn btn-primary"><i class="fas fa-eye"></i></a>
                                     @can('housebl-edit')
-                                    <a href="{{ url('housebls/'.$housebl->id.'/edit') }}" data-toggle="tooltip" title="Edit" class="btn btn-warning"><i class="fas fa-pen"></i></a>
+                                    <a href="{{ url('egmhousebls/'.$housebl->id.'/edit') }}" data-toggle="tooltip" title="Edit" class="btn btn-warning"><i class="fas fa-pen"></i></a>
                                     @endcan
 
                                     @can('housebl-delete')
-                                    <form action="{{ url('housebls', [$housebl->id]) }}" method="POST" data-toggle="tooltip" title="Delete" class="d-inline">
+                                    <form action="{{ url('egmhousebls', [$housebl->id]) }}" method="POST" data-toggle="tooltip" title="Delete" class="d-inline">
                                         @csrf
                                         @method('DELETE')
                                         <button type="submit" class="btn btn-danger btn-sm delete"><i class="fas fa-trash"></i></button>
                                     </form>
                                     @endcan
                                     <a href="{{ route('hblPdf',$housebl->id) }}" data-toggle="tooltip" title="Print" class="btn btn-success"><i class="fas fa-print"></i></a>
-                                    <a href="{{ url('housebls/log/'.$housebl->id) }}" data-toggle="tooltip" title="Log" class="btn btn-dark"><i class="fas fa-history"></i></a>
+                                    <a href="{{ url('egmhousebls/log/'.$housebl->id) }}" data-toggle="tooltip" title="Log" class="btn btn-dark"><i class="fas fa-history"></i></a>
                                 </nobr>
                             </div>
                         </td>
@@ -274,7 +274,7 @@
             $( "#igm").autocomplete({
                 source: function( request, response ) {
                     $.ajax({
-                        url:"{{route('loadHouseblIgmAutoComplete')}}",
+                        url:"{{route('egmLoadHouseblIgmAutoComplete')}}",
                         type: 'post',
                         dataType: "json",
                         data: {
@@ -295,7 +295,7 @@
             $( "#mblno" ).autocomplete({
                 source: function( request, response ) {
                     $.ajax({
-                        url:"{{route('loadHouseblMblNoAutoComplete')}}",
+                        url:"{{route('egmLoadHouseblMblNoAutoComplete')}}",
                         type: 'post',
                         dataType: "json",
                         data: {
@@ -316,7 +316,7 @@
             $( "#bolreference" ).autocomplete({
                 source: function( request, response ) {
                     $.ajax({
-                        url:"{{route('loadHouseblBolreferenceAutoComplete')}}",
+                        url:"{{route('egmLoadHouseblBolreferenceAutoComplete')}}",
                         type: 'post',
                         dataType: "json",
                         data: {

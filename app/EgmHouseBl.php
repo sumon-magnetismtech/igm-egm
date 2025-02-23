@@ -24,7 +24,7 @@ class EgmHouseBl extends Model
     }
 
     public function containers(){
-        return $this->hasMany(EgmHouseBlContainers::class);
+        return $this->hasMany(EgmHouseBlContainers::class, 'housebl_id');
     }
 
     public function masterbl(){

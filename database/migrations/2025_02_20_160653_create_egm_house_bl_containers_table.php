@@ -15,7 +15,6 @@ class CreateEgmHouseBlContainersTable extends Migration
     {
         Schema::create('egm_house_bl_containers', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->increments('id');
             $table->integer('housebl_id')->unsigned();
             $table->string('contref');
             $table->string('type');
@@ -27,8 +26,6 @@ class CreateEgmHouseBlContainersTable extends Migration
             $table->float('un')->nullable();
             $table->string('location')->nullable();
             $table->integer('commodity');
-            $table->timestamps();
-            $table->foreign('housebl_id')->references('id')->on('housebls')->onDelete('cascade');            
             $table->timestamps();
         });
     }

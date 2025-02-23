@@ -4,20 +4,18 @@ namespace App\Http\Controllers;
 
 use App\EgmHouseBl;
 use App\Cnfagent;
-use App\Container;
 use App\Description;
+use App\EgmHouseBlContainers;
+use App\EgmMasterBl;
 use App\ForwardingRecords;
 use App\Housebl;
-use App\Http\Requests\HouseblRequest;
+use App\Http\Requests\EgmHouseBlRequest;
 use App\Http\Services\HouseblService;
-use App\Imports\ContainerDetailsImport;
 use App\Mail\DeliveryRequestMail;
 use App\Masterbl;
-use App\Vatreg;
 use Carbon\Carbon;
 use Illuminate\Database\QueryException;
 use Illuminate\Http\Request;
-use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Session;
@@ -34,10 +32,10 @@ class EgmHouseBlController extends Controller
      */
     public function __construct()
     {
-        $this->middleware('permission:housebl-create|housebl-edit|housebl-view|housebl-delete', ['only' => ['index', 'show']]);
-        $this->middleware('permission:housebl-create', ['only' => ['create', 'store']]);
-        $this->middleware('permission:housebl-edit', ['only' => ['edit', 'update']]);
-        $this->middleware('permission:housebl-delete', ['only' => ['destroy']]);
+        $this->middleware('permission:egmhousebl-create|egmhousebl-edit|egmhousebl-view|egmhousebl-delete', ['only' => ['index', 'show']]);
+        $this->middleware('permission:egmhousebl-create', ['only' => ['create', 'store']]);
+        $this->middleware('permission:egmhousebl-edit', ['only' => ['edit', 'update']]);
+        $this->middleware('permission:egmhousebl-delete', ['only' => ['destroy']]);
     }
 
     /**
@@ -61,7 +59,7 @@ class EgmHouseBlController extends Controller
         Session::put('searchedUrl', $url);
         $consigneenames = DB::table('vatregs')->orderBy('id')->pluck('NAME', 'BIN');
 
-        $query = Housebl::query()->with('masterbl', 'moneyReceipt', 'containers')->orderBy('igm', 'DESC')->orderBy('line');
+        $query = EgmHouseBl::query()->with('masterbl', 'moneyReceipt', 'containers')->orderBy('igm', 'DESC')->orderBy('line');
         $query->whereHas('masterbl', function ($q) use ($masterbl)
         {
             $q->where('mblno', 'LIKE', "%$masterbl%");
@@ -129,7 +127,7 @@ class EgmHouseBlController extends Controller
             $quantity    = 0;
         }
 
-        return view('housebls.index', compact('housebls', 'blNote', 'masterbl', 'igm', 'hbl', 'grossWeight', 'quantity', 'dgCheck', 'note', 'items', 'noc', 'contref', 'consigneenames', 'request'));
+        return view('egm.housebls.index', compact('housebls', 'blNote', 'masterbl', 'igm', 'hbl', 'grossWeight', 'quantity', 'dgCheck', 'note', 'items', 'noc', 'contref', 'consigneenames', 'request'));
     }
 
     /**
@@ -148,9 +146,9 @@ class EgmHouseBlController extends Controller
         $offdocks       = DB::table('offdocks')->select('code', 'name')->get();
         $descriptions   = Description::orderBy('description')->pluck('description');
         $vatRegBins     = DB::table('vatregs')->orderBy('BIN')->pluck('BIN', 'NAME');
-        $exporterInfos  = Housebl::orderBy('exportername')->distinct('exportername')->pluck('exportername');
+        $exporterInfos  = EgmHouseBl::orderBy('exportername')->distinct('exportername')->pluck('exportername');
 
-        return view('housebls.create', compact('formType', 'consigneenames', 'notifynames', 'descriptions', 'vatRegBins', 'exporterInfos', 'packagecodes', 'containertypes', 'commoditys', 'offdocks'));
+        return view('egm.housebls.create', compact('formType', 'consigneenames', 'notifynames', 'descriptions', 'vatRegBins', 'exporterInfos', 'packagecodes', 'containertypes', 'commoditys', 'offdocks'));
     }
 
     /**
@@ -160,26 +158,27 @@ class EgmHouseBlController extends Controller
      * @return \Illuminate\Http\Response
      */
 
-    public function store(HouseblRequest $request)
+    public function store(EgmHouseBlRequest $request)
     {
+        //dd($request->all());
         try {
-            $house_bl_service = (new HouseblService())->handleHousebl($request);
+            $house_bl_service = (new HouseblService())->handleEgmHousebl($request);
             $request = $house_bl_service['request'];
             
             DB::transaction(function () use ($house_bl_service)
             {
-                $houseBl = Housebl::create($house_bl_service['blInformationData']);
+                $houseBl = EgmHouseBl::create($house_bl_service['blInformationData']);
                 $houseBl->containers()->createMany($house_bl_service['hbl_addmores']);
             });
 
-            $houseblInfo = Housebl::where('igm', $house_bl_service['request']->igm)
+            $houseblInfo = EgmHouseBl::where('igm', $house_bl_service['request']->igm)
             ->get(['grosswt', 'packageno', 'line', 'bolreference', 'blNote']);
 
             $request['igmTotalLine']    = count($houseblInfo);
             $request['igmGrossWeight']  = $houseblInfo->sum('grosswt');
             $request['igmTotalPackage'] = $houseblInfo->sum('packageno');
 
-            return redirect()->route('housebls.create')->withInput($request->except('blNote', 'note', 'dg'))
+            return redirect()->route('egmhousebls.create')->withInput($request->except('blNote', 'note', 'dg'))
                 ->with('message', 'The House BL Created Successfully');
         }
         catch (\Exception$e)
@@ -194,9 +193,9 @@ class EgmHouseBlController extends Controller
      * @param  \App\Housebl  $housebl
      * @return \Illuminate\Http\Response
      */
-    public function show(Housebl $housebl)
+    public function show(Egmhousebl $egmhousebl)
     {
-        return view('housebls.show', compact('housebl'));
+        return view('egm.housebls.show', compact('egmhousebl'));
     }
 
     /**
@@ -205,13 +204,13 @@ class EgmHouseBlController extends Controller
      * @param  \App\Housebl  $housebl
      * @return \Illuminate\Http\Response
      */
-    public function edit(Housebl $housebl)
+    public function edit(Egmhousebl $egmhousebl)
     {
         $formType = 'edit';
 
-        if (!$housebl->moneyreceiptStatus)
+        if (!$egmhousebl->moneyreceiptStatus)
         {
-            $houseblInfo      = Housebl::where('igm', $housebl->igm)->get(['grosswt', 'packageno']);
+            $houseblInfo      = EgmHouseBl::where('igm', $egmhousebl->igm)->get(['grosswt', 'packageno']);
             $totalGrossWeight = $houseblInfo->sum('grosswt');
             $totalPackage     = $houseblInfo->sum('packageno');
             $totalLine        = count($houseblInfo);
@@ -223,13 +222,13 @@ class EgmHouseBlController extends Controller
             $commoditys     = DB::table('commodities')->select('commoditycode', 'commoditydescription')->get();
             $descriptions   = Description::orderBy('description')->pluck('description');
             $vatRegBins     = DB::table('vatregs')->orderBy('BIN')->pluck('BIN');
-            $exporterInfos  = Housebl::orderBy('exportername')->distinct('exportername')->pluck('exportername');
+            $exporterInfos  = EgmHouseBl::orderBy('exportername')->distinct('exportername')->pluck('exportername');
 
-            return view('housebls.create', compact('formType', 'housebl', 'descriptions', 'vatRegBins', 'exporterInfos', 'vatRegBins', 'exporterInfos', 'consigneenames', 'totalGrossWeight', 'totalPackage', 'totalLine', 'packagecodes', 'containertypes', 'offdocks', 'commoditys'));
+            return view('egm.housebls.create', compact('formType', 'egmhousebl', 'descriptions', 'vatRegBins', 'exporterInfos', 'vatRegBins', 'exporterInfos', 'consigneenames', 'totalGrossWeight', 'totalPackage', 'totalLine', 'packagecodes', 'containertypes', 'offdocks', 'commoditys'));
         }
         else
         {
-            return redirect()->route('housebls.index');
+            return redirect()->route('egmhousebls.index');
         }
     }
 
@@ -240,21 +239,21 @@ class EgmHouseBlController extends Controller
      * @param  \App\Housebl  $housebl
      * @return \Illuminate\Http\Response
      */
-    public function update(HouseblRequest $request, Housebl $housebl)
+    public function update(EgmHouseBlRequest $request, Egmhousebl $egmhousebl)
     {
 
         try {
             $house_bl_service = (new HouseblService())->handleHousebl($request);
             
-            DB::transaction(function () use ($housebl, $house_bl_service)
+            DB::transaction(function () use ($egmhousebl, $house_bl_service)
             {
-                $housebl->update($house_bl_service['blInformationData']);
-                $housebl->containers()->delete();
-                $housebl->containers()->createMany($house_bl_service['hbl_addmores']);
+                $egmhousebl->update($house_bl_service['blInformationData']);
+                $egmhousebl->containers()->delete();
+                $egmhousebl->containers()->createMany($house_bl_service['hbl_addmores']);
             });
 
             return redirect()->to(Session::get('searchedUrl'))
-                ->with('message', "House BL- $housebl->id Updated Successfully");
+                ->with('message', "House BL- $egmhousebl->id Updated Successfully");
         }
         catch (\Exception$e)
         {
@@ -269,10 +268,10 @@ class EgmHouseBlController extends Controller
      * @return \Illuminate\Http\Response
      * @throws \Exception
      */
-    public function destroy(Housebl $housebl)
+    public function destroy(Egmhousebl $egmhousebl)
     {
         try {
-            $housebl->delete();
+            $egmhousebl->delete();
 
             return redirect()->to(Session::get('searchedUrl'))->with('message', 'The B/L Deleted Successfully');
         }
@@ -288,8 +287,8 @@ class EgmHouseBlController extends Controller
      */
     public function getIgmByIgmNo($igmno)
     {
-        $igm              = Masterbl::where('id', '=', $igmno)->first();
-        $houseblInfo      = Housebl::where('igm', $igmno)->get(['grosswt', 'packageno', 'line', 'bolreference', 'blNote']);
+        $igm              = EgmMasterBl::where('id', '=', $igmno)->first();
+        $houseblInfo      = EgmHouseBl::where('igm', $igmno)->get(['grosswt', 'packageno', 'line', 'bolreference', 'blNote']);
         $totalGrossWeight = number_format($houseblInfo->sum('grosswt'), 2);
         $totalPackage     = $houseblInfo->sum('packageno');
         $totalLine        = count($houseblInfo);
@@ -320,8 +319,8 @@ class EgmHouseBlController extends Controller
      */
     public function getIgmByMblNo($mblno)
     {
-        $igmmbl           = Masterbl::where('mblno', '=', $mblno)->firstOrFail();
-        $houseblInfo      = Housebl::where('igm', $igmmbl->id)->get(['grosswt', 'packageno', 'line', 'bolreference', 'note']);
+        $igmmbl           = EgmMasterBl::where('mblno', '=', $mblno)->firstOrFail();
+        $houseblInfo      = EgmHouseBl::where('igm', $igmmbl->id)->get(['grosswt', 'packageno', 'line', 'bolreference', 'note']);
         $totalGrossWeight = $houseblInfo->sum('grosswt');
         $totalPackage     = $houseblInfo->sum('packageno');
         $totalLine        = count($houseblInfo);
@@ -356,8 +355,8 @@ class EgmHouseBlController extends Controller
     {
         if ($bolRef)
         {
-            $houseblData                     = Housebl::with('containers', 'masterbl')->where('bolreference', $bolRef)->firstOrFail();
-            $houseblInfo                     = Housebl::where('igm', $houseblData->igm)->get(['grosswt', 'packageno', 'line', 'bolreference', 'note']);
+            $houseblData                     = EgmHouseBl::with('containers', 'masterbl')->where('bolreference', $bolRef)->firstOrFail();
+            $houseblInfo                     = EgmHouseBl::where('igm', $houseblData->igm)->get(['grosswt', 'packageno', 'line', 'bolreference', 'note']);
             $totalGrossWeight                = $houseblInfo->sum('grosswt');
             $totalPackage                    = $houseblInfo->sum('packageno');
             $houseblData['departure']        = $houseblData->masterbl->departure ? date('d-m-Y', strtotime($houseblData->masterbl->departure)) : null;
@@ -416,7 +415,7 @@ class EgmHouseBlController extends Controller
      */
     public function downloadXml($igm)
     {
-        $masterbl = Masterbl::with('housebls')->where('id', $igm)->firstOrFail();
+        $masterbl = EgmMasterBl::with('housebls')->where('id', $igm)->firstOrFail();
         $xml      = new XMLWriter();
         $xml->openMemory();
         $xml->setIndent(1);
@@ -548,8 +547,8 @@ class EgmHouseBlController extends Controller
         $searchigm = $request->input('igm');
         $searchmbl = $request->input('masterbl');
 
-        $houseblquery  = Housebl::with('containers')->where('igm', 'LIKE', "%$searchigm%")->where('mblno', 'LIKE', "%$searchmbl%")->firstOrFail();
-        $houseblquerys = Housebl::with('containers')->where('igm', 'LIKE', "%$searchigm%")->where('mblno', 'LIKE', "%$searchmbl%")->get();
+        $houseblquery  = EgmHouseBl::with('containers')->where('igm', 'LIKE', "%$searchigm%")->where('mblno', 'LIKE', "%$searchmbl%")->firstOrFail();
+        $houseblquerys = EgmHouseBl::with('containers')->where('igm', 'LIKE', "%$searchigm%")->where('mblno', 'LIKE', "%$searchmbl%")->get();
 
         $hblmblquerys = DB::table('housebls')
             ->rightJoin('masterbls', 'housebls.mblno', '=', 'masterbls.mblno')
@@ -580,8 +579,8 @@ class EgmHouseBlController extends Controller
      */
     public function hblPdf($hblid)
     {
-        $hblInfo    = Housebl::with('masterbl')->where('id', $hblid)->firstOrFail();
-        $containers = Container::where('housebl_id', $hblid)->select('contref', 'status', 'type')->get();
+        $hblInfo    = EgmHouseBl::with('masterbl')->where('id', $hblid)->firstOrFail();
+        $containers = EgmHouseBlContainers::where('housebl_id', $hblid)->select('contref', 'status', 'type')->get();
 
         return \Barryvdh\DomPDF\Facade::loadView('housebls.arrivalPdf', compact('hblInfo', 'containers'))->stream("arrival_$hblInfo->bolreference.pdf");
     }
@@ -639,8 +638,8 @@ class EgmHouseBlController extends Controller
         $masterBl = Masterbl::where('mblno', $request->mblno)->with('housebls.containers')->firstOrFail();
         if (!empty($masterBl))
         {
-            $houseBl    = Housebl::where('igm', $masterBl->id)->pluck('id');
-            $containers = Container::whereIn('housebl_id', $houseBl)->get();
+            $houseBl    = EgmHouseBl::where('igm', $masterBl->id)->pluck('id');
+            $containers = EgmHouseBlContainers::whereIn('housebl_id', $houseBl)->get();
             ForwardingRecords::create($frdData);
 
             return \Barryvdh\DomPDF\Facade::loadView('housebls.frdLetter', compact('masterBl', 'containers', 'frdData', 'letterType', 'withPad'))->stream('frdLetter.pdf');
@@ -671,18 +670,18 @@ class EgmHouseBlController extends Controller
         $masterBl = [];
         if (!empty($request->bolreference))
         {
-            $masterBl = Masterbl::whereHas('housebls', function ($q) use ($bolreference)
+            $masterBl = EgmMasterBl::whereHas('housebls', function ($q) use ($bolreference)
             {
                 $q->where('bolreference', $bolreference);
             })->firstOrFail(['id', 'mblno', 'rotno', 'fvessel', 'voyage', 'mloCommodity', 'contMode', 'mloname', 'mloaddress']);
         }
         if (!empty($request->mblno))
         {
-            $masterBl = Masterbl::with('housebls')->where('mblno', $request->mblno)
+            $masterBl = EgmMasterBl::with('housebls')->where('mblno', $request->mblno)
                 ->firstOrFail(['id', 'mblno', 'rotno', 'fvessel', 'voyage', 'mloCommodity', 'contMode', 'mloname', 'mloaddress']);
         }
 
-        $containers = Container::whereIn('id', $extensionContainers)->get();
+        $containers = EgmHouseBlContainers::whereIn('id', $extensionContainers)->get();
 
         ForwardingRecords::create($frdRecordData);
 
@@ -701,12 +700,12 @@ class EgmHouseBlController extends Controller
 //        $masterBlData = $request->only('mloLineNo', 'mloCommodity', 'contMode');
 //        Masterbl::where('mblno', $request->mblno)->update($masterBlData);
 
-        $masterbl = Masterbl::where('mblno', $request->mblno)->firstOrFail();
+        $masterbl = EgmMasterBl::where('mblno', $request->mblno)->firstOrFail();
 
         if (!empty($masterbl))
         {
-            $houseBl    = Housebl::where('igm', $masterbl->id)->pluck('id');
-            $containers = Container::whereIn('housebl_id', $houseBl)->get()->unique('contref');
+            $houseBl    = EgmHouseBl::where('igm', $masterbl->id)->pluck('id');
+            $containers = EgmHouseBlContainers::whereIn('housebl_id', $houseBl)->get()->unique('contref');
 
             $countContTypes = $containers->groupBy('type')->map(function ($item)
             {
@@ -740,7 +739,7 @@ class EgmHouseBlController extends Controller
         $onChassisData['user_id'] = auth()->id();
         $bolreference             = $request->bolreference;
 
-        $housebl = Housebl::with(['masterbl:id,mblno,rotno,fvessel,voyage,mloCommodity,contMode,mloname,mloaddress',
+        $housebl = EgmHouseBl::with(['masterbl:id,mblno,rotno,fvessel,voyage,mloCommodity,contMode,mloname,mloaddress',
             'containers' => function ($q)
             {
                 $q->where('status', 'FCL')
@@ -778,7 +777,7 @@ class EgmHouseBlController extends Controller
     public function printhousebl(Request $request)
     {
         $houseblID = $request->id;
-        $masterbl  = Masterbl::where('id', $request->igm)->with(['housebls.containers', 'housebls' => function ($q) use ($houseblID)
+        $masterbl  = EgmMasterBl::where('id', $request->igm)->with(['housebls.containers', 'housebls' => function ($q) use ($houseblID)
         {
             $q->whereIn('id', $houseblID);
         }])->firstOrFail();
@@ -796,7 +795,7 @@ class EgmHouseBlController extends Controller
      */
     public function containerListBasedOnIGM($igm)
     {
-        $containerInfo = Housebl::join('containers', 'housebls.id', 'housebl_id')->where('igm', $igm)->distinct('contref')->get(['contref']);
+        $containerInfo = EgmHouseBl::join('containers', 'housebls.id', 'housebl_id')->where('igm', $igm)->distinct('contref')->get(['contref']);
 
         return $containerInfo;
 
@@ -825,9 +824,9 @@ class EgmHouseBlController extends Controller
         $seachedIgm     = $request->igm;
         $containertypes = DB::table('containertypes')->orderBy('id')->pluck('isocode');
 
-        $masterbl = Masterbl::where('id', $request->igm)->firstOrFail();
+        $masterbl = EgmMasterBl::where('id', $request->igm)->firstOrFail();
 
-        $containers = Housebl::join('containers', 'housebls.id', 'housebl_id')
+        $containers = EgmHouseBl::join('containers', 'housebls.id', 'housebl_id')
             ->where('igm', $request->igm)->distinct('contref')
             ->select('containers.contref', 'igm', 'containers.type', 'containers.status', 'containers.sealno', 'housebl_id')->get();
         $allContainers = $containers->unique('contref');
@@ -848,7 +847,7 @@ class EgmHouseBlController extends Controller
     {
 //        dd($request->all());
 
-        Housebl::join('containers', 'housebls.id', 'housebl_id')
+        EgmHouseBl::join('containers', 'housebls.id', 'housebl_id')
             ->where('igm', $request->igm)
             ->where('contref', $request->oldContref)
             ->update([
@@ -882,7 +881,7 @@ class EgmHouseBlController extends Controller
         $etaFromDate = $request->etaFromDate ? Carbon::createFromFormat('d/m/Y', $request->etaFromDate)->startOfDay() : null;
         $etaTillDate = $request->etaTillDate ? Carbon::createFromFormat('d/m/Y', $request->etaTillDate)->endOfDay() : null;
 
-        $housebls = Housebl::with('masterbl', 'moneyReceipt', 'moneyReceipt.deliveryOrder')
+        $housebls = EgmHouseBl::with('masterbl', 'moneyReceipt', 'moneyReceipt.deliveryOrder')
             ->with([
                 'containers' => function ($q) use ($contref)
             {
@@ -949,9 +948,9 @@ class EgmHouseBlController extends Controller
      * @param $contref
      * @return mixed
      */
-    public function checkFCLContainer($igm, $contref)
+    public function egmCheckFCLContainer($igm, $contref)
     {
-        $housebl = Housebl::with(['containers' => function ($q)
+        $housebl = EgmHouseBl::with(['containers' => function ($q)
         {
             $q->where('status', 'FCL')->select(['id', 'housebl_id', 'contref', 'status']);
         }])

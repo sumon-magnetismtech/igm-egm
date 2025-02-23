@@ -36,7 +36,7 @@ class EgmHouseBlRequest extends FormRequest
             'arrival' => 'required',
             'cofficecode' => 'required',
             'line' => 'required',
-            'bolreference' => 'required|max:17|unique:housebls,bolreference,'.$id,
+            'bolreference' => 'required|max:17|unique:egm_house_bls,bolreference,'.$id,
             'exportername' => 'required',
             'exporteraddress' => 'required',
             'consigneebin' => 'required',

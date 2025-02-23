@@ -1,4 +1,4 @@
-@extends('layouts.new-layout')
+@extends('layouts.egm-layout')
 @section('title', 'FRD House BL')
 
 @section('style')
@@ -35,12 +35,12 @@
 
 @section('content')
     @if ($formType == 'edit')
-        <form action="{{ route('housebls.update', $housebl->id) }}" method="post" id="mainForm" name="mainForm"
+        <form action="{{ route('egmhousebls.update', $egmhousebl->id) }}" method="post" id="mainForm" name="mainForm"
             class="custom-form" enctype="multipart/form-data">
             @method('PUT')
-            <input type="hidden" name="id" value="{{ $housebl->id }}">
+            <input type="hidden" name="id" value="{{ $egmhousebl->id }}">
         @else
-            <form action="{{ route('housebls.store') }}" method="post" id="mainForm" class="custom-form"
+            <form action="{{ route('egmhousebls.store') }}" method="post" id="mainForm" class="custom-form"
                 enctype="multipart/form-data">
     @endif
     @csrf
@@ -49,7 +49,7 @@
             <div class="input-group input-group-sm">
                 <span class="input-group-addon"> IGM </span>
                 <input type="text" id="igmno" name="igm" class="form-control"
-                    value="{{ old('igm') ? old('igm') : (!empty($housebl) ? $housebl->igm : null) }}" onchange="loadIgm()"
+                    value="{{ old('igm') ? old('igm') : (!empty($egmhousebl) ? $egmhousebl->igm : null) }}" onchange="loadIgm()"
                     required {{ old('igm') ? '' : 'autofocus' }} autocomplete="off">
             </div>
         </div>
@@ -57,7 +57,7 @@
             <div class="input-group input-group-sm">
                 <span class="input-group-addon"> Master BL </span>
                 <input type="text" id="mblno" name="mblno" class="form-control"
-                    value="{{ old('mblno') ? old('mblno') : (!empty($housebl) ? $housebl->masterbl->mblno : null) }}"
+                    value="{{ old('mblno') ? old('mblno') : (!empty($egmhousebl) ? $egmhousebl->masterbl->mblno : null) }}"
                     onchange="loadIgmByMbl()" tabindex="-1" required>
             </div>
         </div>
@@ -65,7 +65,7 @@
             <div class="input-group input-group-sm">
                 <span class="input-group-addon"> Vessel Name</span>
                 <input type="text" id="fvessel" name="vesselname" class="form-control"
-                    value="{{ old('vesselname') ? old('vesselname') : (!empty($housebl) ? $housebl->masterbl->fvessel : null) }}"
+                    value="{{ old('vesselname') ? old('vesselname') : (!empty($egmhousebl) ? $egmhousebl->masterbl->fvessel : null) }}"
                     tabindex="-1" required readonly>
             </div>
         </div>
@@ -73,7 +73,7 @@
             <div class="input-group input-group-sm">
                 <span class="input-group-addon">Voyage </span>
                 <input type="text" id="voyage" name="voyage" class="form-control"
-                    value="{{ old('voyage') ? old('voyage') : (!empty($housebl) ? $housebl->masterbl->voyage : null) }}"
+                    value="{{ old('voyage') ? old('voyage') : (!empty($egmhousebl) ? $egmhousebl->masterbl->voyage : null) }}"
                     required readonly tabindex="-1">
             </div>
         </div>
@@ -81,7 +81,7 @@
             <div class="input-group input-group-sm">
                 <span class="input-group-addon"> Rotation </span>
                 <input type="text" id="rotno" name="rotation" class="form-control"
-                    value="{{ old('rotation') ? old('rotation') : (!empty($housebl) ? $housebl->masterbl->rotno : null) }}"
+                    value="{{ old('rotation') ? old('rotation') : (!empty($egmhousebl) ? $egmhousebl->masterbl->rotno : null) }}"
                     tabindex="-1" readonly>
             </div>
         </div>
@@ -89,7 +89,7 @@
             <div class="input-group input-group-sm">
                 <span class="input-group-addon"> Unloading Port </span>
                 <input type="text" id="pucode" name="punloading" class="form-control"
-                    value="{{ old('punloading') ? old('punloading') : (!empty($housebl) ? $housebl->masterbl->pucode : null) }}"
+                    value="{{ old('punloading') ? old('punloading') : (!empty($egmhousebl) ? $egmhousebl->masterbl->pucode : null) }}"
                     required tabindex="-1" readonly>
             </div>
         </div>
@@ -97,7 +97,7 @@
             <div class="input-group input-group-sm">
                 <span class="input-group-addon"> Departure Date </span>
                 <input type="text" id="departure" name="departure" class="form-control"
-                    value="{{ old('departure')? old('departure'): (!empty($housebl)? ($housebl->masterbl->departure? date('d-m-Y', strtotime($housebl->masterbl->departure)): null): null) }}"
+                    value="{{ old('departure')? old('departure'): (!empty($egmhousebl)? ($egmhousebl->masterbl->departure? date('d-m-Y', strtotime($egmhousebl->masterbl->departure)): null): null) }}"
                     required autocomplete="off" tabindex="-1" readonly>
             </div>
         </div>
@@ -105,7 +105,7 @@
             <div class="input-group input-group-sm">
                 <span class="input-group-addon"> Arrival Date </span>
                 <input type="text" id="arrival" name="arrival" class="form-control"
-                    value="{{ old('arrival')? old('arrival'): (!empty($housebl)? ($housebl->masterbl->arrival? date('d-m-Y', strtotime($housebl->masterbl->arrival)): null): null) }}"
+                    value="{{ old('arrival')? old('arrival'): (!empty($egmhousebl)? ($egmhousebl->masterbl->arrival? date('d-m-Y', strtotime($egmhousebl->masterbl->arrival)): null): null) }}"
                     required autocomplete="off" tabindex="-1" readonly>
             </div>
         </div>
@@ -113,7 +113,7 @@
             <div class="input-group input-group-sm">
                 <span class="input-group-addon"> Berthing Date </span>
                 <input type="text" id="berthing" name="berthing" class="form-control"
-                    value="{{ old('berthing')? old('berthing'): (!empty($housebl)? ($housebl->masterbl->berthing? date('d-m-Y', strtotime($housebl->masterbl->berthing)): null): null) }}"
+                    value="{{ old('berthing')? old('berthing'): (!empty($egmhousebl)? ($egmhousebl->masterbl->berthing? date('d-m-Y', strtotime($egmhousebl->masterbl->berthing)): null): null) }}"
                     required autocomplete="off" tabindex="-1" readonly>
             </div>
         </div>
@@ -121,7 +121,7 @@
             <div class="border-checkbox-section">
                 <div class="border-checkbox-group border-checkbox-group-primary">
                     <input type="checkbox" id="noc" name="noc" class="border-checkbox"
-                        @if (old('noc') || (!empty($housebl) && $housebl->masterbl->noc)) checked @endif tabindex="-1" readonly onclick="return false; ">
+                        @if (old('noc') || (!empty($egmhousebl) && $egmhousebl->masterbl->noc)) checked @endif tabindex="-1" readonly onclick="return false; ">
                     <label class="border-checkbox-label" for="noc">NOC</label>
                 </div>
             </div>
@@ -130,7 +130,7 @@
             <div class="input-group input-group-sm">
                 <span class="input-group-addon"> Nature </span>
                 <input type="text" id="blnaturecode" name="nature" class="form-control"
-                    value="{{ old('nature') ? old('nature') : (!empty($housebl) ? $housebl->masterbl->blnaturecode : null) }}"
+                    value="{{ old('nature') ? old('nature') : (!empty($egmhousebl) ? $egmhousebl->masterbl->blnaturecode : null) }}"
                     required tabindex="-1" readonly>
             </div>
         </div>
@@ -138,7 +138,7 @@
             <div class="input-group input-group-sm">
                 <span class="input-group-addon"> Custom Code </span>
                 <input type="text" id="customoffice" name="cofficecode" class="form-control"
-                    value="{{ old('cofficecode') ? old('cofficecode') : (!empty($housebl) ? $housebl->masterbl->cofficecode : null) }}"
+                    value="{{ old('cofficecode') ? old('cofficecode') : (!empty($egmhousebl) ? $egmhousebl->masterbl->cofficecode : null) }}"
                     required tabindex="-1" readonly>
             </div>
         </div>
@@ -174,7 +174,7 @@
             <div class="input-group input-group-sm">
                 <span class="input-group-addon"> Line <span class="text-danger">*</span> </span>
                 <input type="text" id="lineno" name="line" class="form-control"
-                    value="{{ old('line') ? old('line') : (!empty($housebl) ? $housebl->line : null) }}"
+                    value="{{ old('line') ? old('line') : (!empty($egmhousebl) ? $egmhousebl->line : null) }}"
                     onblur="getLocation()" autocomplete="off" required autofocus>
             </div>
         </div>
@@ -183,7 +183,7 @@
                 <span class="input-group-addon"> BOL Reference <span class="text-danger">*</span> </span>
                 <label class="badge badge-danger characterLimit"></label>
                 <input type="text" id="bolref" name="bolreference" class="form-control " maxlength="17"
-                    value="{{ old('bolreference') ? old('bolreference') : (!empty($housebl) ? $housebl->bolreference : null) }}"
+                    value="{{ old('bolreference') ? old('bolreference') : (!empty($egmhousebl) ? $egmhousebl->bolreference : null) }}"
                     autocomplete="off" required>
             </div>
         </div>
@@ -194,7 +194,7 @@
                 <label class="badge badge-danger characterLimit"></label>
                 <input type="text" id="exportername" name="exportername" class="form-control" list="exporterInfos"
                     maxlength="35" onchange="loadExporterAddress()"
-                    value="{{ old('exportername') ? old('exportername') : (!empty($housebl) ? $housebl->exportername : null) }}"
+                    value="{{ old('exportername') ? old('exportername') : (!empty($egmhousebl) ? $egmhousebl->exportername : null) }}"
                     autocomplete="off" required>
                 <datalist id="exporterInfos">
                     @foreach ($exporterInfos as $exporterInfo)
@@ -207,7 +207,7 @@
             <div class="input-group input-group-sm pt-3">
                 <span class="input-group-addon"> Exporter Address <span class="text-danger">*</span> </span>
                 <input type="text" id="exporteraddress" name="exporteraddress" class="form-control"
-                    value="{{ old('exporteraddress') ? old('exporteraddress') : (!empty($housebl) ? $housebl->exporteraddress : null) }}"
+                    value="{{ old('exporteraddress') ? old('exporteraddress') : (!empty($egmhousebl) ? $egmhousebl->exporteraddress : null) }}"
                     required>
             </div>
         </div>
@@ -218,7 +218,7 @@
                 <input type="hidden" id="consignee_status" value="0" name="consignee_status">
                 <input type="text" list="consigneeBins" class="form-control mr-xl-5" id="consigneebin" name="consigneebin"
                     onchange="loadConsigneeBin()"
-                    value="{{ old('consigneebin') ? old('consigneebin') : (!empty($housebl) ? $housebl->consigneebin : null) }}"
+                    value="{{ old('consigneebin') ? old('consigneebin') : (!empty($egmhousebl) ? $egmhousebl->consigneebin : null) }}"
                     autocomplete="off" required>
                 <datalist id="consigneeBins">
                     @foreach ($vatRegBins as $key => $vatRegBin)
@@ -230,13 +230,13 @@
                 <span class="input-group-addon"> Consig. Name <span class="text-danger">*</span> </span>
                 <label class="badge badge-danger characterLimit"></label>
                 <input type="text" id="consigneename" maxlength="35" name="consigneename" class="form-control "
-                    value="{{ old('consigneename') ? old('consigneename') : (!empty($housebl) ? $housebl->consigneename : null) }}"
+                    value="{{ old('consigneename') ? old('consigneename') : (!empty($egmhousebl) ? $egmhousebl->consigneename : null) }}"
                     tabindex="-1" autocomplete="off" required>
             </div>
             <div class="input-group input-group-sm">
                 <span class="input-group-addon"> Consig. Address <span class="text-danger">*</span> </span>
                 <textarea class="form-control md-textarea" id="consigneeaddress" rows="2" name="consigneeaddress" required
-                    tabindex="-1">{{ old('consigneeaddress') ? old('consigneeaddress') : (!empty($housebl) ? $housebl->consigneeaddress : null) }}</textarea>
+                    tabindex="-1">{{ old('consigneeaddress') ? old('consigneeaddress') : (!empty($egmhousebl) ? $egmhousebl->consigneeaddress : null) }}</textarea>
             </div>
         </div>
 
@@ -252,7 +252,7 @@
                 <input type="hidden" id="notify_status" value="0" name="notify_status">
                 <input type="text" list="notifyBins" class="form-control mr-xl-5" id="notifybin" name="notifybin"
                     onchange="loadNotifyBin()"
-                    value="{{ old('notifybin') ? old('notifybin') : (!empty($housebl) ? $housebl->notifybin : null) }}"
+                    value="{{ old('notifybin') ? old('notifybin') : (!empty($egmhousebl) ? $egmhousebl->notifybin : null) }}"
                     autocomplete="off" required>
                 <datalist id="notifyBins">
                     @foreach ($vatRegBins as $key => $vatRegBin)
@@ -264,13 +264,13 @@
                 <span class="input-group-addon">Notify Name <span class="text-danger">*</span> </span>
                 <label class="badge badge-danger characterLimit"></label>
                 <input type="text" class="form-control " id="notifyname" maxlength="35" name="notifyname"
-                    value="{{ old('notifyname') ? old('notifyname') : (!empty($housebl) ? $housebl->notifyname : null) }}"
+                    value="{{ old('notifyname') ? old('notifyname') : (!empty($egmhousebl) ? $egmhousebl->notifyname : null) }}"
                     autocomplete="off" required tabindex="-1">
             </div>
             <div class="input-group input-group-sm">
                 <span class="input-group-addon"> Notify Address <span class="text-danger">*</span> </span>
                 <textarea id="notifyaddress" name="notifyaddress" class="form-control" rows="2" required
-                    tabindex="-1">{{ old('notifyaddress') ? old('notifyaddress') : (!empty($housebl) ? $housebl->notifyaddress : null) }}</textarea>
+                    tabindex="-1">{{ old('notifyaddress') ? old('notifyaddress') : (!empty($egmhousebl) ? $egmhousebl->notifyaddress : null) }}</textarea>
             </div>
         </div>
 
@@ -279,7 +279,7 @@
                 <span class="input-group-addon"> Shipping Mark <span class="text-danger">*</span></span>
                 <label class="badge badge-danger characterLimit"></label>
                 <textarea id="shippingmark" name="shippingmark" class="form-control " rows="2" maxlength="512" required
-                    @if ($formType == 'create') onfocus="this.select()" @endif>{{ old('shippingmark') ? old('shippingmark') : (!empty($housebl) ? $housebl->shippingmark : null) }}</textarea>
+                    @if ($formType == 'create') onfocus="this.select()" @endif>{{ old('shippingmark') ? old('shippingmark') : (!empty($egmhousebl) ? $egmhousebl->shippingmark : null) }}</textarea>
             </div>
         </div>
 
@@ -288,7 +288,7 @@
                 <span class="input-group-addon"> Total Package <span class="text-danger">*</span></span>
                 <input type="number" class="form-control" id="nofpackage" name="packageno" min="0" step="1"
                     pattern="[0-9]" onkeypress="return !(event.charCode == 46)"
-                    value="{{ old('packageno') ? old('packageno') : (!empty($housebl) ? $housebl->packageno : null) }}"
+                    value="{{ old('packageno') ? old('packageno') : (!empty($egmhousebl) ? $egmhousebl->packageno : null) }}"
                     autocomplete="off" required>
             </div>
         </div>
@@ -297,7 +297,7 @@
                 <span class="input-group-addon"> Package Code <span class="text-danger">*</span> </span>
                 <input type="text" id="packagecode" name="packagecode" class="form-control " list="packagecodeList"
                     onchange="loadPackageName()"
-                    value="{{ old('packagecode') ? old('packagecode') : (!empty($housebl) ? $housebl->packagecode : null) }}"
+                    value="{{ old('packagecode') ? old('packagecode') : (!empty($egmhousebl) ? $egmhousebl->packagecode : null) }}"
                     required>
                 <datalist id="packagecodeList">
                     @foreach ($packagecodes as $key => $packagecode)
@@ -310,7 +310,7 @@
             <div class="input-group input-group-sm">
                 <span class="input-group-addon">Package Name <span class="text-danger">*</span> </span>
                 <input type="text" id="packagename" name="packagetype" class="form-control"
-                    value="{{ old('packagetype') ? old('packagetype') : (!empty($housebl) ? $housebl->packagetype : null) }}"
+                    value="{{ old('packagetype') ? old('packagetype') : (!empty($egmhousebl) ? $egmhousebl->packagetype : null) }}"
                     required tabindex="-1">
             </div>
         </div>
@@ -320,7 +320,7 @@
                 <span class="input-group-addon">Description <span class="text-danger">*</span></span>
                 <label class="badge badge-danger characterLimit"></label>
                 <textarea type="text" id="description" name="description" class="form-control " rows="2" required
-                    maxlength="512">{{ old('description') ? old('description') : (!empty($housebl) ? $housebl->description : null) }}</textarea>
+                    maxlength="512">{{ old('description') ? old('description') : (!empty($egmhousebl) ? $egmhousebl->description : null) }}</textarea>
             </div>
         </div>
 
@@ -328,7 +328,7 @@
             <div class="input-group input-group-sm">
                 <span class="input-group-addon"> Gross Weight <span class="text-danger">*</span> </span>
                 <input type="text" id="hblgrossweight" name="grosswt" class="form-control"
-                    value="{{ old('grosswt') ? old('grosswt') : (!empty($housebl) ? $housebl->grosswt : null) }}"
+                    value="{{ old('grosswt') ? old('grosswt') : (!empty($egmhousebl) ? $egmhousebl->grosswt : null) }}"
                     required autocomplete="off">
             </div>
         </div>
@@ -336,7 +336,7 @@
             <div class="input-group input-group-sm">
                 <span class="input-group-addon"> Measurement <span class="text-danger">*</span> </span>
                 <input type="number" id="measurement" name="measurement" min="0" step="0.01" class="form-control"
-                    value="{{ old('measurement') ? old('measurement') : (!empty($housebl) ? $housebl->measurement : null) }}"
+                    value="{{ old('measurement') ? old('measurement') : (!empty($egmhousebl) ? $egmhousebl->measurement : null) }}"
                     required autocomplete="off">
             </div>
         </div>
@@ -344,7 +344,7 @@
             <div class="input-group input-group-sm">
                 <span class="input-group-addon"> Total Container <span class="text-danger">*</span> </span>
                 <input type="text" id="noofcontainer" name="containernumber" class="form-control"
-                    value="{{ old('containernumber') ? old('containernumber') : (!empty($housebl) ? $housebl->containernumber : null) }}"
+                    value="{{ old('containernumber') ? old('containernumber') : (!empty($egmhousebl) ? $egmhousebl->containernumber : null) }}"
                     required autocomplete="off">
             </div>
         </div>
@@ -352,7 +352,7 @@
             <div class="input-group input-group-sm">
                 <span class="input-group-addon"> Remarks </span>
                 <input type="text" id="remarks" name="remarks" class="form-control"
-                    value="{{ old('remarks') ? old('remarks') : (!empty($housebl) ? $housebl->remarks : null) }}"
+                    value="{{ old('remarks') ? old('remarks') : (!empty($egmhousebl) ? $egmhousebl->remarks : null) }}"
                     tabindex="-1">
             </div>
         </div>
@@ -361,7 +361,7 @@
             <div class="input-group input-group-sm">
                 <span class="input-group-addon"> Freight Status</span>
                 <input type="text" id="freightstatus" name="freightstatus" class="form-control"
-                    value="{{ old('freightstatus') ? old('freightstatus') : (!empty($housebl) ? $housebl->freightstatus : null) }}"
+                    value="{{ old('freightstatus') ? old('freightstatus') : (!empty($egmhousebl) ? $egmhousebl->freightstatus : null) }}"
                     tabindex="-1">
             </div>
         </div>
@@ -369,7 +369,7 @@
             <div class="input-group input-group-sm">
                 <span class="input-group-addon">Freight Value</span>
                 <input type="text" id="freightvalue" name="freightvalue" class="form-control"
-                    value="{{ old('freightvalue') ? old('freightvalue') : (!empty($housebl) ? $housebl->freightvalue : null) }}"
+                    value="{{ old('freightvalue') ? old('freightvalue') : (!empty($egmhousebl) ? $egmhousebl->freightvalue : null) }}"
                     tabindex="-1">
             </div>
         </div>
@@ -377,7 +377,7 @@
             <div class="input-group input-group-sm">
                 <span class="input-group-addon"> Co-Loader </span>
                 <input type="text" id="coloader" name="coloader" class="form-control"
-                    value="{{ old('coloader') ? old('coloader') : (!empty($housebl) ? $housebl->coloader : null) }}"
+                    value="{{ old('coloader') ? old('coloader') : (!empty($egmhousebl) ? $egmhousebl->coloader : null) }}"
                     tabindex="-1">
             </div>
         </div>
@@ -386,14 +386,14 @@
             <div class="input-group input-group-sm">
                 <span class="input-group-addon" style="background-color:#314b44!important;"> DO Note </span>
                 <textarea id="notefordo" name="note" class="form-control bg-light text-danger font-weight-bold"
-                    tabindex="-1">{{ old('note') ? old('note') : (!empty($housebl) ? $housebl->note : null) }}</textarea>
+                    tabindex="-1">{{ old('note') ? old('note') : (!empty($egmhousebl) ? $egmhousebl->note : null) }}</textarea>
             </div>
         </div>
         <div class="col-xl-6 col-md-6 px-1">
             <div class="input-group input-group-sm">
                 <span class="input-group-addon" style="background-color: #3D9CDD!important;"> BL Note </span>
                 <textarea class="form-control bg-light text-danger font-weight-bold" id="blNote" name="blNote"
-                    tabindex="-1">{{ old('blNote') ? old('blNote') : (!empty($housebl) ? $housebl->blNote : null) }}</textarea>
+                    tabindex="-1">{{ old('blNote') ? old('blNote') : (!empty($egmhousebl) ? $egmhousebl->blNote : null) }}</textarea>
             </div>
         </div>
     </div> <!-- end row -->
@@ -429,9 +429,9 @@
             <div class="col-md-3 my-2">
                 <div class="border-checkbox-section">
                     <div class="border-checkbox-group border-checkbox-group-primary">
-                        @if (!empty($housebl->consolidated))
+                        @if (!empty($egmhousebl->consolidated))
                             <input type="checkbox" id="consolidatedcargo" name="consolidated" class="border-checkbox"
-                                value="{{ $housebl->consolidated }}" onclick="return false;" checked tabindex="-1">
+                                value="{{ $egmhousebl->consolidated }}" onclick="return false;" checked tabindex="-1">
                         @else
                             <input type="checkbox" id="consolidatedcargo" name="consolidated" class="border-checkbox"
                                 value="1" tabindex="-1">
@@ -443,9 +443,9 @@
             <div class="col-md-3 my-2">
                 <div class="border-checkbox-section">
                     <div class="border-checkbox-group border-checkbox-group-success">
-                        @if (!empty($housebl->qccontainer))
+                        @if (!empty($egmhousebl->qccontainer))
                             <input type="checkbox" class="border-checkbox" id="qccontainer" name="qccontainer"
-                                value="{{ $housebl->qccontainer }}" checked tabindex="-1">
+                                value="{{ $egmhousebl->qccontainer }}" checked tabindex="-1">
                         @else
                             <input type="checkbox" class="border-checkbox" id="qccontainer" name="qccontainer" value="QC"
                                 tabindex="-1">
@@ -458,7 +458,7 @@
                 <div class="border-checkbox-section">
                     <div class="border-checkbox-group border-checkbox-group-danger">
                         <input type="checkbox" class="border-checkbox" id="dgstatus" name="dg"
-                            {{ (old('dg') ? 'checked' : !empty($housebl->dg)) ? 'checked' : null }} onclick="return false;"
+                            {{ (old('dg') ? 'checked' : !empty($egmhousebl->dg)) ? 'checked' : null }} onclick="return false;"
                             tabindex="-1">
                         <label class="border-checkbox-label text-danger" for="dgstatus">DG Status</label>
                     </div>
@@ -575,8 +575,8 @@
                                 </td>
                             </tr>
                         @endforeach
-                    @elseif(!empty($housebl) && $housebl->containers->isNotEmpty())
-                        @foreach ($housebl->containers as $key => $container)
+                    @elseif(!empty($egmhousebl) && $egmhousebl->containers->isNotEmpty())
+                        @foreach ($egmhousebl->containers as $key => $container)
                             <tr>
                                 <td><input type="text" name="addmore[{{ $key }}][contref]"
                                         class="form-control form-control-sm contrefno" value="{{ $container->contref }}"
@@ -664,7 +664,7 @@
 @section('script')
     <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
     <script>
-        var i = {!! json_encode(old('addmore') ? count(old('addmore')) : (!empty($housebl) ? $housebl->containers->count() - 1 : 0)) !!};
+        var i = {!! json_encode(old('addmore') ? count(old('addmore')) : (!empty($egmhousebl) ? $egmhousebl->containers->count() - 1 : 0)) !!};
 
         function addContainer() {
             $("#containerTable tbody").append(`
@@ -779,7 +779,7 @@
                             $("#igmGrossWeight, #igmTotalPackage").val(null);
                         });
                 } else {
-                    $("#igmno").val({{ $housebl->igm ?? null }});
+                    $("#igmno").val({{ $egmhousebl->igm ?? null }});
                     $("#mblno").focus();
                 }
             } else {
@@ -965,7 +965,7 @@
                 .catch(function() {});
         });
 
-        function loadExporterAddress() {
+        function egmLoadExporterAddress() {
             let url = '{{ url('/loadExporterInfo/') }}/' + $('#exportername').val();
             fetch(url)
                 .then((resp) => resp.json())
@@ -1038,14 +1038,14 @@
                 });
         } //loadPackageName
 
-        function checkFCLContainer(e) {
+        function egmCheckFCLContainer(e) {
             let currentStatus = $(e).closest('tr').find('.contStatus');
             let contref = $(e).closest('tr').find('.contrefno').val();
             let igm = $("#igmno").val();
 
             if (igm) {
                 if (currentStatus.val()) {
-                    let url = "{{ url('checkFCLContainer') }}/" + igm + '/' + contref;
+                    let url = "{{ url('egmCheckFCLContainer') }}/" + igm + '/' + contref;
                     fetch(url)
                         .then((resp) => resp.json())
                         .then(function(housebl) {

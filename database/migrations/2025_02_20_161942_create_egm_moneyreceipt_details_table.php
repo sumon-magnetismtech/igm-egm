@@ -19,7 +19,6 @@ class CreateEgmMoneyreceiptDetailsTable extends Migration
             $table->string('particular');
             $table->float('amount', 10, 2);
             $table->timestamps();
-            $table->foreign('moneyreceipt_id')->references('id')->on('moneyreceipts')->onDelete('cascade');
         });
     }
 
