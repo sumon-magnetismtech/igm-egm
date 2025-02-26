@@ -5,6 +5,9 @@ namespace App\Http\Controllers;
 use App\Cnfagent;
 use App\Container;
 use App\Country;
+use App\EgmHouseBl;
+use App\EgmHouseBlContainers;
+use App\EgmMasterBl;
 use App\ExporterInfo;
 use App\Housebl;
 use App\Location;
@@ -61,6 +64,12 @@ class JsonDataController extends Controller
             'exporteraddress' => $exporterData->exporteraddress,
         ]);
     }
+    function egmLoadExporterAddress(Request $request){
+        $exporterData= EgmHouseBl::where('exportername', $request->name)->firstOrFail();
+        return json_encode([
+            'exporteraddress' => $exporterData->exporteraddress,
+        ]);
+    }
 
 
     public function loadPortDataAutoComplete(Request $request){
@@ -109,6 +118,19 @@ class JsonDataController extends Controller
         }
         return response()->json($response);
     }
+    public function egmLoadHouseblIgmAutoComplete(Request $request){
+        $search = $request->search;
+        if($search == ''){
+            $masterbls = EgmMasterBl::limit(5)->get(['id']);
+        }else{
+            $masterbls = EgmMasterBl::where('id', 'like', '%' .$search . '%')->limit(10)->get(['id']);
+        }
+        $response = array();
+        foreach($masterbls as $masterbl){
+            $response[] = array("label"=>$masterbl->id,"value"=>$masterbl->id);
+        }
+        return response()->json($response);
+    }
 
     //get mblno only from housebl
     public function loadHouseblMblNoAutoComplete(Request $request){
@@ -117,6 +139,19 @@ class JsonDataController extends Controller
             $masterbls = Masterbl::limit(5)->get(['mblno']);
         }else{
             $masterbls = Masterbl::where('mblno', 'like', '%' .$search . '%')->limit(10)->get(['mblno']);
+        }
+        $response = array();
+        foreach($masterbls as $masterbl){
+            $response[] = array("label"=>$masterbl->mblno,"value"=>$masterbl->mblno);
+        }
+        return response()->json($response);
+    }
+    public function egmLoadHouseblMblNoAutoComplete(Request $request){
+        $search = $request->search;
+        if($search == ''){
+            $masterbls = EgmMasterBl::limit(5)->get(['mblno']);
+        }else{
+            $masterbls = EgmMasterBl::where('mblno', 'like', '%' .$search . '%')->limit(10)->get(['mblno']);
         }
         $response = array();
         foreach($masterbls as $masterbl){
@@ -139,6 +174,19 @@ class JsonDataController extends Controller
         }
         return response()->json($response);
     }
+    public function egmLoadHouseblBolreferenceAutoComplete(Request $request){
+        $search = $request->search;
+        if($search == ''){
+            $housebls = EgmHouseBl::limit(5)->get(['bolreference']);
+        }else{
+            $housebls = EgmHouseBl::where('bolreference', 'like', '%' .$search . '%')->limit(10)->get(['bolreference']);
+        }
+        $response = array();
+        foreach($housebls as $housebl){
+            $response[] = array("label"=>$housebl->bolreference,"value"=>$housebl->bolreference);
+        }
+        return response()->json($response);
+    }
 
     //get containers only from housebl containers table
     public function loadHouseblContainerAutoComplete(Request $request){
@@ -147,6 +195,19 @@ class JsonDataController extends Controller
             $housebls = Container::limit(5)->get(['contref']);
         }else{
             $housebls = Container::where('contref', 'like', '%' .$search . '%')->distinct('contref')->limit(10)->get(['contref']);
+        }
+        $response = array();
+        foreach($housebls as $housebl){
+            $response[] = array("label"=>$housebl->contref,"value"=>$housebl->contref);
+        }
+        return response()->json($response);
+    }
+    public function egmLoadHouseblContainerAutoComplete(Request $request){
+        $search = $request->search;
+        if($search == ''){
+            $housebls = EgmHouseBlContainers::limit(5)->get(['contref']);
+        }else{
+            $housebls = EgmHouseBlContainers::where('contref', 'like', '%' .$search . '%')->distinct('contref')->limit(10)->get(['contref']);
         }
         $response = array();
         foreach($housebls as $housebl){
@@ -169,6 +230,19 @@ class JsonDataController extends Controller
         }
         return response()->json($response);
     }
+    public function egmLoadHouseblNotifyNameAutoComplete(Request $request){
+        $search = $request->search;
+        if($search == ''){
+            $housebls = EgmHouseBl::limit(5)->get(['notifyname']);
+        }else{
+            $housebls = EgmHouseBl::where('notifyname', 'like', '%' .$search . '%')->distinct('notifyname')->limit(10)->get(['notifyname']);
+        }
+        $response = array();
+        foreach($housebls as $housebl){
+            $response[] = array("label"=>$housebl->notifyname,"value"=>$housebl->notifyname);
+        }
+        return response()->json($response);
+    }
 
     //get description only from housebl table
     public function loadHouseblDescriptionAutoComplete(Request $request){
@@ -177,6 +251,19 @@ class JsonDataController extends Controller
             $housebls = Housebl::limit(5)->get(['description']);
         }else{
             $housebls = Housebl::where('description', 'like', '%' .$search . '%')->distinct('description')->limit(10)->get(['description']);
+        }
+        $response = array();
+        foreach($housebls as $housebl){
+            $response[] = array("label"=>$housebl->description,"value"=>$housebl->description);
+        }
+        return response()->json($response);
+    }
+    public function egmLoadHouseblDescriptionAutoComplete(Request $request){
+        $search = $request->search;
+        if($search == ''){
+            $housebls = EgmHouseBl::limit(5)->get(['description']);
+        }else{
+            $housebls = EgmHouseBl::where('description', 'like', '%' .$search . '%')->distinct('description')->limit(10)->get(['description']);
         }
         $response = array();
         foreach($housebls as $housebl){
@@ -199,6 +286,19 @@ class JsonDataController extends Controller
         }
         return response()->json($response);
     }
+    public function egmLoadHouseblExporternameAutoComplete(Request $request){
+        $search = $request->search;
+        if($search == ''){
+            $housebls = EgmHouseBl::limit(5)->get(['exportername']);
+        }else{
+            $housebls = EgmHouseBl::where('exportername', 'like', '%' .$search . '%')->distinct('exportername')->limit(10)->get(['exportername']);
+        }
+        $response = array();
+        foreach($housebls as $housebl){
+            $response[] = array("label"=>$housebl->exportername,"value"=>$housebl->exportername);
+        }
+        return response()->json($response);
+    }
 
     //get Vessel name only from housebl table
     public function loadHouseblMotherVesselAutoComplete(Request $request){
@@ -207,6 +307,19 @@ class JsonDataController extends Controller
             $masterbls = Masterbl::limit(5)->get(['mv']);
         }else{
             $masterbls = Masterbl::where('mv', 'like', '%' .$search . '%')->distinct('mv')->limit(10)->get(['mv']);
+        }
+        $response = array();
+        foreach($masterbls as $masterbl){
+            $response[] = array("label"=>$masterbl->mv,"value"=>$masterbl->mv);
+        }
+        return response()->json($response);
+    }
+    public function egmLoadHouseblMotherVesselAutoComplete(Request $request){
+        $search = $request->search;
+        if($search == ''){
+            $masterbls = EgmMasterBl::limit(5)->get(['mv']);
+        }else{
+            $masterbls = EgmMasterBl::where('mv', 'like', '%' .$search . '%')->distinct('mv')->limit(10)->get(['mv']);
         }
         $response = array();
         foreach($masterbls as $masterbl){
@@ -229,6 +342,19 @@ class JsonDataController extends Controller
         }
         return response()->json($response);
     }
+    public function egmLoadHouseblFeederVesselAutoComplete(Request $request){
+        $search = $request->search;
+        if($search == ''){
+            $masterbls = EgmMasterBl::limit(5)->get(['fvessel']);
+        }else{
+            $masterbls = EgmMasterBl::where('fvessel', 'like', '%' .$search . '%')->distinct('fvessel')->limit(10)->get(['fvessel']);
+        }
+        $response = array();
+        foreach($masterbls as $masterbl){
+            $response[] = array("label"=>$masterbl->fvessel,"value"=>$masterbl->fvessel);
+        }
+        return response()->json($response);
+    }
 
     //get Vessel name only from housebl table
     public function loadMasterPrincipalAutoComplete(Request $request){
@@ -237,6 +363,19 @@ class JsonDataController extends Controller
             $masterbls = Masterbl::limit(5)->get(['fvessel']);
         }else{
             $masterbls = Masterbl::where('principal', 'like', '%' .$search . '%')->distinct('principal')->limit(10)->get(['principal']);
+        }
+        $response = array();
+        foreach($masterbls as $masterbl){
+            $response[] = array("label"=>$masterbl->principal,"value"=>$masterbl->principal);
+        }
+        return response()->json($response);
+    }
+    public function egmLoadMasterPrincipalAutoComplete(Request $request){
+        $search = $request->search;
+        if($search == ''){
+            $masterbls = EgmMasterBl::limit(5)->get(['fvessel']);
+        }else{
+            $masterbls = EgmMasterBl::where('principal', 'like', '%' .$search . '%')->distinct('principal')->limit(10)->get(['principal']);
         }
         $response = array();
         foreach($masterbls as $masterbl){
@@ -293,16 +432,30 @@ class JsonDataController extends Controller
         $housebls = Masterbl::where('fvessel', $vesselName)->distinct('voyage')->get(['voyage']);
         return response()->json($housebls);
     }
+    public function egmLoadHouseblVoyage($vesselName){
+        $housebls = EgmMasterBl::where('fvessel', $vesselName)->distinct('voyage')->get(['voyage']);
+        return response()->json($housebls);
+    }
 
     public function containerExtension($mblno){
         $houseBl = Housebl::where('mblno','LIKE', $mblno)->pluck('id');
         $containers = Container::whereIn('housebl_id', $houseBl)->get(['id', 'contref']);
         return $containers;
     }
+    public function egmContainerExtension($mblno){
+        $houseBl = EgmHouseBl::where('mblno','LIKE', $mblno)->pluck('id');
+        $containers = EgmHouseBlContainers::whereIn('housebl_id', $houseBl)->get(['id', 'contref']);
+        return $containers;
+    }
 
     public function containerExtensionByBolRef($bolref){
         $houseBl = Housebl::where('bolreference', $bolref)->pluck('id');
         $containers = Container::whereIn('housebl_id', $houseBl)->get(['id', 'contref']);
+        return $containers;
+    }
+    public function egmContainerExtensionByBolRef($bolref){
+        $houseBl = EgmHouseBl::where('bolreference', $bolref)->pluck('id');
+        $containers = EgmHouseBlContainers::whereIn('housebl_id', $houseBl)->get(['id', 'contref']);
         return $containers;
     }
 

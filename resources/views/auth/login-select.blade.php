@@ -16,23 +16,39 @@
 </head>
 <style>
     .square-card {
-    width: 230px; /* Adjust size as needed */
-    height: 230px; /* Same as width to make it square */
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    text-align: center;
-    font-weight: bold;
-    font-size: 24px;
-    margin: auto;
-    border: 1px solid #ddd; /* Optional: add a border */
-    box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.1); /* Optional: add a shadow */
-    color: #5EA9FF;
-}
-.square-card span {
-    font-size: 70px;
-    color: #5EA9FF;
-}
+        width: 100%;
+        height: 80px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        text-align: center;
+        font-weight: bold;
+        font-size: 20px;
+        background: #e0f2e9;
+        border-radius: 38px;
+        border: none;
+        position: relative;
+        overflow: hidden;
+    }
+
+    .square-card span {
+        z-index: 1;
+        position: relative;
+    }
+
+    .square-card:hover {
+        background: #d1ead8;
+    }
+
+    .square-card:first-child {
+        background: white;
+        color: #5EA9FF;
+    }
+
+    .square-card:first-child span {
+        font-weight: bold;
+    }
+
 
 </style>
 
@@ -49,19 +65,23 @@
     <!-- Container-fluid starts -->
     <div class="container">
         <div class="row ml-5 mr-5">
-            <div class="col-sm-6">
-                <a href="{{ route('igm-dashboard') }}">
-                    <div class="card square-card">
-                        <span>IGM</span>
+            <div class="col-6 offset-3 ">
+                <div class="row">
+                    <div class="col-sm-12">
+                        <a href="{{ route('igm-dashboard') }}">
+                            <div class="card square-card ">
+                                <span>IMPORT GENERAL MANIFEST (IGM)</span>
+                            </div>
+                        </a>
                     </div>
-                </a>
-            </div>
-            <div class="col-sm-6">
-                <a href="#">
-                    <div class="card square-card">
-                        <span>EGM</span>
+                    <div class="col-sm-12">
+                        <a href="{{ route('egm-dashboard') }}">
+                            <div class="card square-card">
+                                <span>EXPORT GENERAL MANIFEST (EGM)</span>
+                            </div>
+                        </a>
                     </div>
-                </a>
+                </div>
             </div>
         </div>        
         <!-- end of row -->

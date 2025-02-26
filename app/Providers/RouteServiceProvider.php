@@ -40,6 +40,7 @@ class RouteServiceProvider extends ServiceProvider
         $this->mapWebRoutes();
         $this->mapActivityRoutes();
         $this->mapMloRoutes();
+        $this->mapEgmRoutes();
         $this->mapPayrollRoutes();
         //
     }
@@ -70,6 +71,12 @@ class RouteServiceProvider extends ServiceProvider
         Route::middleware('web')
              ->namespace($this->namespace)
              ->group(base_path('routes/mlo-route.php'));
+    }
+    protected function mapEgmRoutes()
+    {
+        Route::middleware('web')
+             ->namespace($this->namespace)
+             ->group(base_path('routes/egm-route.php'));
     }
 
     protected function mapPayrollRoutes()
