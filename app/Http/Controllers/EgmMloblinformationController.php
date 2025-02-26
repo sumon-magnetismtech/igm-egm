@@ -1,28 +1,31 @@
 <?php
 
-namespace App\Http\Controllers\MLO;
+namespace App\Http\Controllers;
 
-use App\Containerlocation;
-use App\ExporterInfo;
-use App\Housebl;
-use App\Http\Controllers\Controller;
-use App\Http\Requests\MLO\BlinformationRequest;
-use App\Imports\BlcontainerImport;
-use App\MLO\Blcontainer;
-use App\MLO\Feederinformation;
-use App\MLO\Mloblinformation;
-use App\Principal;
 use App\Vatreg;
-use Illuminate\Database\QueryException;
-use Illuminate\Http\Request;
+use App\Housebl;
+use App\Principal;
+use App\ExporterInfo;
+use App\MLO\Blcontainer;
+use App\Containerlocation;
 use Illuminate\Support\Arr;
+use App\EgmMloblinformation;
+use Illuminate\Http\Request;
+use App\EgmFeederinformation;
+use App\MLO\Mloblinformation;
+use App\MLO\Feederinformation;
+use Illuminate\Validation\Rule;
+use App\Imports\BlcontainerImport;
 use Illuminate\Support\Facades\DB;
+use App\Http\Controllers\Controller;
+use Maatwebsite\Excel\Facades\Excel;
+use Illuminate\Database\QueryException;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Validator;
-use Illuminate\Validation\Rule;
-use Maatwebsite\Excel\Facades\Excel;
+use App\Http\Requests\MLO\BlinformationRequest;
+use App\Http\Requests\MLO\EgmBlinformationRequest;
 
-class MloblinformationController extends Controller
+class EgmMloblinformationController extends Controller
 {
     public function __construct()
     {
@@ -44,7 +47,7 @@ class MloblinformationController extends Controller
 
         $consigneenames = DB::table('vatregs')->orderBy('id')->pluck('NAME', 'BIN');
 
-        $mlobls = Mloblinformation::with('blcontainers', 'mloMoneyReceipt.deliveryOrder', 'mlofeederInformation')
+        $mlobls = EgmMloblinformation::with('blcontainers', 'mloMoneyReceipt.deliveryOrder', 'mlofeederInformation')
             ->when($blref, function ($q) use ($blref) {
                 $q->where('bolreference', 'LIKE', "%$blref%");
             })
@@ -86,7 +89,7 @@ class MloblinformationController extends Controller
 
         //            ->get();
         //        dd($mlobls);
-        return view('mlo.blinformations.index', compact('mlobls', 'vessel', 'voyage', 'note', 'dgCheck', 'request', 'consigneenames'));
+        return view('egm.mlo.blinformations.index', compact('mlobls', 'vessel', 'voyage', 'note', 'dgCheck', 'request', 'consigneenames'));
     }
 
     public function create()
@@ -97,8 +100,8 @@ class MloblinformationController extends Controller
     public function blEntryByFeeder($feederID)
     {
         $formType = 'create';
-        $feederInfo = Feederinformation::where('id', $feederID)->first(['id', 'feederVessel', 'voyageNumber', 'rotationNo', 'departureDate', 'arrivalDate', 'berthingDate', 'COCode']);
-        $totalLineNumber = Mloblinformation::where('feederinformations_id', $feederID)->max('line');
+        $feederInfo = EgmFeederinformation::where('id', $feederID)->first(['id', 'feederVessel', 'voyageNumber', 'rotationNo', 'departureDate', 'arrivalDate', 'berthingDate', 'COCode']);
+        $totalLineNumber = EgmMloblinformation::where('feederinformations_id', $feederID)->max('line');
         $lineNumber = $totalLineNumber + 1;
 
         $consigneenames = DB::table('vatregs')->orderBy('id')->pluck('NAME', 'BIN');
@@ -112,15 +115,14 @@ class MloblinformationController extends Controller
         $mlocodes = DB::table('mloblinformations')->distinct()->pluck('mlocode');
 
         $containerLocations = Containerlocation::pluck('name', 'code');
-        $exporterInfos = Mloblinformation::orderBy('exportername')->distinct('exportername')->pluck('exportername');
+        $exporterInfos = EgmMloblinformation::orderBy('exportername')->distinct('exportername')->pluck('exportername');
         $principals = Principal::orderBy('name')->pluck('name');
-        return view('mlo.blinformations.create', compact('formType', 'consigneenames', 'mlocodes', 'notifynames', 'feederInfo', 'lineNumber', 'packagecodes', 'containertypes', 'commoditys', 'offdocks', 'exporterInfos', 'containerLocations', 'principals'));
+        return view('egm.mlo.blinformations.create', compact('formType', 'consigneenames', 'mlocodes', 'notifynames', 'feederInfo', 'lineNumber', 'packagecodes', 'containertypes', 'commoditys', 'offdocks', 'exporterInfos', 'containerLocations', 'principals'));
     }
 
 
-    public function store(BlinformationRequest $request)
+    public function store(EgmBlinformationRequest $request)
     {
-        //        dd($request->all());
         try {
             $consignee = Vatreg::firstOrCreate(['BIN' => $request->consignee_id], ['NAME' => $request->consigneename, 'ADD1' => $request->consigneeaddress]);
             $notify = Vatreg::firstOrCreate(['BIN' => $request->notify_id], ['NAME' => $request->notifyname, 'ADD1' => $request->notifyaddress]);
@@ -229,7 +231,7 @@ class MloblinformationController extends Controller
             }
             //            dd($mloblinformationData);
             DB::transaction(function () use ($mloblinformationData, $hbl_addmores, $request) {
-                $mloblinformation = Mloblinformation::create($mloblinformationData);
+                $mloblinformation = EgmMloblinformation::create($mloblinformationData);
                 $mloblinformation->blcontainers()->createMany($hbl_addmores);
             });
             return redirect()->back()->withInput($request->except('bolreference'))->with('message', 'The House BL Created Successfully');
@@ -238,16 +240,18 @@ class MloblinformationController extends Controller
         }
     }
 
-    public function show(Mloblinformation $mloblinformation)
+    public function show($id)
     {
+        $mloblinformation = Mloblinformation::with('blcontainers')->findOrFail($id);
         $consignee = DB::table('vatregs')->where('BIN', '=', $mloblinformation->consignee_id)->first();
         $notify = DB::table('vatregs')->where('BIN', '=', $mloblinformation->notify_id)->first();
         $package = DB::table('packages')->where('id', '=', $mloblinformation->package_id)->first();
         $feederInfo = Feederinformation::where('feederinformations.id', '=', $mloblinformation->feederinformations_id)->first();
-        return view('mlo.blinformations.show', compact('mloblinformation', 'consignee', 'notify', 'package', 'feederInfo'));
+        return view('egm.mlo.blinformations.show', compact('mloblinformation', 'consignee', 'notify', 'package', 'feederInfo'));
     }
     public function edit(Mloblinformation $mloblinformation)
     {
+
         $formType = 'edit';
         $packagecodes = DB::table('packages')->orderBy('id')->pluck('packagecode');
         $containertypes = DB::table('containertypes')->orderBy('id')->pluck('isocode');
@@ -263,10 +267,10 @@ class MloblinformationController extends Controller
         $feederInfo = Feederinformation::where('feederinformations.id', '=', $mloblinformation->feederinformations_id)->first();
         $containerLocations = Containerlocation::pluck('name', 'code');
         $principals = Principal::orderBy('name')->pluck('name');
-        return view('mlo.blinformations.create', compact('formType', 'mloblinformation', 'package', 'feederInfo', 'mlocodes', 'exporterInfos', 'packagecodes', 'containertypes', 'offdocks', 'commoditys', 'consigneenames', 'notifynames', 'principals', 'containerLocations'));
+        return view('egm.mlo.blinformations.create', compact('formType', 'mloblinformation', 'package', 'feederInfo', 'mlocodes', 'exporterInfos', 'packagecodes', 'containertypes', 'offdocks', 'commoditys', 'consigneenames', 'notifynames', 'principals', 'containerLocations'));
     }
 
-    public function update(BlinformationRequest $request, Mloblinformation $mloblinformation)
+    public function update(BlinformationRequest $request, EgmMloblinformation $mloblinformation)
     {
         //        dd($request->all());
         try {

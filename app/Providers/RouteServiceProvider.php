@@ -42,6 +42,7 @@ class RouteServiceProvider extends ServiceProvider
         $this->mapMloRoutes();
         $this->mapEgmRoutes();
         $this->mapPayrollRoutes();
+        $this->mapEgmMloRoutes();
         //
     }
 
@@ -55,35 +56,42 @@ class RouteServiceProvider extends ServiceProvider
     protected function mapWebRoutes()
     {
         Route::middleware('web')
-             ->namespace($this->namespace)
-             ->group(base_path('routes/web.php'));
+            ->namespace($this->namespace)
+            ->group(base_path('routes/web.php'));
     }
 
     protected function mapActivityRoutes()
     {
         Route::middleware('web')
-             ->namespace($this->namespace)
-             ->group(base_path('routes/activity-route.php'));
+            ->namespace($this->namespace)
+            ->group(base_path('routes/activity-route.php'));
     }
 
     protected function mapMloRoutes()
     {
         Route::middleware('web')
-             ->namespace($this->namespace)
-             ->group(base_path('routes/mlo-route.php'));
+            ->namespace($this->namespace)
+            ->group(base_path('routes/mlo-route.php'));
     }
     protected function mapEgmRoutes()
     {
         Route::middleware('web')
-             ->namespace($this->namespace)
-             ->group(base_path('routes/egm-route.php'));
+            ->namespace($this->namespace)
+            ->group(base_path('routes/egm-route.php'));
     }
 
     protected function mapPayrollRoutes()
     {
         Route::middleware('web')
-             ->namespace($this->namespace)
-             ->group(base_path('routes/payroll-route.php'));
+            ->namespace($this->namespace)
+            ->group(base_path('routes/payroll-route.php'));
+    }
+
+    protected function mapEgmMloRoutes()
+    {
+        Route::middleware('web')
+            ->namespace($this->namespace)
+            ->group(base_path('routes/egm-mlo-route.php'));
     }
 
     /**
@@ -96,8 +104,8 @@ class RouteServiceProvider extends ServiceProvider
     protected function mapApiRoutes()
     {
         Route::prefix('api')
-             ->middleware('api')
-             ->namespace($this->namespace)
-             ->group(base_path('routes/api.php'));
+            ->middleware('api')
+            ->namespace($this->namespace)
+            ->group(base_path('routes/api.php'));
     }
 }
