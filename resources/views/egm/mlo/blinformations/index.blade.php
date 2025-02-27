@@ -195,16 +195,16 @@
                                 <td rowspan="{{ $totalContainer }}" class="text-center">
                                     <div class="icon-btn">
                                         <nobr>
-                                            <a href="{{ url('mloblinformations/' . $mlobl->id) }}" data-toggle="tooltip"
+                                            <a href="{{ url('egmmloblinformations/' . $mlobl->id) }}" data-toggle="tooltip"
                                                 title="Details" class="btn btn-primary"><i class="fas fa-eye"></i></a>
                                             @can('mlo-mloblinformation-edit')
-                                                <a href="{{ url('mloblinformations/' . $mlobl->id . '/edit') }}"
+                                                <a href="{{ url('egmmloblinformations/' . $mlobl->id . '/edit') }}"
                                                     data-toggle="tooltip" title="Edit" class="btn btn-warning"><i
                                                         class="fas fa-pen"></i></a>
                                             @endcan
 
                                             @can('mlo-mloblinformation-delete')
-                                                <form action="{{ url('mloblinformations', [$mlobl->id]) }}" method="POST"
+                                                <form action="{{ url('egmmloblinformations', [$mlobl->id]) }}" method="POST"
                                                     data-toggle="tooltip" title="Delete" class="d-inline">
                                                     @csrf
                                                     @method('DELETE')
@@ -212,7 +212,7 @@
                                                             class="fas fa-trash"></i></button>
                                                 </form>
                                             @endcan
-                                            <a href="{{ url('blinformations/log/' . $mlobl->id) }}" data-toggle="tooltip"
+                                            <a href="{{ url('egmmloblinformations/log/' . $mlobl->id) }}" data-toggle="tooltip"
                                                 title="Log" class="btn btn-dark"><i class="fas fa-history"></i></a>
                                         </nobr>
                                     </div>

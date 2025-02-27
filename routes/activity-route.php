@@ -11,6 +11,7 @@ Route::group(['middleware'=>['auth', 'preventBackHistory']], function(){
 
     Route::get('feeders/log/{id}', 'MLO\MLOActivityLogController@feederslog');
     Route::get('blinformations/log/{id}', 'MLO\MLOActivityLogController@blinformationslog');
+    Route::get('egmblinformations/log/{id}', 'MLO\MLOActivityLogController@egmblinformationslog');
     Route::get('mlomoneyreceipts/log/{id}', 'MLO\MLOActivityLogController@mlomoneyreceiptslog');
     Route::get('mlodeliverorders/log/{id}', 'MLO\MLOActivityLogController@mlodeliverorderslog');
 });

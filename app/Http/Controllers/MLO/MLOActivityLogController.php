@@ -21,6 +21,12 @@ class MLOActivityLogController extends Controller
         return view('activitylog.mloBlInformationLog', compact('logs'));
     }
 
+    public function egmblinformationslog($id)
+    {
+        $logs = Activity::with('causer')->where(['subject_type' => 'App\EgmMloblinformation', 'subject_id' => $id])->get();
+        return view('activitylog.mloBlInformationLog', compact('logs'));
+    }
+
     public function mlomoneyreceiptslog($id)
     {
         $logs = Activity::with('causer')->where(['subject_type' => 'App\MLO\MoneyReceipt', 'subject_id' => $id])->get();

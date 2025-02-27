@@ -247,17 +247,17 @@ class EgmMloblinformationController extends Controller
 
     public function show($id)
     {
-        $mloblinformation = Mloblinformation::with('blcontainers')->findOrFail($id);
+        $mloblinformation = EgmMloblinformation::with('blcontainers')->findOrFail($id);
         $consignee = DB::table('vatregs')->where('BIN', '=', $mloblinformation->consignee_id)->first();
         $notify = DB::table('vatregs')->where('BIN', '=', $mloblinformation->notify_id)->first();
         $package = DB::table('packages')->where('id', '=', $mloblinformation->package_id)->first();
-        $feederInfo = Feederinformation::where('feederinformations.id', '=', $mloblinformation->feederinformations_id)->first();
+        $feederInfo = EgmFeederinformation::where('egm_feederinformations.id', '=', $mloblinformation->feederinformations_id)->first();
         return view('egm.mlo.blinformations.show', compact('mloblinformation', 'consignee', 'notify', 'package', 'feederInfo'));
     }
-    public function edit(Mloblinformation $mloblinformation)
+    public function edit($id)
     {
 
-        dd($mloblinformation);
+        $mloblinformation = EgmMloblinformation::with('blcontainers')->findOrFail($id);
 
         $formType = 'edit';
         $packagecodes = DB::table('packages')->orderBy('id')->pluck('packagecode');
@@ -271,16 +271,17 @@ class EgmMloblinformationController extends Controller
         $notifynames = DB::table('vatregs')->orderBy('id')->pluck('NAME', 'BIN');
 
         $package = DB::table('packages')->where('id', '=', $mloblinformation->package_id)->first();
-        $feederInfo = EgmFeederinformation::where('feederinformations.id', '=', $mloblinformation->feederinformations_id)->first();
+        $feederInfo = EgmFeederinformation::where('egm_feederinformations.id', '=', $mloblinformation->feederinformations_id)->first();
         $containerLocations = Containerlocation::pluck('name', 'code');
         $principals = Principal::orderBy('name')->pluck('name');
         return view('egm.mlo.blinformations.create', compact('formType', 'mloblinformation', 'package', 'feederInfo', 'mlocodes', 'exporterInfos', 'packagecodes', 'containertypes', 'offdocks', 'commoditys', 'consigneenames', 'notifynames', 'principals', 'containerLocations'));
     }
 
-    public function update(BlinformationRequest $request, EgmMloblinformation $mloblinformation)
+    public function update(BlinformationRequest $request, $id)
     {
-        //        dd($request->all());
+
         try {
+            $mloblinformation = EgmMloblinformation::findOrFail($id);
             $consignee = Vatreg::firstOrCreate(['BIN' => $request->consignee_id], ['NAME' => $request->consigneename, 'ADD1' => $request->consigneeaddress]);
             $notify = Vatreg::firstOrCreate(['BIN' => $request->notify_id], ['NAME' => $request->notifyname, 'ADD1' => $request->notifyaddress]);
 
@@ -395,20 +396,21 @@ class EgmMloblinformationController extends Controller
                 $mloblinformation->blcontainers()->createMany($hbl_addmores);
             });
 
-            return redirect()->route('mloblinformations.index')->with('message', 'MLO BL Updated Successfully');
+            return redirect()->route('egmmloblinformations.index')->with('message', 'MLO BL Updated Successfully');
         } catch (QueryException $e) {
             return redirect()->back()->withInput()->withErrors($e->getMessage());
         }
     }
 
-    public function destroy(Mloblinformation $mloblinformation)
+    public function destroy($id)
     {
+        $mloblinformation = EgmMloblinformation::findOrFail($id);
         if ($mloblinformation->mloMoneyReceipt()->count()) {
             return redirect()->back()->with(['errorMessage' => "Cannot delete, Bl Ref: $mloblinformation->bolreference has Money Receipts."]);
         }
         try {
             $mloblinformation->delete();
-            return redirect(route('mloblinformations.index'))->with('message', 'The B/L Deleted Successfully');
+            return redirect(route('egmmloblinformations.index'))->with('message', 'The B/L Deleted Successfully');
         } catch (QueryException $e) {
             return redirect()->back()->withErrors($e->getMessage());
         }
