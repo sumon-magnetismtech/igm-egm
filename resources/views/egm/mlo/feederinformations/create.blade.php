@@ -1,4 +1,4 @@
-@extends('layouts.new-layout')
+@extends('layouts.egm-layout')
 @section('title', 'Feeder Information')
 
 @section('breadcrumb-title')

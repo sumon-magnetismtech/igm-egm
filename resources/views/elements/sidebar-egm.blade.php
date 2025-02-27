@@ -137,7 +137,8 @@
                                 <li class="{{ request()->routeIs('egmmloblinformations.index') ? 'active' : null }}"><a
                                         href="{{ route('egmmloblinformations.index') }}"> <span class="pcoded-micon"><i
                                                 class="ti-angle-right"></i></span><span class="pcoded-mtext">List of BL
-                                            Information</span><span class="pcoded-mcaret"></span></a></li>
+                                            Information</span><span class="pcoded-mcaret"></span></a>
+                                </li>
                             @endcan
                         </ul>
                     </li>

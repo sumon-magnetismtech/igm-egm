@@ -1,4 +1,4 @@
-@extends('layouts.new-layout')
+@extends('layouts.egm-layout')
 @section('title', 'BL Information - Details')
 
 @section('breadcrumb-title', 'BL Information-Details')

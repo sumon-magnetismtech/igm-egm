@@ -124,6 +124,8 @@ class EgmMloblinformationController extends Controller
     public function store(EgmBlinformationRequest $request)
     {
         try {
+
+            DB::beginTransaction();
             $consignee = Vatreg::firstOrCreate(['BIN' => $request->consignee_id], ['NAME' => $request->consigneename, 'ADD1' => $request->consigneeaddress]);
             $notify = Vatreg::firstOrCreate(['BIN' => $request->notify_id], ['NAME' => $request->notifyname, 'ADD1' => $request->notifyaddress]);
             if (!$request->principal_id) {
@@ -230,12 +232,15 @@ class EgmMloblinformationController extends Controller
                 ];
             }
             //            dd($mloblinformationData);
-            DB::transaction(function () use ($mloblinformationData, $hbl_addmores, $request) {
-                $mloblinformation = EgmMloblinformation::create($mloblinformationData);
-                $mloblinformation->blcontainers()->createMany($hbl_addmores);
-            });
+
+            $mloblinformation = EgmMloblinformation::create($mloblinformationData);
+            $mloblinformation->blcontainers()->createMany($hbl_addmores);
+
+            DB::commit();
+
             return redirect()->back()->withInput($request->except('bolreference'))->with('message', 'The House BL Created Successfully');
         } catch (QueryException $e) {
+            DB::rollBack();
             return redirect()->back()->withInput()->withErrors($e->getMessage());
         }
     }
@@ -252,6 +257,8 @@ class EgmMloblinformationController extends Controller
     public function edit(Mloblinformation $mloblinformation)
     {
 
+        dd($mloblinformation);
+
         $formType = 'edit';
         $packagecodes = DB::table('packages')->orderBy('id')->pluck('packagecode');
         $containertypes = DB::table('containertypes')->orderBy('id')->pluck('isocode');
@@ -264,7 +271,7 @@ class EgmMloblinformationController extends Controller
         $notifynames = DB::table('vatregs')->orderBy('id')->pluck('NAME', 'BIN');
 
         $package = DB::table('packages')->where('id', '=', $mloblinformation->package_id)->first();
-        $feederInfo = Feederinformation::where('feederinformations.id', '=', $mloblinformation->feederinformations_id)->first();
+        $feederInfo = EgmFeederinformation::where('feederinformations.id', '=', $mloblinformation->feederinformations_id)->first();
         $containerLocations = Containerlocation::pluck('name', 'code');
         $principals = Principal::orderBy('name')->pluck('name');
         return view('egm.mlo.blinformations.create', compact('formType', 'mloblinformation', 'package', 'feederInfo', 'mlocodes', 'exporterInfos', 'packagecodes', 'containertypes', 'offdocks', 'commoditys', 'consigneenames', 'notifynames', 'principals', 'containerLocations'));
