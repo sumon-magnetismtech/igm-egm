@@ -14,7 +14,7 @@
 
 Auth::routes(['register' => false]);
 
-Route::group(['middleware' => ['auth', 'preventBackHistory']], function () {
+Route::group(['middleware'=>['auth', 'preventBackHistory']], function(){
 
     Route::get('/', 'HomeController@home')->name('home');
 
@@ -22,8 +22,8 @@ Route::group(['middleware' => ['auth', 'preventBackHistory']], function () {
     Route::get('/igm-dashboard', 'HomeController@igmDashboard')->name('igm-dashboard');
     Route::get('/egm-dashboard', 'HomeController@egmDashboard')->name('egm-dashboard');
 
-    Route::view('change-password', 'users.changePassword')->name('change-password');
-    Route::post('updatePassword', 'ChangePasswordController@updatePassword')->name('updatePassword');
+    Route::view('change-password','users.changePassword')->name('change-password');
+    Route::post('updatePassword','ChangePasswordController@updatePassword')->name('updatePassword');
 
 
     Route::get('downloadofcnameExcel', 'OfficenameController@downloadExcel')->name('officenameexcel');
@@ -48,28 +48,28 @@ Route::group(['middleware' => ['auth', 'preventBackHistory']], function () {
     Route::get('printhousebl', 'HouseblController@printhousebl');
 
 
-    Route::view('houseblstatus', 'housebls.houseblstatus')->name('houseblstatus');
-    Route::post('houseblstatusPDF', 'HouseblController@houseblstatusPDF')->name('houseblstatusPDF');
+    Route::view('houseblstatus','housebls.houseblstatus')->name('houseblstatus');
+    Route::post('houseblstatusPDF','HouseblController@houseblstatusPDF')->name('houseblstatusPDF');
 
     Route::get('loadHouseByBolRef/{bolRef?}', 'HouseblController@loadHouseByBolRef')->where('bolRef', '(.*)')->name('loadHouseByBolRef');
 
-    Route::get('checkFCLContainer/{igmno}/{currentStatus}', 'HouseblController@checkFCLContainer')->name('checkFCLContainer'); //check FCL Container in Same IGM.
+    Route::get('checkFCLContainer/{igmno}/{currentStatus}','HouseblController@checkFCLContainer')->name('checkFCLContainer');//check FCL Container in Same IGM.
 
-    Route::post('/loadHouseblIgmAutoComplete', 'JsonDataController@loadHouseblIgmAutoComplete')->name('loadHouseblIgmAutoComplete');
-    Route::post('/loadHouseblMblNoAutoComplete', 'JsonDataController@loadHouseblMblNoAutoComplete')->name('loadHouseblMblNoAutoComplete');
-    Route::post('/loadHouseblBolreferenceAutoComplete', 'JsonDataController@loadHouseblBolreferenceAutoComplete')->name('loadHouseblBolreferenceAutoComplete');
-    Route::post('/loadHouseblContainerAutoComplete', 'JsonDataController@loadHouseblContainerAutoComplete')->name('loadHouseblContainerAutoComplete');
-    Route::post('/loadHouseblNotifyNameAutoComplete', 'JsonDataController@loadHouseblNotifyNameAutoComplete')->name('loadHouseblNotifyNameAutoComplete');
-    Route::post('/loadHouseblDescriptionAutoComplete', 'JsonDataController@loadHouseblDescriptionAutoComplete')->name('loadHouseblDescriptionAutoComplete');
-    Route::post('/loadHouseblExporternameAutoComplete', 'JsonDataController@loadHouseblExporternameAutoComplete')->name('loadHouseblExporternameAutoComplete');
-    Route::post('/loadHouseblMotherVesselAutoComplete', 'JsonDataController@loadHouseblMotherVesselAutoComplete')->name('loadHouseblMotherVesselAutoComplete');
-    Route::post('/loadHouseblFeederVesselAutoComplete', 'JsonDataController@loadHouseblFeederVesselAutoComplete')->name('loadHouseblFeederVesselAutoComplete');
-    Route::post('/loadMasterPrincipalAutoComplete', 'JsonDataController@loadMasterPrincipalAutoComplete')->name('loadMasterPrincipalAutoComplete');
-    Route::post('/loadCnfClientNameAutoComplete', 'JsonDataController@loadCnfClientNameAutoComplete')->name('loadCnfClientNameAutoComplete');
-    Route::get('/loadHouseblVoyage/{vesselname}', 'JsonDataController@loadHouseblVoyage')->name('loadHouseblVoyage');
-    Route::post('/principalAutoComplete', 'JsonDataController@principalAutoComplete')->name('principalAutoComplete');
+    Route::post('/loadHouseblIgmAutoComplete','JsonDataController@loadHouseblIgmAutoComplete')->name('loadHouseblIgmAutoComplete');
+    Route::post('/loadHouseblMblNoAutoComplete','JsonDataController@loadHouseblMblNoAutoComplete')->name('loadHouseblMblNoAutoComplete');
+    Route::post('/loadHouseblBolreferenceAutoComplete','JsonDataController@loadHouseblBolreferenceAutoComplete')->name('loadHouseblBolreferenceAutoComplete');
+    Route::post('/loadHouseblContainerAutoComplete','JsonDataController@loadHouseblContainerAutoComplete')->name('loadHouseblContainerAutoComplete');
+    Route::post('/loadHouseblNotifyNameAutoComplete','JsonDataController@loadHouseblNotifyNameAutoComplete')->name('loadHouseblNotifyNameAutoComplete');
+    Route::post('/loadHouseblDescriptionAutoComplete','JsonDataController@loadHouseblDescriptionAutoComplete')->name('loadHouseblDescriptionAutoComplete');
+    Route::post('/loadHouseblExporternameAutoComplete','JsonDataController@loadHouseblExporternameAutoComplete')->name('loadHouseblExporternameAutoComplete');
+    Route::post('/loadHouseblMotherVesselAutoComplete','JsonDataController@loadHouseblMotherVesselAutoComplete')->name('loadHouseblMotherVesselAutoComplete');
+    Route::post('/loadHouseblFeederVesselAutoComplete','JsonDataController@loadHouseblFeederVesselAutoComplete')->name('loadHouseblFeederVesselAutoComplete');
+    Route::post('/loadMasterPrincipalAutoComplete','JsonDataController@loadMasterPrincipalAutoComplete')->name('loadMasterPrincipalAutoComplete');
+    Route::post('/loadCnfClientNameAutoComplete','JsonDataController@loadCnfClientNameAutoComplete')->name('loadCnfClientNameAutoComplete');
+    Route::get('/loadHouseblVoyage/{vesselname}','JsonDataController@loadHouseblVoyage')->name('loadHouseblVoyage');
+    Route::post('/principalAutoComplete','JsonDataController@principalAutoComplete')->name('principalAutoComplete');
 
-    Route::get('/getPrincipalDataByName/{principalName}', 'JsonDataController@getPrincipalDataByName')->name('getPrincipalDataByName');
+    Route::get('/getPrincipalDataByName/{principalName}','JsonDataController@getPrincipalDataByName')->name('getPrincipalDataByName');
 
 
     Route::get('searchhouseblcontainersForm', 'HouseblController@searchHouseblContainersForm')->name('searchhouseblcontainersForm');
@@ -89,7 +89,7 @@ Route::group(['middleware' => ['auth', 'preventBackHistory']], function () {
     Route::post('containertypeimport', 'ContainertypeController@import')->name('containerimport');
     Route::post('commodityimport', 'CommodityController@import')->name('commodityimport');
     Route::post('offdockimport', 'OffdockController@import')->name('offdockimport');
-    //    Route::get('downloadreports', 'HouseblController@downloadReports')->name('downloadreports');
+//    Route::get('downloadreports', 'HouseblController@downloadReports')->name('downloadreports');
 
 
     Route::get('emptyMoneyReceipts', 'MoneyreceiptController@emptyMoneyReceipts')->name('emptyMoneyReceipts');
@@ -113,15 +113,11 @@ Route::group(['middleware' => ['auth', 'preventBackHistory']], function () {
 
 
     //Reports Routes
-    Route::get('deliveryOrder', function () {
-        return view('housebls.reports');
-    })->name('deliveryOrder');
-    //    Route::get('searchFrdLetter', function(){return view('housebls.reports');})->name('searchFrdLetter');
+    Route::get('deliveryOrder', function(){return view('housebls.reports');})->name('deliveryOrder');
+//    Route::get('searchFrdLetter', function(){return view('housebls.reports');})->name('searchFrdLetter');
     Route::get('searchFrdLetter', 'HouseblController@searchFrdLetter')->name('searchFrdLetter');
     Route::get('extensionLetter', 'HouseblController@extensionLetter')->name('extensionLetter');
-    Route::get('eDeliverySearch', function () {
-        return view('housebls.reports');
-    })->name('eDeliverySearch');
+    Route::get('eDeliverySearch', function(){return view('housebls.reports');})->name('eDeliverySearch');
     Route::get('mailList', 'HouseblController@mailList')->name('mailList');
     Route::post('extensionLetterData', 'HouseblController@extensionLetterData')->name('extensionLetterData');
 
@@ -142,7 +138,7 @@ Route::group(['middleware' => ['auth', 'preventBackHistory']], function () {
 
 
     //json Route From Here..
-    Route::post('/loadPortDataAutoComplete', 'JsonDataController@loadPortDataAutoComplete')->name('loadPortDataAutoComplete');
+    Route::post('/loadPortDataAutoComplete','JsonDataController@loadPortDataAutoComplete')->name('loadPortDataAutoComplete');
     Route::get('/loadExporterInfo/{name}', 'JsonDataController@loadExporterAddress');
     Route::get('/loadPortData/{portName}', 'JsonDataController@loadPortData');
     Route::get('/getBin/{bin}', 'JsonDataController@getBinByBinNo');
@@ -181,7 +177,7 @@ Route::group(['middleware' => ['auth', 'preventBackHistory']], function () {
 
         'offdocks' => 'OffdockController',
         'vatregs' => 'VatregController',
-        'packages' => 'PackageController',
+        'packages'=> 'PackageController',
         'locations' => 'LocationController',
         'containertypes' => 'ContainertypeController',
         'commoditys' => 'CommodityController',
@@ -200,7 +196,7 @@ Route::group(['middleware' => ['auth', 'preventBackHistory']], function () {
     Route::resource('emptycontainers', 'Ctrack\EmptyContainerController');
 });
 
-Route::group(['middleware' => ['auth']], function () {
+Route::group(['middleware'=>['auth']], function(){
     Route::get('masterbls/downloadXml/{id}', 'HouseblController@downloadXml')->name('downloadXml');
 
     Route::get('/doexport', 'DeliveryorderController@export');

@@ -46,18 +46,18 @@ Route::group(['middleware'=>['auth', 'preventBackHistory']], function(){
     Route::get('egmCheckFCLContainer/{igmno}/{currentStatus}','HouseblController@egmCheckFCLContainer')->name('egmCheckFCLContainer');//check FCL Container in Same IGM.
 
     //json Route From Here..
-    Route::post('/loadHouseblIgmAutoComplete','JsonDataController@egmLoadHouseblIgmAutoComplete')->name('egmLoadHouseblIgmAutoComplete');
-    Route::post('/loadHouseblMblNoAutoComplete','JsonDataController@egmLoadHouseblMblNoAutoComplete')->name('egmLoadHouseblMblNoAutoComplete');
-    Route::post('/loadHouseblBolreferenceAutoComplete','JsonDataController@egmLoadHouseblBolreferenceAutoComplete')->name('egmLoadHouseblBolreferenceAutoComplete');
-    Route::post('/loadHouseblContainerAutoComplete','JsonDataController@egmLoadHouseblContainerAutoComplete')->name('egmLoadHouseblContainerAutoComplete');
-    Route::post('/loadHouseblNotifyNameAutoComplete','JsonDataController@egmLoadHouseblNotifyNameAutoComplete')->name('egmLoadHouseblNotifyNameAutoComplete');
-    Route::post('/loadHouseblDescriptionAutoComplete','JsonDataController@egmLoadHouseblDescriptionAutoComplete')->name('egmLoadHouseblDescriptionAutoComplete');
-    Route::post('/loadHouseblExporternameAutoComplete','JsonDataController@egmLoadHouseblExporternameAutoComplete')->name('egmLoadHouseblExporternameAutoComplete');
-    Route::post('/loadHouseblMotherVesselAutoComplete','JsonDataController@egmLoadHouseblMotherVesselAutoComplete')->name('egmLoadHouseblMotherVesselAutoComplete');
-    Route::post('/loadHouseblFeederVesselAutoComplete','JsonDataController@egmLoadHouseblFeederVesselAutoComplete')->name('egmLoadHouseblFeederVesselAutoComplete');
-    Route::post('/loadMasterPrincipalAutoComplete','JsonDataController@egmLoadMasterPrincipalAutoComplete')->name('egmLoadMasterPrincipalAutoComplete');
-    Route::post('/loadCnfClientNameAutoComplete','JsonDataController@egmLoadCnfClientNameAutoComplete')->name('egmLoadCnfClientNameAutoComplete');
-    Route::get('/loadHouseblVoyage/{vesselname}','JsonDataController@egmLoadHouseblVoyage')->name('egmLoadHouseblVoyage');
+    Route::post('/egmloadHouseblIgmAutoComplete','JsonDataController@egmLoadHouseblIgmAutoComplete')->name('egmLoadHouseblIgmAutoComplete');
+    Route::post('/egmloadHouseblMblNoAutoComplete','JsonDataController@egmLoadHouseblMblNoAutoComplete')->name('egmLoadHouseblMblNoAutoComplete');
+    Route::post('/egmloadHouseblBolreferenceAutoComplete','JsonDataController@egmLoadHouseblBolreferenceAutoComplete')->name('egmLoadHouseblBolreferenceAutoComplete');
+    Route::post('/egmloadHouseblContainerAutoComplete','JsonDataController@egmLoadHouseblContainerAutoComplete')->name('egmLoadHouseblContainerAutoComplete');
+    Route::post('/egmloadHouseblNotifyNameAutoComplete','JsonDataController@egmLoadHouseblNotifyNameAutoComplete')->name('egmLoadHouseblNotifyNameAutoComplete');
+    Route::post('/egmloadHouseblDescriptionAutoComplete','JsonDataController@egmLoadHouseblDescriptionAutoComplete')->name('egmLoadHouseblDescriptionAutoComplete');
+    Route::post('/egmloadHouseblExporternameAutoComplete','JsonDataController@egmLoadHouseblExporternameAutoComplete')->name('egmLoadHouseblExporternameAutoComplete');
+    Route::post('/egmloadHouseblMotherVesselAutoComplete','JsonDataController@egmLoadHouseblMotherVesselAutoComplete')->name('egmLoadHouseblMotherVesselAutoComplete');
+    Route::post('/egmloadHouseblFeederVesselAutoComplete','JsonDataController@egmLoadHouseblFeederVesselAutoComplete')->name('egmLoadHouseblFeederVesselAutoComplete');
+    Route::post('/egmloadMasterPrincipalAutoComplete','JsonDataController@egmLoadMasterPrincipalAutoComplete')->name('egmLoadMasterPrincipalAutoComplete');
+    Route::post('/egmloadCnfClientNameAutoComplete','JsonDataController@egmLoadCnfClientNameAutoComplete')->name('egmLoadCnfClientNameAutoComplete');
+    Route::get('/egmloadHouseblVoyage/{vesselname}','JsonDataController@egmLoadHouseblVoyage')->name('egmLoadHouseblVoyage');
 
 
     Route::get('containerExtension/{mlono}', 'JsonDataController@egmContainerExtension')->name('egmContainerExtension');

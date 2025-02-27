@@ -31,6 +31,11 @@ class FRDActivityLogController extends Controller
         $housebls = Activity::with('causer')->where(['subject_type' => 'App\Housebl', 'subject_id' => $id])->get();
         return view('activitylog.houseblLog', compact('housebls'));
     }
+    public function egmhousebllog($id)
+    {
+        $housebls = Activity::with('causer')->where(['subject_type' => 'App\EgmHouseBl', 'subject_id' => $id])->get();
+        return view('activitylog.egmhouseblLog', compact('housebls'));
+    }
 
     public function moneyreceiptlog($id)
     {

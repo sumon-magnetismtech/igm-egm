@@ -268,8 +268,9 @@ class EgmHouseBlController extends Controller
      * @return \Illuminate\Http\Response
      * @throws \Exception
      */
-    public function destroy(Egmhousebl $egmhousebl)
+    public function destroy( $egmhousebl)
     {
+        dd($egmhousebl);
         try {
             $egmhousebl->delete();
 
