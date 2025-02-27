@@ -1,4 +1,4 @@
-@extends('layouts.new-layout')
+@extends('layouts.egm-layout')
 @section('title', 'FRD Money Receipt')
 
 @section('breadcrumb-title')
@@ -19,11 +19,11 @@
 
 @section('content')
     @if ($formType == 'edit')
-        <form action="{{ route('moneyreceipts.update', $moneyreceipt->id) }}" method="post" class="custom-form">
+        <form action="{{ route('egmmoneyreceipts.update', $egmmoneyreceipt->id) }}" method="post" class="custom-form">
             @method('PUT')
-            <input type="hidden" name="id" value="{{ $moneyreceipt->id }}">
+            <input type="hidden" name="id" value="{{ $egmmoneyreceipt->id }}">
         @else
-            <form action="{{ route('moneyreceipts.store') }}" method="post" class="custom-form">
+            <form action="{{ route('egmmoneyreceipts.store') }}" method="post" class="custom-form">
     @endif
     @csrf
     <div class="row px-2 d-flex align-items-end">
@@ -31,7 +31,7 @@
             <div class="input-group input-group-sm">
                 <span class="input-group-addon"> Issue Date <span class="text-danger">*</span></span>
                 <input type="text" id="issue_date" name="issue_date" class="form-control"
-                    value="{{ old('issueDate')? old('issueDate'): (!empty($moneyreceipt)? date('d/m/Y', strtotime($moneyreceipt->issue_date)): now()->format('d/m/Y')) }}"
+                    value="{{ old('issueDate')? old('issueDate'): (!empty($egmmoneyreceipt)? date('d/m/Y', strtotime($egmmoneyreceipt->issue_date)): now()->format('d/m/Y')) }}"
                     tabindex="-1" required>
             </div>
         </div>
@@ -42,7 +42,7 @@
                     value="{{ old('bolreference') ? old('bolreference') : (!empty($bolreference) ? $bolreference : null) }}"
                     autofocus autocomplete="off" required>
                 <input type="hidden" name="hblno" id="hbl_id"
-                    value="{{ old('hblno') ? old('hblno') : (!empty($moneyreceipt) ? $moneyreceipt->hblno : null) }}">
+                    value="{{ old('hblno') ? old('hblno') : (!empty($egmmoneyreceipt) ? $egmmoneyreceipt->hblno : null) }}">
                 <datalist id="housebls">
                     @foreach ($housebls as $housebl)
                         <option>{{ Str::upper($housebl) }}</option>
@@ -54,7 +54,7 @@
             <div class="input-group input-group-sm">
                 <span class="input-group-addon"> Accounts </span>
                 <input type="text" id="accounts" name="accounts" class="form-control"
-                    value="{{ old('accounts') ? old('accounts') : (!empty($moneyreceipt) ? $moneyreceipt->accounts : null) }}"
+                    value="{{ old('accounts') ? old('accounts') : (!empty($egmmoneyreceipt) ? $egmmoneyreceipt->accounts : null) }}"
                     readonly tabindex="-1">
             </div>
         </div>
@@ -62,7 +62,7 @@
             <div class="input-group input-group-sm">
                 <span class="input-group-addon"> Feeder Vessel </span>
                 <input type="text" id="fvsl" name="fvsl" class="form-control"
-                    value="{{ old('fvsl') ? old('fvsl') : (!empty($moneyreceipt) ? $moneyreceipt->housebl->masterbl->fvessel : null) }}"
+                    value="{{ old('fvsl') ? old('fvsl') : (!empty($egmmoneyreceipt) ? $egmmoneyreceipt->housebl->masterbl->fvessel : null) }}"
                     readonly tabindex="-1">
             </div>
         </div>
@@ -70,7 +70,7 @@
             <div class="input-group input-group-sm">
                 <span class="input-group-addon"> Voyage No </span>
                 <input type="text" id="voyage" name="voyage" class="form-control"
-                    value="{{ old('voyage') ? old('voyage') : (!empty($moneyreceipt) ? $moneyreceipt->housebl->masterbl->voyage : null) }}"
+                    value="{{ old('voyage') ? old('voyage') : (!empty($egmmoneyreceipt) ? $egmmoneyreceipt->housebl->masterbl->voyage : null) }}"
                     readonly tabindex="-1">
             </div>
         </div>
@@ -78,7 +78,7 @@
             <div class="input-group input-group-sm">
                 <span class="input-group-addon"> Rotation No <span class="text-danger">*</span></span>
                 <input type="text" id="rotation" name="rotation" class="form-control"
-                    value="{{ old('rotation') ? old('rotation') : (!empty($moneyreceipt) ? $moneyreceipt->housebl->masterbl->rotno : null) }}"
+                    value="{{ old('rotation') ? old('rotation') : (!empty($egmmoneyreceipt) ? $egmmoneyreceipt->housebl->masterbl->rotno : null) }}"
                     readonly tabindex="-1">
             </div>
         </div>
@@ -86,7 +86,7 @@
             <div class="input-group input-group-sm">
                 <span class="input-group-addon"> Quantity </span>
                 <input type="text" id="quantity" name="quantity" class="form-control"
-                    value="{{ old('quantity') ? old('quantity') : (!empty($moneyreceipt) ? $moneyreceipt->quantity : null) }}"
+                    value="{{ old('quantity') ? old('quantity') : (!empty($egmmoneyreceipt) ? $egmmoneyreceipt->quantity : null) }}"
                     readonly tabindex="-1">
             </div>
         </div>
@@ -95,7 +95,7 @@
             <div class="input-group input-group-sm">
                 <span class="input-group-addon"> Mother Vessel </span>
                 <input type="text" id="mvsl" name="mvsl" class="form-control"
-                    value="{{ old('mvsl') ? old('mvsl') : (!empty($moneyreceipt) ? $moneyreceipt->housebl->masterbl->mv : null) }}"
+                    value="{{ old('mvsl') ? old('mvsl') : (!empty($egmmoneyreceipt) ? $egmmoneyreceipt->housebl->masterbl->mv : null) }}"
                     readonly tabindex="-1">
             </div>
         </div>
@@ -104,14 +104,14 @@
             <div class="input-group input-group-sm">
                 <span class="input-group-addon"> Description </span>
                 <textarea id="description" name="description" class="form-control" readonly
-                    tabindex="-1">{{ old('description')? old('description'): (!empty($moneyreceipt)? $moneyreceipt->housebl->description: null) }}</textarea>
+                    tabindex="-1">{{ old('description')? old('description'): (!empty($egmmoneyreceipt)? $egmmoneyreceipt->housebl->description: null) }}</textarea>
             </div>
         </div>
         <div class="col-xl-6 col-lg-6 col-md-6 px-1">
             <div class="input-group input-group-sm">
                 <span class="input-group-addon"> D/O Note </span>
                 <input type="text" id="doNote" name="doNote" class="form-control bg-warning" style="color:red!important;"
-                    value="{{ old('doNote') ? old('doNote') : (!empty($moneyreceipt) ? $moneyreceipt->houseBl->note : null) }}"
+                    value="{{ old('doNote') ? old('doNote') : (!empty($egmmoneyreceipt) ? $egmmoneyreceipt->houseBl->note : null) }}"
                     tabindex="-1" readonly>
             </div>
         </div>
@@ -120,7 +120,7 @@
             <div class="input-group input-group-sm">
                 <span class="input-group-addon"> Free Time (Days) </span>
                 <input type="number" min="0" id="free_time" name="free_time" class="form-control" placeholder="Free Time" required
-                    value="{{ old('free_time') ? old('free_time') : (!empty($moneyreceipt) ? $moneyreceipt->free_time : null) }}">
+                    value="{{ old('free_time') ? old('free_time') : (!empty($egmmoneyreceipt) ? $egmmoneyreceipt->free_time : null) }}">
             </div>
         </div>
 
@@ -128,7 +128,7 @@
             <div class="input-group input-group-sm">
                 <span class="input-group-addon"> From Date </span>
                 <input type="text" id="from_date" name="from_date" class="form-control"
-                    value="{{ old('from_date')? old('from_date'): (!empty($moneyreceipt)? date('d/m/Y', strtotime($moneyreceipt->from_date)): null) }}"
+                    value="{{ old('from_date')? old('from_date'): (!empty($egmmoneyreceipt)? date('d/m/Y', strtotime($egmmoneyreceipt->from_date)): null) }}"
                     placeholder="dd/mm/yyyy" autocomplete="off" tabindex="-1" readonly>
             </div>
         </div>
@@ -137,7 +137,7 @@
             <div class="input-group input-group-sm">
                 <span class="input-group-addon"> Till Date </span>
                 <input type="text" id="till_date" name="till_date" class="form-control"
-                    value="{{ old('till_date')? old('till_date'): (!empty($moneyreceipt) && $moneyreceipt->till_date? date('d/m/Y', strtotime($moneyreceipt->till_date)): null) }}"
+                    value="{{ old('till_date')? old('till_date'): (!empty($egmmoneyreceipt) && $egmmoneyreceipt->till_date? date('d/m/Y', strtotime($egmmoneyreceipt->till_date)): null) }}"
                     placeholder="dd/mm/yyyy" autocomplete="off" tabindex="-1" readonly>
             </div>
         </div>
@@ -146,7 +146,7 @@
             <div class="input-group input-group-sm">
                 <span class="input-group-addon"> Upto Date</span>
                 <input type="text" id="upto_date" name="upto_date" class="form-control"
-                    value="{{ old('upto_date')? old('upto_date'): (!empty($moneyreceipt)? ($moneyreceipt->upto_date? date('d/m/Y', strtotime($moneyreceipt->upto_date)): null): null) }}"
+                    value="{{ old('upto_date')? old('upto_date'): (!empty($egmmoneyreceipt)? ($egmmoneyreceipt->upto_date? date('d/m/Y', strtotime($egmmoneyreceipt->upto_date)): null): null) }}"
                     placeholder="dd/mm/yyyy" autocomplete="off">
             </div>
         </div>
@@ -154,7 +154,7 @@
             <div class="input-group input-group-sm">
                 <span class="input-group-addon"> Total (Days)</span>
                 <input type="number" id="duration" name="duration" class="form-control"
-                    value="{{ old('duration') ? old('duration') : (!empty($moneyreceipt) ? $moneyreceipt->duration : 0) }}"
+                    value="{{ old('duration') ? old('duration') : (!empty($egmmoneyreceipt) ? $egmmoneyreceipt->duration : 0) }}"
                     min="0" readonly tabindex="-1">
             </div>
         </div>
@@ -163,7 +163,7 @@
             <div class="input-group input-group-sm">
                 <span class="input-group-addon"> Chargeable Days </span>
                 <input type="number" id="chargeable_days" name="chargeable_days" class="form-control"
-                    value="{{ old('chargeable_days')? old('chargeable_days'): (!empty($moneyreceipt)? $moneyreceipt->chargeable_days: 0) }}"
+                    value="{{ old('chargeable_days')? old('chargeable_days'): (!empty($egmmoneyreceipt)? $egmmoneyreceipt->chargeable_days: 0) }}"
                     min="0" tabindex="-1" readonly>
             </div>
         </div>
@@ -171,7 +171,7 @@
             <div class="input-group input-group-sm">
                 <span class="input-group-addon"> Client Name <span class="text-danger">*</span> </span>
                 <input type="text" id="client_name" name="client_name" list="clientList" class="form-control"
-                    value="{{ old('client_name') ? old('client_name') : (!empty($moneyreceipt) ? $moneyreceipt->client_name : null) }}"
+                    value="{{ old('client_name') ? old('client_name') : (!empty($egmmoneyreceipt) ? $egmmoneyreceipt->client_name : null) }}"
                     required autocomplete="off">
                 <datalist id="clientList">
                     @foreach ($clients as $client)
@@ -184,7 +184,7 @@
             <div class="input-group input-group-sm">
                 <span class="input-group-addon"> Remarks </span>
                 <textarea id="remarks" name="remarks" class="form-control" rows="2"
-                    spellcheck="false">{{ old('remarks') ? old('remarks') : (!empty($moneyreceipt) ? $moneyreceipt->remarks : null) }}</textarea>
+                    spellcheck="false">{{ old('remarks') ? old('remarks') : (!empty($egmmoneyreceipt) ? $egmmoneyreceipt->remarks : null) }}</textarea>
             </div>
         </div>
         <div class="col-xl-3 col-lg-6 col-md-6 px-1">
@@ -193,10 +193,10 @@
                 <select type="text" id="pay_mode" name="pay_mode" class="form-control">
                     <option value="cash" selected> Cash</option>
                     <option value="cheque"
-                        {{ old('pay_mode') && old('pay_mode') == 'cheque'? 'selected': (!empty($moneyreceipt) && $moneyreceipt->pay_mode === 'cheque'? 'selected': null) }}>
+                        {{ old('pay_mode') && old('pay_mode') == 'cheque'? 'selected': (!empty($egmmoneyreceipt) && $egmmoneyreceipt->pay_mode === 'cheque'? 'selected': null) }}>
                         Cheque </option>
                     <option value="payorder"
-                        {{ old('pay_mode') && old('pay_mode') == 'payorder'? 'selected': (!empty($moneyreceipt) && $moneyreceipt->pay_mode === 'payorder'? 'selected': null) }}>
+                        {{ old('pay_mode') && old('pay_mode') == 'payorder'? 'selected': (!empty($egmmoneyreceipt) && $egmmoneyreceipt->pay_mode === 'payorder'? 'selected': null) }}>
                         Pay Order </option>
                 </select>
             </div>
@@ -207,21 +207,21 @@
             <div class="input-group input-group-sm input-group-primary">
                 <label class="input-group-addon" for="source_name">Bank Name <span class="text-danger">*</span></label>
                 <input type="text" id="source_name" name="source_name" class="form-control"
-                    value="{{ old('source_name') ? old('source_name') : (!empty($moneyreceipt) ? $moneyreceipt->source_name : null) }}">
+                    value="{{ old('source_name') ? old('source_name') : (!empty($egmmoneyreceipt) ? $egmmoneyreceipt->source_name : null) }}">
             </div>
         </div>
         <div class="col-xl-3 col-lg-6 col-md-6 px-1" id="pay_number_area">
             <div class="input-group input-group-sm">
                 <span class="input-group-addon"> Number </span>
                 <input type="text" id="pay_number" name="pay_number" class="form-control"
-                    value="{{ old('pay_number') ? old('pay_number') : (!empty($moneyreceipt) ? $moneyreceipt->pay_number : null) }}">
+                    value="{{ old('pay_number') ? old('pay_number') : (!empty($egmmoneyreceipt) ? $egmmoneyreceipt->pay_number : null) }}">
             </div>
         </div>
         <div class="col-xl-3 col-lg-6 col-md-6 px-1" id="dated_area">
             <div class="input-group input-group-sm input-group-primary">
                 <label class="input-group-addon" for="dated">Dated <span class="text-danger">*</span></label>
                 <input type="text" id="dated" name="dated" class="form-control"
-                    value="{{ old('dated')? old('dated'): (!empty($moneyreceipt)? date('d/m/Y', strtotime($moneyreceipt->dated)): null )}}"">
+                    value="{{ old('dated')? old('dated'): (!empty($egmmoneyreceipt)? date('d/m/Y', strtotime($egmmoneyreceipt->dated)): null )}}"">
             </div>
         </div>
 
@@ -229,7 +229,7 @@
             <div class="border-checkbox-section">
                 <div class="border-checkbox-group border-checkbox-group-primary">
                     <input type="checkbox" id="noc" name="noc" class="border-checkbox"
-                        @if (old('noc') || (!empty($moneyreceipt) && $moneyreceipt->housebl->masterbl->noc)) checked @endif tabindex="-1" readonly onclick="return false; ">
+                        @if (old('noc') || (!empty($egmmoneyreceipt) && $egmmoneyreceipt->housebl->masterbl->noc)) checked @endif tabindex="-1" readonly onclick="return false; ">
                     <label class="border-checkbox-label" for="noc">NOC</label>
                 </div>
             </div>
@@ -241,14 +241,14 @@
     <div class="row d-flex align-items-center">
         <div class="col-md-6 my-1">
             <p class="my-1" id="totalContainers">
-                @if (!empty($moneyreceipt))
-                    Total Containers: <strong>{{ count($moneyreceipt->houseBl->containers) }}</strong>
+                @if (!empty($egmmoneyreceipt))
+                    Total Containers: <strong>{{ count($egmmoneyreceipt->houseBl->containers) }}</strong>
                 @endif
             </p>
         </div>
         <div class="col-md-6 my-1">
             <div class="float-right" id="containerList">
-                @if (!empty($moneyreceipt) && $containers)
+                @if (!empty($egmmoneyreceipt) && $containers)
                     @foreach ($containers as $key => $container)
                         <button type="button" class="btn btn-primary btn-sm px-2" tabindex="-1">
                             {{ $key }} <span class="badge badge-dark">{{ $container }}</span>
@@ -293,14 +293,14 @@
                         </td>
                     </tr>
                 @endforeach
-            @elseif(!empty($moneyreceipt))
-                @foreach ($moneyreceipt->MoneyreceiptDetail as $moneyreceiptDetail)
+            @elseif(!empty($egmmoneyreceipt))
+                @foreach ($egmmoneyreceipt->MoneyreceiptDetail as $egmmoneyreceiptDetail)
                     <tr>
                         <td>
                             <select name="particular[]" class="form-control form-control-sm" required>
                                 @foreach ($particulars as $particular)
                                     <option value="{{ $particular }}"
-                                        {{ $moneyreceiptDetail->particular == $particular ? 'selected' : null }}>
+                                        {{ $egmmoneyreceiptDetail->particular == $particular ? 'selected' : null }}>
                                         {{ $particular }}</option>
                                 @endforeach
                             </select>
@@ -308,7 +308,7 @@
                         </td>
                         <td class="text-right"><input type="text" name="amount[]" onkeyup="totalOperation()"
                                 style="text-align: right" class="form-control form-control-sm amount"
-                                value="{{ $moneyreceiptDetail->amount }}"> </td>
+                                value="{{ $egmmoneyreceiptDetail->amount }}"> </td>
                         <td> <button class="btn btn-success btn-sm addItem" type="button"><i
                                     class="fa fa-plus"></i></button> <button class="btn btn-danger btn-sm deleteItem"
                                 id="" type="button" tabindex="-1"><i class="fa fa-minus"></i></button></td>
@@ -482,7 +482,7 @@
 
 
             $("#bolreference").on('change', function() {
-                let url = '{{ url('getHouseBlinfo') }}/' + $(this).val();
+                let url = '{{ url('getEgmHouseBlinfo') }}/' + $(this).val();
                 fetch(url)
                     .then((resp) => resp.json())
                     .then(function(hblno) {

@@ -14,14 +14,15 @@ Route::group(['middleware'=>['auth', 'preventBackHistory']], function(){
     Route::get('egmCloneMasterblById/{id}', 'EgmMasterBlController@egmCloneMasterblById');
 
     Route::get('printhousebl', 'EgmHouseBlController@printhousebl');
-    Route::post('houseblstatusPDF','EgmHouseBlController@houseblstatusPDF')->name('houseblstatusPDF');
+    Route::view('egmhouseblstatus','egm.housebls.houseblstatus')->name('egmhouseblstatus');
+    Route::post('egmhouseblstatusPDF','EgmHouseBlController@houseblstatusPDF')->name('egmhouseblstatusPDF');
     Route::get('loadHouseByBolRef/{bolRef?}', 'EgmHouseBlController@loadHouseByBolRef')->where('bolRef', '(.*)')->name('loadHouseByBolRef');
 
     Route::get('checkFCLContainer/{igmno}/{currentStatus}','EgmHouseBlController@checkFCLContainer')->name('checkFCLContainer');//check FCL Container in Same IGM.
-    Route::get('searchhouseblcontainersForm', 'EgmHouseBlController@searchHouseblContainersForm')->name('searchhouseblcontainersForm');
+    Route::get('egmsearchhouseblcontainersForm', 'EgmHouseBlController@searchHouseblContainersForm')->name('egmsearchhouseblcontainersForm');
 
-    Route::get('searchhouseblcontainers', 'EgmHouseBlController@searchHouseblContainers')->name('searchhouseblcontainers');
-    Route::post('containersBulkUpdate', 'EgmHouseBlController@containersBulkUpdate')->name('containersBulkUpdate');
+    Route::get('egmsearchhouseblcontainers', 'EgmHouseBlController@searchHouseblContainers')->name('egmsearchhouseblcontainers');
+    Route::post('egmcontainersBulkUpdate', 'EgmHouseBlController@containersBulkUpdate')->name('egmcontainersBulkUpdate');
 
     //Housebl Extra Controler
     Route::get('/getIgm/{igmno}', 'EgmHouseBlController@getIgmByIgmNo');
@@ -44,6 +45,15 @@ Route::group(['middleware'=>['auth', 'preventBackHistory']], function(){
     Route::get('eDeliveryData/', 'EgmHouseBlController@eDeliveryData')->name('eDeliveryData');
 
     Route::get('egmCheckFCLContainer/{igmno}/{currentStatus}','HouseblController@egmCheckFCLContainer')->name('egmCheckFCLContainer');//check FCL Container in Same IGM.
+
+    //money receipt route
+    Route::get('emptyMoneyReceipts', 'MoneyreceiptController@emptyMoneyReceipts')->name('emptyMoneyReceipts');
+
+
+    Route::get('egmmrreport', 'EgmMoneyreceiptController@mrreport')->name('egmmrreport');
+
+    Route::get('/getEgmHouseBlinfo/{bolreference?}', 'EgmMoneyreceiptController@getHouseBlinfo')->where('bolreference', '(.*)');
+    Route::get('egmmrPdf/{mrid}', 'EgmMoneyreceiptController@mrPDF')->name('egmmrPdf');
 
     //json Route From Here..
     Route::post('/egmloadHouseblIgmAutoComplete','JsonDataController@egmLoadHouseblIgmAutoComplete')->name('egmLoadHouseblIgmAutoComplete');
@@ -69,7 +79,7 @@ Route::group(['middleware'=>['auth', 'preventBackHistory']], function(){
         'egmmasterbls' => 'EgmMasterBlController',
         'egmmoneyreceiptheads' => 'MoneyReceiptHeadController',
         'egmhousebls' => 'EgmHouseBlController',
-        'egmmoneyreceipts' => 'MoneyreceiptController',
+        'egmmoneyreceipts' => 'EgmMoneyreceiptController',
         'egmdeliveryorders' => 'DeliveryorderController',
     ]);
 

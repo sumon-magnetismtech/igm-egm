@@ -1,4 +1,4 @@
-@extends('layouts.new-layout')
+@extends('layouts.egm-layout')
 @section('title', 'FRD-Money Receipt Report')
 
 
@@ -13,7 +13,7 @@
 @endsection
 
 @section('content')
-    <form action="{{ route('mrreport') }}" method="get">
+    <form action="{{ route('egmmrreport') }}" method="get">
         <div class="row px-2">
             <div class="col-md-1 px-1 my-1 my-md-0" data-toggle="tooltip" title="Output">
                 <select name="reportType" id="reportType" class="form-control form-control-sm" required>
@@ -105,9 +105,9 @@
 
                         @if($loop->first && $groupByPrincipal->isNotEmpty())
                             <td class="align-middle text-right" rowspan="{{ $groupByPrincipal->count()}}">
-                                <?php $principalSum = \Illuminate\Support\Facades\DB::table('moneyreceipts')
-                                        ->join('moneyreceipt_details','moneyreceipt_id','moneyreceipts.id')
-                                        ->whereIn('moneyreceipts.id', $groupByPrincipal->flatten()->pluck('id'))
+                                <?php $principalSum = \Illuminate\Support\Facades\DB::table('egm_moneyreceipts')
+                                        ->join('egm_moneyreceipt_details','moneyreceipt_id','egm_moneyreceipts.id')
+                                        ->whereIn('egm_moneyreceipts.id', $groupByPrincipal->flatten()->pluck('id'))
                                         ->get();
                                 ?>
                                 {{number_format($principal = $principalSum->sum('amount'), 2)}}/-
@@ -157,7 +157,7 @@
             $( "#principal").autocomplete({
                 source: function( request, response ) {
                     $.ajax({
-                        url:"{{route('loadMasterPrincipalAutoComplete')}}",
+                        url:"{{route('egmLoadMasterPrincipalAutoComplete')}}",
                         type: 'post',
                         dataType: "json",
                         data: {

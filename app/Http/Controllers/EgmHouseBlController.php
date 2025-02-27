@@ -243,7 +243,7 @@ class EgmHouseBlController extends Controller
     {
 
         try {
-            $house_bl_service = (new HouseblService())->handleHousebl($request);
+            $house_bl_service = (new HouseblService())->handleEgmHousebl($request);
             
             DB::transaction(function () use ($egmhousebl, $house_bl_service)
             {
@@ -813,7 +813,7 @@ class EgmHouseBlController extends Controller
         $seachedIgm     = '';
         $seachedContref = '';
 
-        return view('housebls/houseblcontainers', compact('showType', 'seachedIgm', 'seachedContref'));
+        return view('egm/housebls/houseblcontainers', compact('showType', 'seachedIgm', 'seachedContref'));
     }
 
     /**
@@ -827,9 +827,9 @@ class EgmHouseBlController extends Controller
 
         $masterbl = EgmMasterBl::where('id', $request->igm)->firstOrFail();
 
-        $containers = EgmHouseBl::join('containers', 'housebls.id', 'housebl_id')
+        $containers = EgmHouseBl::join('egm_house_bl_containers', 'egm_house_bls.id', 'housebl_id')
             ->where('igm', $request->igm)->distinct('contref')
-            ->select('containers.contref', 'igm', 'containers.type', 'containers.status', 'containers.sealno', 'housebl_id')->get();
+            ->select('egm_house_bl_containers.contref', 'igm', 'egm_house_bl_containers.type', 'egm_house_bl_containers.status', 'egm_house_bl_containers.sealno', 'housebl_id')->get();
         $allContainers = $containers->unique('contref');
 //        dd($allContainers);
 
@@ -838,7 +838,7 @@ class EgmHouseBlController extends Controller
             return collect($item)->count();
         });
 
-        return view('housebls/houseblcontainers', compact('allContainers', 'seachedIgm', 'showType', 'containertypes', 'typeCount', 'masterbl'));
+        return view('egm/housebls/houseblcontainers', compact('allContainers', 'seachedIgm', 'showType', 'containertypes', 'typeCount', 'masterbl'));
     }
 
     /**
@@ -846,9 +846,9 @@ class EgmHouseBlController extends Controller
      */
     public function containersBulkUpdate(Request $request)
     {
-//        dd($request->all());
+        //dd($request->all());
 
-        EgmHouseBl::join('containers', 'housebls.id', 'housebl_id')
+        EgmHouseBl::join('egm_house_bl_containers', 'egm_house_bls.id', 'housebl_id')
             ->where('igm', $request->igm)
             ->where('contref', $request->oldContref)
             ->update([
@@ -936,11 +936,11 @@ class EgmHouseBlController extends Controller
 //        dd($berthingFromDate,$berthingTillDate);
         if ($requestType == 'pdf')
         {
-            return \Barryvdh\DomPDF\Facade::loadView('housebls.houseblstatusPDF', compact('housebls'))->setPaper('A4', 'landscape')->stream('houseblstatusPDF.pdf');
+            return \Barryvdh\DomPDF\Facade::loadView('egm.housebls.houseblstatusPDF', compact('housebls'))->setPaper('A4', 'landscape')->stream('houseblstatusPDF.pdf');
         }
         else
         {
-            return view('housebls.trackindex', compact('housebls'));
+            return view('egm.housebls.trackindex', compact('housebls'));
         }
     }
 

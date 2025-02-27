@@ -210,9 +210,9 @@
                 </td>
                 @if(!$principal && $loop->first && $groupByPrincipal->isNotEmpty())
                     <td class="align-middle textRight" rowspan="{{ $groupByPrincipal->count()}}">
-                        <?php $principalSum = \Illuminate\Support\Facades\DB::table('moneyreceipts')
-                                ->join('moneyreceipt_details','moneyreceipt_id','moneyreceipts.id')
-                                ->whereIn('moneyreceipts.id', $groupByPrincipal->flatten()->pluck('id'))
+                        <?php $principalSum = \Illuminate\Support\Facades\DB::table('egm_moneyreceipts')
+                                ->join('egm_moneyreceipt_details','moneyreceipt_id','egm_moneyreceipts.id')
+                                ->whereIn('egm_moneyreceipts.id', $groupByPrincipal->flatten()->pluck('id'))
                                 ->get();
                         ?>
                         {{number_format($principalAmount = $principalSum->sum('amount'), 2)}}/-

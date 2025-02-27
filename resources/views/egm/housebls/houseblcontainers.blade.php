@@ -1,4 +1,4 @@
-@extends('layouts.new-layout')
+@extends('layouts.egm-layout')
 @section('title', 'Container Bulk Edit')
 
 @section('style')
@@ -16,7 +16,7 @@
 @endsection
 
 @section('content')
-    <form action="{{ url('searchhouseblcontainers') }}" method="get">
+    <form action="{{ url('egmsearchhouseblcontainers') }}" method="get">
         <div class="row px-2">
             @csrf
             <div class="col-md-3 px-1 my-md-0">
@@ -86,7 +86,7 @@
                 <tbody>
                 @foreach($allContainers as $containerInfo)
                     <tr>
-                        <form action="{{ url('containersBulkUpdate') }}" method="post">
+                        <form action="{{ url('egmcontainersBulkUpdate') }}" method="post">
                             @csrf
                             <td>{{$loop->iteration}}</td>
                             <td>
@@ -147,7 +147,7 @@
             $( "#igm" ).autocomplete({
                 source: function( request, response ) {
                     $.ajax({
-                        url:"{{route('loadHouseblIgmAutoComplete')}}",
+                        url:"{{route('egmLoadHouseblIgmAutoComplete')}}",
                         type: 'post',
                         dataType: "json",
                         data: {

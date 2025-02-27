@@ -14,7 +14,7 @@ class EgmMoneyreceipt extends Model
     protected $guarded = [''];
 
     public function MoneyreceiptDetail(){
-         return $this->hasMany(EgmMoneyreceiptDetail::class);
+         return $this->hasMany(EgmMoneyreceiptDetail::class, 'moneyreceipt_id');
     }
 
     public function houseBl(){

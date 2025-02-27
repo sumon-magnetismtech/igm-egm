@@ -43,6 +43,12 @@ class FRDActivityLogController extends Controller
 //        dd($moneyreceipts->toArray());
         return view('activitylog.moneyreceiptLog', compact('moneyreceipts'));
     }
+    public function egmmoneyreceiptlog($id)
+    {
+        $moneyreceipts = Activity::with('causer')->where(['subject_type' => 'App\EgmMoneyreceipt', 'subject_id' => $id])->get();
+//        dd($moneyreceipts->toArray());
+        return view('activitylog.egmmoneyreceiptLog', compact('moneyreceipts'));
+    }
 
     public function deliveryorderlog($id)
     {
