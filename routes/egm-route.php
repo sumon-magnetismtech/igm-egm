@@ -7,7 +7,7 @@ Route::group(['middleware'=>['auth', 'preventBackHistory']], function(){
     Route::get('/egm-trashmaster', 'EgmMasterBlController@mblTrash')->name('egmtrashmaster');
     Route::get('/trashmblrestore/{id}', 'EgmMasterBlController@mblRestore')->name('mblrestore');
     Route::post('egmupdateMasterRotBerthing', 'EgmMasterBlController@updateMasterRotBerthing');
-    Route::get('/getMloname/{mlocode}', 'EgmMasterBlController@getMloNameByMloCode');
+    Route::get('/getEgmMloname/{mlocode}', 'EgmMasterBlController@getMloNameByMloCode');
     Route::get('egmvesselpositioning', 'EgmMasterBlController@vesselpositioning')->name('egmvesselpositioning');
     Route::get('egmmasterbls/unstaffingSheet/{id}', 'EgmMasterBlController@unstaffingSheet');
 

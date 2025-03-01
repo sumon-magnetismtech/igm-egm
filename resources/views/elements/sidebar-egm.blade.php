@@ -393,7 +393,7 @@
                             <span class="pcoded-mcaret"></span>
                         </a>
                     </li>
-                    <li class="{{ request()->routeIs('egmextensionLetter') ? 'active' : null }}">
+                    {{-- <li class="{{ request()->routeIs('egmextensionLetter') ? 'active' : null }}">
                         <a href="{{ route('egmextensionLetter') }}">
                             <span class="pcoded-micon"><i class="ti-angle-right"></i></span>
                             <span class="pcoded-mtext">Extension Letter</span>
@@ -413,7 +413,7 @@
                             <span class="pcoded-mtext">On-Chassis Letter</span>
                             <span class="pcoded-mcaret"></span>
                         </a>
-                    </li>
+                    </li> --}}
                     <li class="{{ request()->routeIs('egmvesselpositioning') ? 'active' : null }}">
                         <a href="{{ route('egmvesselpositioning') }}">
                             <span class="pcoded-micon"><i class="ti-angle-right"></i></span>
