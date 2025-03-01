@@ -22,7 +22,7 @@
 @endsection
 
 @section('content')
-    <form action="{{ route('mloDoContainerReport') }}" method="get">
+    <form action="{{ route('egmMloDoContainerReport') }}" method="get">
         <div class="row px-2">
             <div class="col-md-1 px-1 my-1 my-md-0">
                 <select name="requestType" class="form-control form-control-sm ">

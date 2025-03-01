@@ -12,7 +12,10 @@ Route::group(['middleware' => ['auth', 'preventBackHistory']], function () {
     Route::post('/feederNameAutoComplete', 'MLO\CommonDataController@feederNameAutoComplete')->name('feederNameAutoComplete');
     Route::get('/voyageAutoComplete/{vesselname}', 'MLO\CommonDataController@voyageAutoComplete')->name('voyageAutoComplete');
     Route::post('/rotationNoAutoComplete', 'MLO\CommonDataController@rotationNoAutoComplete')->name('rotationNoAutoComplete');
+
+
     Route::post('/bolreferenceAutoComplete', 'MLO\CommonDataController@bolreferenceAutoComplete')->name('bolreferenceAutoComplete');
+    Route::post('/egmbolreferenceAutoComplete','MLO\CommonDataController@egmbolreferenceAutoComplete')->name('egmbolreferenceAutoComplete');
 
 
 
@@ -21,8 +24,8 @@ Route::group(['middleware' => ['auth', 'preventBackHistory']], function () {
     Route::get("feederinformations/{feeder_id}/forceDelete", 'MLO\FeederinformationController@forceDelete');
     Route::get('feederinformations/trashed', 'MLO\FeederinformationController@trashed')->name('trashfeeder');
 
-    Route::get('feederListForCustomUpdate', 'MLO\MoneyReceiptController@feederListForCustomUpdate');
-    Route::post('feederCustomUpdate', 'MLO\MoneyReceiptController@feederCustomUpdate');
+    Route::get('egmfeederListForCustomUpdate', 'EgmMloMoneyReceiptController@feederListForCustomUpdate');
+    Route::post('egmfeederCustomUpdate', 'EgmMloMoneyReceiptController@feederCustomUpdate');
 
 
     //MLO Bl Extra Controller
@@ -35,24 +38,24 @@ Route::group(['middleware' => ['auth', 'preventBackHistory']], function () {
 
 
     //MLO Money Receipt Extra Controller
-    Route::get('getBLInfo/{bol?}', 'MLO\MoneyReceiptController@getBLInfo')->where('bol', '(.*)');
-    Route::get('mlomrreport', 'MLO\MoneyReceiptController@mlomrreport')->name('mlomrreport');
+    Route::get('getEgmBLInfo/{bol?}', 'EgmMloMoneyReceiptController@getBLInfo')->where('bol', '(.*)');
+    Route::get('egmmlomrreport', 'EgmMloMoneyReceiptController@mlomrreport')->name('egmmlomrreport');
 
 
 
     Route::get('egmBlEntryByFeeder/{feederID}', 'EgmMloblinformationController@blEntryByFeeder');
 
     //Deliver Order Extra Methods
-    Route::get('getMloBlInfo/{bolRef?}', 'MLO\DeliveryorderController@getMloBlInfoByBolref')->where('bolRef', '(.*)');
+    Route::get('getEgmMloBlInfo/{bolRef?}', 'EgmMloDeliveryorderController@getMloBlInfoByBolref')->where('bolRef', '(.*)');
 
 
 
-    Route::get('mloDoPDF/{id}', 'MLO\DeliveryorderController@mloDoPDF')->name('mloDoPDF');
-    Route::get('mloDoReport', 'MLO\DeliveryorderController@mloDoReport')->name('mloDoReport');
+    Route::get('egmMloDoPDF/{id}', 'EgmMloDeliveryorderController@mloDoPDF')->name('mloDoPDF');
+    Route::get('egmMloDoReport', 'EgmMloDeliveryorderController@mloDoReport')->name('egmMloDoReport');
 
 
     //MlO Reports Route From Here..
-    Route::get('commitmentPDF', 'MLO\MLOReportController@commitmentPDF')->name('commitmentPDF');
+    Route::get('egmcommitmentPDF', 'EgmMLOReportController@commitmentPDF')->name('egmcommitmentPDF');
 
     Route::get('printAllBLByFeederID/{feederID}/{status}', 'MLO\MLOReportController@printAllBLByFeederID')->name('printAllBLByFeederID');
 
@@ -63,10 +66,10 @@ Route::group(['middleware' => ['auth', 'preventBackHistory']], function () {
     Route::get('feederinformations/{feeder_id}/inboundContainerList', 'MLO\MLOReportController@inboundContainerList')->name('inboundContainerList');
     Route::get('feederinformations/{feeder_id}/arrivalNoticePDF', 'MLO\MLOReportController@arrivalNoticePDF')->name('arrivalNoticePDF');
 
-    Route::get('inboundPerformanceReport/', 'MLO\MLOReportController@inboundPerformanceReport')->name('inboundPerformanceReport');
+    Route::get('egmMloinboundPerformanceReport/', 'EgmMLOReportController@inboundPerformanceReport')->name('egmMloinboundPerformanceReport');
     Route::get('mloMoneyReceiptPdf/{mrid}', 'MLO\MoneyReceiptController@mloMoneyReceiptPdf')->name('mloMoneyReceiptPdf');
     Route::get('getRotationNoReport/{vesselName}', 'MLO\MLOReportController@getRotationNoReport')->name('getRotationNoReport');
-    Route::get('ladenReport', 'MLO\MLOReportController@ladenReport')->name('ladenReport');
+    Route::get('egmMloladenReport', 'EgmMLOReportController@ladenReport')->name('egmMloladenReport');
 
 
     Route::get('blDelayNote/{mloblinformation_id}', 'MLO\DelayreasonController@blDelayNote');
@@ -74,16 +77,19 @@ Route::group(['middleware' => ['auth', 'preventBackHistory']], function () {
 
     Route::resources([
         'egmfeederinformations' => 'EgmFeederinformationController',
-        'mlomoneyreceipts' => 'MLO\MoneyReceiptController',
-        'mlodeliveryorders' => 'MLO\DeliveryorderController',
+        'egmmlomoneyreceipts' => 'EgmMloMoneyReceiptController',
+        'egmmlodeliveryorders' => 'EgmMloDeliveryorderController',
     ]);
 
     Route::resource('egmmloblinformations', 'EgmMloblinformationController')->except(['create']);
     Route::resource('delayreasons', 'MLO\DelayreasonController')->except(['create']);
+
+    Route::post('/loadCnfClientNameAutoComplete', 'JsonDataController@loadCnfClientNameAutoComplete')->name('loadCnfClientNameAutoComplete');
+    Route::post('/loadMasterPrincipalAutoComplete', 'JsonDataController@loadMasterPrincipalAutoComplete')->name('loadMasterPrincipalAutoComplete');
 });
 
 Route::group(['middleware' => ['auth']], function () {
     Route::get('blxmldownload/{feeder_id}', 'MLO\MLOReportController@searcblforigmxml')->name('blxmldownload');
     Route::get('feederinformations/{feeder_id}/containerList', 'MLO\MLOReportController@containerList');
-    Route::get('mloDoContainerReport', 'MLO\DeliveryorderController@mloDoContainerReport')->name('mloDoContainerReport');
+    Route::get('egmMloDoContainerReport', 'EgmMloDeliveryorderController@egmMloDoContainerReport')->name('egmMloDoContainerReport');
 });

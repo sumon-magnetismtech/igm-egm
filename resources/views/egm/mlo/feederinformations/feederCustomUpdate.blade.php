@@ -99,7 +99,7 @@
             let rotationNo= $(this).closest('tr').find('.rotationNo').val();
             $.ajax({
                 type: 'post',
-                url: '{{url("feederCustomUpdate")}}',
+                url: '{{url("egmfeederCustomUpdate")}}',
                 data: {
                     _token: "{{ csrf_token() }}",
                     id:id,

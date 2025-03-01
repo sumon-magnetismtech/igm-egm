@@ -12,7 +12,7 @@ use Maatwebsite\Excel\Concerns\WithStyles;
 use PhpOffice\PhpSpreadsheet\Worksheet\Drawing;
 use PhpOffice\PhpSpreadsheet\Worksheet\Worksheet;
 
-class MloDoContainerReport implements FromCollection, WithHeadings, ShouldAutoSize, WithColumnWidths, WithCustomStartCell, WithStyles
+class MloDoContainerReport implements FromCollection, WithHeadings, ShouldAutoSize, WithCustomStartCell
 {
     /**
     * @return \Illuminate\Support\Collection

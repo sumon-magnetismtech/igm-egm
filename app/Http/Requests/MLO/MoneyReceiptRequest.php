@@ -33,7 +33,7 @@ class MoneyReceiptRequest extends FormRequest
             'payMode' => 'required',
             'issueDate' =>'required|date_format:d/m/Y',
             'uptoDate' =>'required|date_format:d/m/Y',
-            'bolRef' => 'required|unique:mlo_money_receipts,bolRef,'.$id.',id,fromDate,'.Carbon::createFromFormat('d/m/Y', $fromDate)->format('Y-m-d'),
+            'bolRef' => 'required|unique:egm_mlo_money_receipts,bolRef,'.$id.',id,fromDate,'.Carbon::createFromFormat('d/m/Y', $fromDate)->format('Y-m-d'),
         ];
     }
 

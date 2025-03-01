@@ -65,7 +65,7 @@ Route::group(['middleware' => ['auth', 'preventBackHistory']], function () {
     Route::post('/loadHouseblMotherVesselAutoComplete', 'JsonDataController@loadHouseblMotherVesselAutoComplete')->name('loadHouseblMotherVesselAutoComplete');
     Route::post('/loadHouseblFeederVesselAutoComplete', 'JsonDataController@loadHouseblFeederVesselAutoComplete')->name('loadHouseblFeederVesselAutoComplete');
     Route::post('/loadMasterPrincipalAutoComplete', 'JsonDataController@loadMasterPrincipalAutoComplete')->name('loadMasterPrincipalAutoComplete');
-    Route::post('/loadCnfClientNameAutoComplete', 'JsonDataController@loadCnfClientNameAutoComplete')->name('loadCnfClientNameAutoComplete');
+  
     Route::get('/loadHouseblVoyage/{vesselname}', 'JsonDataController@loadHouseblVoyage')->name('loadHouseblVoyage');
     Route::post('/principalAutoComplete', 'JsonDataController@principalAutoComplete')->name('principalAutoComplete');
 

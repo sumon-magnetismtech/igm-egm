@@ -144,88 +144,89 @@
                     </li>
                 @endcan
 
-                {{-- @can('mlo-moneyreceipt-view')
+                @can('mlo-moneyreceipt-view')
                     <li
-                        class="pcoded-hasmenu pcoded-trigger {{ in_array(request()->route()->getName(), ['mlomoneyreceipts.create', 'mlomoneyreceipts.index', 'mlomrreport', 'feederListForCustomUpdate']) ? 'active pcoded-trigger' : null }}">
+                        class="pcoded-hasmenu pcoded-trigger {{ in_array(request()->route()->getName(), ['egmmlomoneyreceipts.create', 'egmmlomoneyreceipts.index', 'egmmlomrreport', 'egmfeederListForCustomUpdate']) ? 'active pcoded-trigger' : null }}">
                         <a href="javascript:void(0)"> <span class="pcoded-micon"><i
                                     class="ti-layout-grid2"></i><b>BC</b></span><span class="pcoded-mtext">Money
                                 Receipts</span><span class="pcoded-mcaret"></span></a>
                         <ul class="pcoded-submenu">
                             @can('mlo-moneyreceipt-create')
-                                <li class="{{ request()->routeIs('mlomoneyreceipts.create') ? 'active' : null }}"><a
-                                        href="{{ route('mlomoneyreceipts.create') }}" target="_blank"> <span
+                                <li class="{{ request()->routeIs('egmmlomoneyreceipts.create') ? 'active' : null }}"><a
+                                        href="{{ route('egmmlomoneyreceipts.create') }}" target="_blank"> <span
                                             class="pcoded-micon"><i class="ti-angle-right"></i></span><span
                                             class="pcoded-mtext">Create Money Receipt</span><span
                                             class="pcoded-mcaret"></span></a></li>
                             @endcan
-                            <li class="{{ request()->routeIs('mlomoneyreceipts.index') ? 'active' : null }}"><a
-                                    href="{{ route('mlomoneyreceipts.index') }}"> <span class="pcoded-micon"><i
+                            <li class="{{ request()->routeIs('egmmlomoneyreceipts.index') ? 'active' : null }}"><a
+                                    href="{{ route('egmmlomoneyreceipts.index') }}"> <span class="pcoded-micon"><i
                                             class="ti-angle-right"></i></span><span class="pcoded-mtext">List of Money
                                         Receipts</span><span class="pcoded-mcaret"></span></a></li>
-                            <li class="{{ request()->routeIs('mlomrreport') ? 'active' : null }}"><a
-                                    href="{{ route('mlomrreport') }}"> <span class="pcoded-micon"><i
+                            <li class="{{ request()->routeIs('egmmlomrreport') ? 'active' : null }}"><a
+                                    href="{{ route('egmmlomrreport') }}"> <span class="pcoded-micon"><i
                                             class="ti-angle-right"></i></span><span class="pcoded-mtext">Money Receipts
                                         Report</span><span class="pcoded-mcaret"></span></a></li>
-                            <li class="{{ request()->routeIs('feederListForCustomUpdate') ? 'active' : null }}"><a
-                                    href="{{ url('feederListForCustomUpdate') }}"> <span class="pcoded-micon"><i
+                            <li class="{{ request()->routeIs('egmfeederListForCustomUpdate') ? 'active' : null }}"><a
+                                    href="{{ url('egmfeederListForCustomUpdate') }}"> <span class="pcoded-micon"><i
                                             class="ti-angle-right"></i></span><span class="pcoded-mtext">Feeder
                                         Update</span><span class="pcoded-mcaret"></span></a></li>
                         </ul>
                     </li>
-                @endcan --}}
+                @endcan
 
-                {{-- @can('mlo-deliveryorder-view')
+                @can('mlo-deliveryorder-view')
                     <li
-                        class="pcoded-hasmenu pcoded-trigger {{ in_array(request()->route()->getName(), ['mlodeliveryorders.create', 'mlodeliveryorders.index', 'mloDoReport']) ? 'active pcoded-trigger' : null }}">
+                        class="pcoded-hasmenu pcoded-trigger {{ in_array(request()->route()->getName(), ['egmmlodeliveryorders.create', 'egmmlodeliveryorders.index', 'egmMloDoReport', 'egmMloDoContainerReport']) ? 'active pcoded-trigger' : null }}">
                         <a href="javascript:void(0)"> <span class="pcoded-micon"><i
                                     class="ti-layout-grid2"></i><b>BC</b></span><span class="pcoded-mtext">Delivery
                                 Order</span><span class="pcoded-mcaret"></span></a>
                         <ul class="pcoded-submenu">
                             @can('mlo-deliveryorder-create')
-                                <li class="{{ request()->routeIs('mlodeliveryorders.create') ? 'active' : null }}"><a
-                                        href="{{ route('mlodeliveryorders.create') }}" target="_blank"> <span
+                                <li class="{{ request()->routeIs('egmmlodeliveryorders.create') ? 'active' : null }}"><a
+                                        href="{{ route('egmmlodeliveryorders.create') }}" target="_blank"> <span
                                             class="pcoded-micon"><i class="ti-angle-right"></i></span><span
                                             class="pcoded-mtext">Create Delivery Order</span><span
-                                            class="pcoded-mcaret"></span></a></li>
+                                            class="pcoded-mcaret"></span></a>
+                                </li>
                             @endcan
-                            <li class="{{ request()->routeIs('mlodeliveryorders.index') ? 'active' : null }}"><a
-                                    href="{{ route('mlodeliveryorders.index') }}"> <span class="pcoded-micon"><i
+                            <li class="{{ request()->routeIs('egmmlodeliveryorders.index') ? 'active' : null }}"><a
+                                    href="{{ route('egmmlodeliveryorders.index') }}"> <span class="pcoded-micon"><i
                                             class="ti-angle-right"></i></span><span class="pcoded-mtext">List of Delivery
                                         Order</span><span class="pcoded-mcaret"></span></a></li>
-                            <li class="{{ request()->routeIs('mloDoReport') ? 'active' : null }}"><a
-                                    href="{{ route('mloDoReport') }}"> <span class="pcoded-micon"><i
+                            <li class="{{ request()->routeIs('egmMloDoReport') ? 'active' : null }}"><a
+                                    href="{{ route('egmMloDoReport') }}"> <span class="pcoded-micon"><i
                                             class="ti-angle-right"></i></span><span class="pcoded-mtext">Delivery Order
                                         Report</span><span class="pcoded-mcaret"></span></a></li>
-                            <li class="{{ request()->routeIs('mloDoContainerReport') ? 'active' : null }}"><a
-                                    href="{{ route('mloDoContainerReport') }}"> <span class="pcoded-micon"><i
+                            <li class="{{ request()->routeIs('egmMloDoContainerReport') ? 'active' : null }}"><a
+                                    href="{{ route('egmMloDoContainerReport') }}"> <span class="pcoded-micon"><i
                                             class="ti-angle-right"></i></span><span class="pcoded-mtext">DO Container
                                         Report</span><span class="pcoded-mcaret"></span></a></li>
 
                         </ul>
                     </li>
-                @endcan --}}
-                {{-- @can('mlo-report')
+                @endcan
+                @can('mlo-report')
                     <li
-                        class="pcoded-hasmenu pcoded-trigger {{ in_array(request()->route()->getName(), ['inboundPerformanceReport', 'commitmentPDF', 'ladenReport']) ? 'active pcoded-trigger' : null }}">
+                        class="pcoded-hasmenu pcoded-trigger {{ in_array(request()->route()->getName(), ['egmMloinboundPerformanceReport', 'egmcommitmentPDF', 'egmMloladenReport']) ? 'active pcoded-trigger' : null }}">
                         <a href="javascript:void(0)"> <span class="pcoded-micon"><i
                                     class="ti-layout-grid2"></i><b>BC</b></span><span class="pcoded-mtext">MLO
                                 Reports</span><span class="pcoded-mcaret"></span></a>
                         <ul class="pcoded-submenu">
-                            <li class="{{ request()->routeIs('inboundPerformanceReport') ? 'active' : null }}"><a
-                                    href="{{ route('inboundPerformanceReport') }}"> <span class="pcoded-micon"><i
+                            <li class="{{ request()->routeIs('egmMloinboundPerformanceReport') ? 'active' : null }}"><a
+                                    href="{{ route('egmMloinboundPerformanceReport') }}"> <span class="pcoded-micon"><i
                                             class="ti-angle-right"></i></span><span class="pcoded-mtext">Inbound
                                         Performance</span><span class="pcoded-mcaret"></span></a></li>
-                            <li class="{{ request()->routeIs('commitmentPDF') ? 'active' : null }}"><a
-                                    href="{{ route('commitmentPDF') }}"> <span class="pcoded-micon"><i
+                            <li class="{{ request()->routeIs('egmcommitmentPDF') ? 'active' : null }}"><a
+                                    href="{{ route('egmcommitmentPDF') }}"> <span class="pcoded-micon"><i
                                             class="ti-angle-right"></i></span><span class="pcoded-mtext">Commitment Letter
                                         (Bengali)</span><span class="pcoded-mcaret"></span></a></li>
-                            <li class="{{ request()->routeIs('ladenReport') ? 'active' : null }}"><a
-                                    href="{{ route('ladenReport') }}"> <span class="pcoded-micon"><i
+                            <li class="{{ request()->routeIs('egmMloladenReport') ? 'active' : null }}"><a
+                                    href="{{ route('egmMloladenReport') }}"> <span class="pcoded-micon"><i
                                             class="ti-angle-right"></i></span><span class="pcoded-mtext">Laden Containers
                                         Stock Report</span><span class="pcoded-mcaret"></span></a></li>
                         </ul>
                     </li>
-                @endcan --}}
+                @endcan
             </ul>
         @endcan
 
