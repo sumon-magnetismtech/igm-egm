@@ -57,7 +57,7 @@
                             </div>
                         </div>
                         <a href="{{ route('home') }}">
-                            <h4 class="my-3">Magnetism Tech Ltd<i class="icofont icofont-anchor-alt"></i></h4>
+                            <h4 class="my-3">Magnetism<i class="icofont icofont-anchor-alt"></i></h4>
                         </a>
                         <a class="mobile-options">
                             <i class="ti-more"></i>
