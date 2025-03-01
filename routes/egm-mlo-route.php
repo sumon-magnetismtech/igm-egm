@@ -57,14 +57,14 @@ Route::group(['middleware' => ['auth', 'preventBackHistory']], function () {
     //MlO Reports Route From Here..
     Route::get('egmcommitmentPDF', 'EgmMLOReportController@commitmentPDF')->name('egmcommitmentPDF');
 
-    Route::get('printAllBLByFeederID/{feederID}/{status}', 'MLO\MLOReportController@printAllBLByFeederID')->name('printAllBLByFeederID');
+    Route::get('egmMloprintAllBLByFeederID/{feederID}/{status}', 'EgmMLOReportController@printAllBLByFeederID')->name('egmMloprintAllBLByFeederID');
 
-    Route::get('feederinformations/{feeder_id}/ioccontainerlist', 'MLO\MLOReportController@ioccontainerlist');
-    Route::get('feederinformations/{feeder_id}/permissionPDF', 'MLO\MLOReportController@permissionPDF')->name('permissionPDF');
-    Route::get('feederinformations/{feeder_id}/permissionBengaliPDF', 'MLO\MLOReportController@permissionBengaliPDF')->name('permissionBengaliPDF');
-    Route::get('feederinformations/{feeder_id}/lclContainerList', 'MLO\MLOReportController@lclContainerList')->name('lclContainerList');
-    Route::get('feederinformations/{feeder_id}/inboundContainerList', 'MLO\MLOReportController@inboundContainerList')->name('inboundContainerList');
-    Route::get('feederinformations/{feeder_id}/arrivalNoticePDF', 'MLO\MLOReportController@arrivalNoticePDF')->name('arrivalNoticePDF');
+    Route::get('egmMlofeederinformations/{feeder_id}/ioccontainerlist', 'EgmMLOReportController@ioccontainerlist');
+    Route::get('feederinformations/{feeder_id}/permissionPDF', 'EgmMLOReportController@permissionPDF')->name('permissionPDF');
+    Route::get('feederinformations/{feeder_id}/permissionBengaliPDF', 'EgmMLOReportController@permissionBengaliPDF')->name('permissionBengaliPDF');
+    Route::get('egmMlofeederinformations/{feeder_id}/lclContainerList', 'EgmMLOReportController@lclContainerList')->name('lclContainerList');
+    Route::get('egmMlofeederinformations/{feeder_id}/inboundContainerList', 'EgmMLOReportController@inboundContainerList')->name('inboundContainerList');
+    Route::get('egmMlofeederinformations/{feeder_id}/arrivalNoticePDF', 'EgmMLOReportController@arrivalNoticePDF')->name('arrivalNoticePDF');
 
     Route::get('egmMloinboundPerformanceReport/', 'EgmMLOReportController@inboundPerformanceReport')->name('egmMloinboundPerformanceReport');
     Route::get('mloMoneyReceiptPdf/{mrid}', 'MLO\MoneyReceiptController@mloMoneyReceiptPdf')->name('mloMoneyReceiptPdf');
@@ -89,7 +89,7 @@ Route::group(['middleware' => ['auth', 'preventBackHistory']], function () {
 });
 
 Route::group(['middleware' => ['auth']], function () {
-    Route::get('blxmldownload/{feeder_id}', 'MLO\MLOReportController@searcblforigmxml')->name('blxmldownload');
-    Route::get('feederinformations/{feeder_id}/containerList', 'MLO\MLOReportController@containerList');
+    Route::get('egmMloblxmldownload/{feeder_id}', 'EgmMLOReportController@searcblforigmxml')->name('egmMloblxmldownload');
+    Route::get('egmMlofeederinformations/{feeder_id}/containerList', 'EgmMLOReportController@containerList');
     Route::get('egmMloDoContainerReport', 'EgmMloDeliveryorderController@egmMloDoContainerReport')->name('egmMloDoContainerReport');
 });

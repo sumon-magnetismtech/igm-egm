@@ -159,7 +159,7 @@ class MLOReportController extends Controller
                 $xml->startElement('Transport_information');
                     $xml->startElement('Carrier');
                         $xml->writeElement('Carrier_code', $feederInfo->careerName);
-                        $xml->writeElement('Carrier_name', 'QC LOGISTICS LIMITED');
+                        $xml->writeElement('Carrier_name', 'Magnetism Tech Ltd');
                         $xml->writeElement('Carrier_address', $feederInfo->careerAddress);
                     $xml->endElement();
 
@@ -211,7 +211,7 @@ class MLOReportController extends Controller
                     $xml->startElement('Traders_segment');
                         $xml->startElement('Carrier');
                             $xml->writeElement('Carrier_code', $feederInfo->careerName);
-                            $xml->writeElement('Carrier_name', 'QC LOGISTICS LIMITED');
+                            $xml->writeElement('Carrier_name', 'Magnetism Tech Ltd');
                             $xml->writeElement('Carrier_address', $feederInfo->careerAddress);
                         $xml->endElement();
 
@@ -354,12 +354,12 @@ class MLOReportController extends Controller
             ->when($dateType === 'weekly', function($q){
                 $q->whereHas('mlofeederInformation', function($q){
                     $q->whereBetween('berthingDate', [now()->subDays(7), now()]);
-                }); 
+                });
             })
             ->when($dateType === 'monthly', function($q){
                 $q->whereHas('mlofeederInformation', function($q){
                     $q->whereBetween('berthingDate', [now()->subDays(30), now()]);
-                });                
+                });
             })
             ->when($dateType === 'custom', function($q) use ($fromDate, $tillDate){
                 $q->whereHas('mlofeederInformation', function($q)use($fromDate, $tillDate){

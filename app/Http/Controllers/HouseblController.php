@@ -93,7 +93,7 @@ class HouseblController extends Controller
         });
         $query->when(!empty(request()->description), function($q){
             $q->where('description', 'LIKE', "%".request()->description."%");
-        }); 
+        });
         $query->when($hbl, function ($q) use ($hbl)
         {
             $q->where('bolreference', $hbl);
@@ -164,7 +164,7 @@ class HouseblController extends Controller
         try {
             $house_bl_service = (new HouseblService())->handleHousebl($request);
             $request = $house_bl_service['request'];
-            
+
             DB::transaction(function () use ($house_bl_service)
             {
                 $houseBl = Housebl::create($house_bl_service['blInformationData']);
@@ -244,7 +244,7 @@ class HouseblController extends Controller
 
         try {
             $house_bl_service = (new HouseblService())->handleHousebl($request);
-            
+
             DB::transaction(function () use ($housebl, $house_bl_service)
             {
                 $housebl->update($house_bl_service['blInformationData']);
@@ -450,7 +450,7 @@ class HouseblController extends Controller
             $xml->startElement('Traders_segment');
             $xml->startElement('Carrier');
             $xml->writeElement('Carrier_code', $masterbl->carrier);
-            $xml->writeElement('Carrier_name', 'QC LOGISTICS LIMITED');
+            $xml->writeElement('Carrier_name', 'Magnetism Tech Ltd');
             $xml->writeElement('Carrier_address', $masterbl->carrieraddress);
             $xml->endElement();
 

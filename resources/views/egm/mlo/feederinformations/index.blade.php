@@ -152,32 +152,32 @@
                                 @if ($feederInfo->mloblInformation->isNotEmpty())
                                     <div class="d-none moreButtons">
                                         <div class="icon-btn">
-                                            <a href="{{ url('blxmldownload/' . $feederInfo->id) }}" data-toggle="tooltip"
+                                            <a href="{{ url('egmMloblxmldownload/' . $feederInfo->id) }}" data-toggle="tooltip"
                                                 title="Download XML" class="mt-1 btn btn-outline-dark"><i
                                                     class="fas fa-download"></i> XML</a>
-                                            <a href="{{ url("feederinformations/$feederInfo->id/containerList") }}"
+                                            <a href="{{ url("egmMlofeederinformations/$feederInfo->id/containerList") }}"
                                                 data-toggle="tooltip" title="Download Container List"
                                                 class="mt-1 btn btn-outline-dark"><i class="fas fa-download"></i> CNT</a>
-                                            <a href="{{ url("printAllBLByFeederID/$feederInfo->id/all") }}"
+                                            <a href="{{ url("egmMloprintAllBLByFeederID/$feederInfo->id/all") }}"
                                                 target="_blank" data-toggle="tooltip" title="Print All IGM"
                                                 class="mt-1 btn btn-outline-dark"><i class="fas fa-print"></i> IGM</a>
-                                            <a href="{{ url("printAllBLByFeederID/$feederInfo->id/bdkam") }}"
+                                            <a href="{{ url("egmMloprintAllBLByFeederID/$feederInfo->id/bdkam") }}"
                                                 target="_blank" data-toggle="tooltip" title="Print BDKAM"
                                                 class="mt-1 btn btn-outline-dark"><i class="fas fa-print"></i> BDKAM </a>
-                                            <a href="{{ url("printAllBLByFeederID/$feederInfo->id/bdpng") }}"
+                                            <a href="{{ url("egmMloprintAllBLByFeederID/$feederInfo->id/bdpng") }}"
                                                 target="_blank" data-toggle="tooltip" title="Print BDPNG"
                                                 class="mt-1 btn btn-outline-dark"><i class="fas fa-print"></i> BDPNG </a>
                                         </div>
                                         <div class="icon-btn">
-                                            <a href="{{ url("feederinformations/$feederInfo->id/ioccontainerlist") }}"
+                                            <a href="{{ url("egmMlofeederinformations/$feederInfo->id/ioccontainerlist") }}"
                                                 target="_blank" data-toggle="tooltip" title="IOC"
                                                 class="mt-1 btn btn-outline-dark"><i class="fas fa-paper-plane"></i>
                                                 IOC</a>
-                                            <a href="{{ url("feederinformations/$feederInfo->id/lclContainerList") }}"
+                                            <a href="{{ url("egmMlofeederinformations/$feederInfo->id/lclContainerList") }}"
                                                 data-toggle="tooltip" title="LCL Container List"
                                                 class="mt-1 btn btn-outline-dark"><i class="fas fa-paper-print"></i>
                                                 LCL</a>
-                                            <a href="{{ url("feederinformations/$feederInfo->id/inboundContainerList") }}"
+                                            <a href="{{ url("egmMlofeederinformations/$feederInfo->id/inboundContainerList") }}"
                                                 data-toggle="tooltip" title="Inbound Container List"
                                                 class="mt-1 btn btn-outline-dark"><i class="fas fa-th"></i></a>
                                             <a href="{{ url("feederinformations/$feederInfo->id/permissionPDF") }}"
@@ -186,7 +186,7 @@
                                             <a href="{{ url("feederinformations/$feederInfo->id/permissionBengaliPDF") }}"
                                                 data-toggle="tooltip" title="Permission Bengali"
                                                 class="mt-1 btn btn-outline-dark"><i class="fas fa-envelope"></i></a>
-                                            <a href="{{ url("feederinformations/$feederInfo->id/arrivalNoticePDF") }}"
+                                            <a href="{{ url("egmMlofeederinformations/$feederInfo->id/arrivalNoticePDF") }}"
                                                 target="_blank" data-toggle="tooltip" title="Arrival Notice"
                                                 class="mt-1 btn btn-outline-dark"><i class="fas fa-copy"></i></a>
                                         </div>

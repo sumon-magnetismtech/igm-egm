@@ -35,8 +35,8 @@ class EgmMLOReportController extends Controller
         $feederInfo = EgmFeederinformation::with('mloblInformation.blcontainers', 'mloblInformation.blNotify')->where('id', $feeder_id)->firstOrFail();
         //['contref', 'type', 'status']
         $containers = EgmMloBlcontainer::with('mloblinformation:id,bolreference')
-            ->whereIn('mloblinformation_id', $feederInfo->mloblInformation->pluck('id'))
-            ->get(['mloblinformation_id', 'contref', 'type', 'status']);
+            ->whereIn('egm_mloblinformation_id', $feederInfo->mloblInformation->pluck('id'))
+            ->get(['egm_mloblinformation_id', 'contref', 'type', 'status']);
         $allContainers = $containers->collect()->unique('contref')->values()->all();
 
         return Excel::download(new FeederContainerListExport($allContainers), "ContainerList-Feeder-$feeder_id.xlsx");
@@ -45,7 +45,7 @@ class EgmMLOReportController extends Controller
     public function ioccontainerlist($feeder_id)
     {
         $feederInfo = EgmFeederinformation::with('mloblInformation.blcontainers', 'mloblInformation.blNotify')->where('id', $feeder_id)->firstOrFail();
-        $allContainers = EgmMloBlcontainer::whereIn('mloblinformation_id', $feederInfo->mloblInformation->pluck('id'))->get();
+        $allContainers = EgmMloBlcontainer::whereIn('egm_mloblinformation_id', $feederInfo->mloblInformation->pluck('id'))->get();
         $containerGroups = $allContainers->groupBy('type')->map(function ($item, $key) {
             return collect($item)->count();
         });
@@ -170,7 +170,7 @@ class EgmMLOReportController extends Controller
         $xml->startElement('Transport_information');
         $xml->startElement('Carrier');
         $xml->writeElement('Carrier_code', $feederInfo->careerName);
-        $xml->writeElement('Carrier_name', 'QC LOGISTICS LIMITED');
+        $xml->writeElement('Carrier_name', 'Magnetism Tech Ltd');
         $xml->writeElement('Carrier_address', $feederInfo->careerAddress);
         $xml->endElement();
 
@@ -222,7 +222,7 @@ class EgmMLOReportController extends Controller
             $xml->startElement('Traders_segment');
             $xml->startElement('Carrier');
             $xml->writeElement('Carrier_code', $feederInfo->careerName);
-            $xml->writeElement('Carrier_name', 'QC LOGISTICS LIMITED');
+            $xml->writeElement('Carrier_name', 'Magnetism Tech Ltd');
             $xml->writeElement('Carrier_address', $feederInfo->careerAddress);
             $xml->endElement();
 
