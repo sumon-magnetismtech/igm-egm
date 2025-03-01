@@ -31,12 +31,23 @@ class FRDActivityLogController extends Controller
         $housebls = Activity::with('causer')->where(['subject_type' => 'App\Housebl', 'subject_id' => $id])->get();
         return view('activitylog.houseblLog', compact('housebls'));
     }
+    public function egmhousebllog($id)
+    {
+        $housebls = Activity::with('causer')->where(['subject_type' => 'App\EgmHouseBl', 'subject_id' => $id])->get();
+        return view('activitylog.egmhouseblLog', compact('housebls'));
+    }
 
     public function moneyreceiptlog($id)
     {
         $moneyreceipts = Activity::with('causer')->where(['subject_type' => 'App\Moneyreceipt', 'subject_id' => $id])->get();
 //        dd($moneyreceipts->toArray());
         return view('activitylog.moneyreceiptLog', compact('moneyreceipts'));
+    }
+    public function egmmoneyreceiptlog($id)
+    {
+        $moneyreceipts = Activity::with('causer')->where(['subject_type' => 'App\EgmMoneyreceipt', 'subject_id' => $id])->get();
+//        dd($moneyreceipts->toArray());
+        return view('activitylog.egmmoneyreceiptLog', compact('moneyreceipts'));
     }
 
     public function deliveryorderlog($id)

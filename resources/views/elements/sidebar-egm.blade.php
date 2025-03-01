@@ -288,15 +288,15 @@
                             </a>
                         </li>
                         <li
-                            class="{{ request()->routeIs(['searchhouseblcontainersForm', 'searchhouseblcontainers']) ? 'active' : null }}">
-                            <a href="{{ route('searchhouseblcontainersForm') }}">
+                            class="{{ request()->routeIs(['egmsearchhouseblcontainersForm', 'egmsearchhouseblcontainers']) ? 'active' : null }}">
+                            <a href="{{ route('egmsearchhouseblcontainersForm') }}">
                                 <span class="pcoded-micon"><i class="ti-angle-right"></i></span>
                                 <span class="pcoded-mtext">Container Bulk Edit </span>
                                 <span class="pcoded-mcaret"></span>
                             </a>
                         </li>
-                        <li class="{{ request()->routeIs(['houseblstatus', 'houseblstatusPDF']) ? 'active' : null }}">
-                            <a href="{{ route('houseblstatus') }}">
+                        <li class="{{ request()->routeIs(['egmhouseblstatus', 'egmhouseblstatusPDF']) ? 'active' : null }}">
+                            <a href="{{ route('egmhouseblstatus') }}">
                                 <span class="pcoded-micon"><i class="ti-angle-right"></i></span>
                                 <span class="pcoded-mtext">House BL Tracking</span>
                                 <span class="pcoded-mcaret"></span>
@@ -308,7 +308,7 @@
 
             @can('moneyreceipt-view')
                 <li
-                    class="pcoded-hasmenu {{ in_array(request()->route()->getName(), ['moneyreceipts.create', 'moneyreceipts.index', 'mrreport']) ? 'active pcoded-trigger' : null }}">
+                    class="pcoded-hasmenu {{ in_array(request()->route()->getName(), ['egmmoneyreceipts.create', 'egmmoneyreceipts.index', 'mrreport']) ? 'active pcoded-trigger' : null }}">
                     <a href="javascript:void(0)">
                         <span class="pcoded-micon"><i class="ti-package"></i><b>BC</b></span>
                         <span class="pcoded-mtext">Money Receipt</span>
@@ -316,23 +316,23 @@
                     </a>
                     <ul class="pcoded-submenu">
                         @can('moneyreceipt-create')
-                            <li class="{{ request()->routeIs('moneyreceipts.create') ? 'active' : null }}">
-                                <a href="{{ route('moneyreceipts.create') }}" target="_blank">
+                            <li class="{{ request()->routeIs('egmmoneyreceipts.create') ? 'active' : null }}">
+                                <a href="{{ route('egmmoneyreceipts.create') }}" target="_blank">
                                     <span class="pcoded-micon"><i class="ti-angle-right"></i></span>
                                     <span class="pcoded-mtext">Create Money Receipt</span>
                                     <span class="pcoded-mcaret"></span>
                                 </a>
                             </li>
                         @endcan
-                        <li class="{{ request()->routeIs('moneyreceipts.index') ? 'active' : null }}">
-                            <a href="{{ route('moneyreceipts.index') }}">
+                        <li class="{{ request()->routeIs('egmmoneyreceipts.index') ? 'active' : null }}">
+                            <a href="{{ route('egmmoneyreceipts.index') }}">
                                 <span class="pcoded-micon"><i class="ti-angle-right"></i></span>
                                 <span class="pcoded-mtext">List of Money Receipts</span>
                                 <span class="pcoded-mcaret"></span>
                             </a>
                         </li>
-                        <li class="{{ request()->routeIs('mrreport') ? 'active' : null }}">
-                            <a href="{{ route('mrreport') }}">
+                        <li class="{{ request()->routeIs('egmmrreport') ? 'active' : null }}">
+                            <a href="{{ route('egmmrreport') }}">
                                 <span class="pcoded-micon"><i class="ti-angle-right"></i></span>
                                 <span class="pcoded-mtext">Money Receipts Report</span>
                                 <span class="pcoded-mcaret"></span>

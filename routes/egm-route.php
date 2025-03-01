@@ -14,14 +14,15 @@ Route::group(['middleware'=>['auth', 'preventBackHistory']], function(){
     Route::get('egmCloneMasterblById/{id}', 'EgmMasterBlController@egmCloneMasterblById');
 
     Route::get('printhousebl', 'EgmHouseBlController@printhousebl');
-    Route::post('houseblstatusPDF','EgmHouseBlController@houseblstatusPDF')->name('houseblstatusPDF');
+    Route::view('egmhouseblstatus','egm.housebls.houseblstatus')->name('egmhouseblstatus');
+    Route::post('egmhouseblstatusPDF','EgmHouseBlController@houseblstatusPDF')->name('egmhouseblstatusPDF');
     Route::get('loadHouseByBolRef/{bolRef?}', 'EgmHouseBlController@loadHouseByBolRef')->where('bolRef', '(.*)')->name('loadHouseByBolRef');
 
     Route::get('checkFCLContainer/{igmno}/{currentStatus}','EgmHouseBlController@checkFCLContainer')->name('checkFCLContainer');//check FCL Container in Same IGM.
-    Route::get('searchhouseblcontainersForm', 'EgmHouseBlController@searchHouseblContainersForm')->name('searchhouseblcontainersForm');
+    Route::get('egmsearchhouseblcontainersForm', 'EgmHouseBlController@searchHouseblContainersForm')->name('egmsearchhouseblcontainersForm');
 
-    Route::get('searchhouseblcontainers', 'EgmHouseBlController@searchHouseblContainers')->name('searchhouseblcontainers');
-    Route::post('containersBulkUpdate', 'EgmHouseBlController@containersBulkUpdate')->name('containersBulkUpdate');
+    Route::get('egmsearchhouseblcontainers', 'EgmHouseBlController@searchHouseblContainers')->name('egmsearchhouseblcontainers');
+    Route::post('egmcontainersBulkUpdate', 'EgmHouseBlController@containersBulkUpdate')->name('egmcontainersBulkUpdate');
 
     //Housebl Extra Controler
     Route::get('/getIgm/{igmno}', 'EgmHouseBlController@getIgmByIgmNo');
@@ -45,19 +46,28 @@ Route::group(['middleware'=>['auth', 'preventBackHistory']], function(){
 
     Route::get('egmCheckFCLContainer/{igmno}/{currentStatus}','HouseblController@egmCheckFCLContainer')->name('egmCheckFCLContainer');//check FCL Container in Same IGM.
 
+    //money receipt route
+    Route::get('emptyMoneyReceipts', 'MoneyreceiptController@emptyMoneyReceipts')->name('emptyMoneyReceipts');
+
+
+    Route::get('egmmrreport', 'EgmMoneyreceiptController@mrreport')->name('egmmrreport');
+
+    Route::get('/getEgmHouseBlinfo/{bolreference?}', 'EgmMoneyreceiptController@getHouseBlinfo')->where('bolreference', '(.*)');
+    Route::get('egmmrPdf/{mrid}', 'EgmMoneyreceiptController@mrPDF')->name('egmmrPdf');
+
     //json Route From Here..
-    Route::post('/loadHouseblIgmAutoComplete','JsonDataController@egmLoadHouseblIgmAutoComplete')->name('egmLoadHouseblIgmAutoComplete');
-    Route::post('/loadHouseblMblNoAutoComplete','JsonDataController@egmLoadHouseblMblNoAutoComplete')->name('egmLoadHouseblMblNoAutoComplete');
-    Route::post('/loadHouseblBolreferenceAutoComplete','JsonDataController@egmLoadHouseblBolreferenceAutoComplete')->name('egmLoadHouseblBolreferenceAutoComplete');
-    Route::post('/loadHouseblContainerAutoComplete','JsonDataController@egmLoadHouseblContainerAutoComplete')->name('egmLoadHouseblContainerAutoComplete');
-    Route::post('/loadHouseblNotifyNameAutoComplete','JsonDataController@egmLoadHouseblNotifyNameAutoComplete')->name('egmLoadHouseblNotifyNameAutoComplete');
-    Route::post('/loadHouseblDescriptionAutoComplete','JsonDataController@egmLoadHouseblDescriptionAutoComplete')->name('egmLoadHouseblDescriptionAutoComplete');
-    Route::post('/loadHouseblExporternameAutoComplete','JsonDataController@egmLoadHouseblExporternameAutoComplete')->name('egmLoadHouseblExporternameAutoComplete');
-    Route::post('/loadHouseblMotherVesselAutoComplete','JsonDataController@egmLoadHouseblMotherVesselAutoComplete')->name('egmLoadHouseblMotherVesselAutoComplete');
-    Route::post('/loadHouseblFeederVesselAutoComplete','JsonDataController@egmLoadHouseblFeederVesselAutoComplete')->name('egmLoadHouseblFeederVesselAutoComplete');
-    Route::post('/loadMasterPrincipalAutoComplete','JsonDataController@egmLoadMasterPrincipalAutoComplete')->name('egmLoadMasterPrincipalAutoComplete');
-    Route::post('/loadCnfClientNameAutoComplete','JsonDataController@egmLoadCnfClientNameAutoComplete')->name('egmLoadCnfClientNameAutoComplete');
-    Route::get('/loadHouseblVoyage/{vesselname}','JsonDataController@egmLoadHouseblVoyage')->name('egmLoadHouseblVoyage');
+    Route::post('/egmloadHouseblIgmAutoComplete','JsonDataController@egmLoadHouseblIgmAutoComplete')->name('egmLoadHouseblIgmAutoComplete');
+    Route::post('/egmloadHouseblMblNoAutoComplete','JsonDataController@egmLoadHouseblMblNoAutoComplete')->name('egmLoadHouseblMblNoAutoComplete');
+    Route::post('/egmloadHouseblBolreferenceAutoComplete','JsonDataController@egmLoadHouseblBolreferenceAutoComplete')->name('egmLoadHouseblBolreferenceAutoComplete');
+    Route::post('/egmloadHouseblContainerAutoComplete','JsonDataController@egmLoadHouseblContainerAutoComplete')->name('egmLoadHouseblContainerAutoComplete');
+    Route::post('/egmloadHouseblNotifyNameAutoComplete','JsonDataController@egmLoadHouseblNotifyNameAutoComplete')->name('egmLoadHouseblNotifyNameAutoComplete');
+    Route::post('/egmloadHouseblDescriptionAutoComplete','JsonDataController@egmLoadHouseblDescriptionAutoComplete')->name('egmLoadHouseblDescriptionAutoComplete');
+    Route::post('/egmloadHouseblExporternameAutoComplete','JsonDataController@egmLoadHouseblExporternameAutoComplete')->name('egmLoadHouseblExporternameAutoComplete');
+    Route::post('/egmloadHouseblMotherVesselAutoComplete','JsonDataController@egmLoadHouseblMotherVesselAutoComplete')->name('egmLoadHouseblMotherVesselAutoComplete');
+    Route::post('/egmloadHouseblFeederVesselAutoComplete','JsonDataController@egmLoadHouseblFeederVesselAutoComplete')->name('egmLoadHouseblFeederVesselAutoComplete');
+    Route::post('/egmloadMasterPrincipalAutoComplete','JsonDataController@egmLoadMasterPrincipalAutoComplete')->name('egmLoadMasterPrincipalAutoComplete');
+    Route::post('/egmloadCnfClientNameAutoComplete','JsonDataController@egmLoadCnfClientNameAutoComplete')->name('egmLoadCnfClientNameAutoComplete');
+    Route::get('/egmloadHouseblVoyage/{vesselname}','JsonDataController@egmLoadHouseblVoyage')->name('egmLoadHouseblVoyage');
 
 
     Route::get('containerExtension/{mlono}', 'JsonDataController@egmContainerExtension')->name('egmContainerExtension');
@@ -69,7 +79,7 @@ Route::group(['middleware'=>['auth', 'preventBackHistory']], function(){
         'egmmasterbls' => 'EgmMasterBlController',
         'egmmoneyreceiptheads' => 'MoneyReceiptHeadController',
         'egmhousebls' => 'EgmHouseBlController',
-        'egmmoneyreceipts' => 'MoneyreceiptController',
+        'egmmoneyreceipts' => 'EgmMoneyreceiptController',
         'egmdeliveryorders' => 'DeliveryorderController',
     ]);
 

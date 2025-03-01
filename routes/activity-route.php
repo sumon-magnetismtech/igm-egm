@@ -6,6 +6,8 @@ Route::group(['middleware' => ['auth', 'preventBackHistory']], function () {
     Route::get('users/log/{id}', 'FRDActivityLogController@userlog');
     Route::get('masterbls/log/{id}', 'FRDActivityLogController@masterlog');
     Route::get('housebls/log/{id}', 'FRDActivityLogController@housebllog');
+    Route::get('egmhousebls/log/{id}', 'FRDActivityLogController@egmhousebllog');
+    Route::get('egmmoneyreceipts/log/{id}', 'FRDActivityLogController@egmmoneyreceiptlog');
     Route::get('moneyreceipts/log/{id}', 'FRDActivityLogController@moneyreceiptlog');
     Route::get('deliverorders/log/{id}', 'FRDActivityLogController@deliveryorderlog');
 

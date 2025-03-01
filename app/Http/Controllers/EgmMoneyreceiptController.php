@@ -4,7 +4,10 @@ namespace App\Http\Controllers;
 
 use App\EgmMoneyreceipt;
 use App\Cnfagent;
+use App\EgmHouseBl;
+use App\EgmMoneyreceiptDetail;
 use App\Housebl;
+use App\Http\Requests\EgmMoneyreceiptRequest;
 use App\Http\Requests\MoneyreceiptRequest;
 use App\MLO\MoneyReceiptDetails;
 use App\Moneyreceipt;
@@ -35,7 +38,7 @@ class EgmMoneyreceiptController extends Controller
         $fromDate = \request()->fromDate ? date('Y-m-d', strtotime(str_replace('/', '-', \request()->fromDate))) : null;
         $tillDate = \request()->tillDate ? date('Y-m-d', strtotime(str_replace('/', '-', \request()->tillDate))) : null;
 
-        $moneyReceipts = Moneyreceipt::with('MoneyreceiptDetail', 'deliveryOrder:id,moneyrecept_id,issue_date', 'houseBl:id,containernumber,igm,bolreference', 'houseBl.masterbl:id,mv,fvessel,principal,noc')
+        $moneyReceipts = EgmMoneyreceipt::with('MoneyreceiptDetail', 'deliveryOrder:id,moneyrecept_id,issue_date', 'houseBl:id,containernumber,igm,bolreference', 'houseBl.masterbl:id,mv,fvessel,principal,noc')
             ->when($mrid, function($q)use($mrid){
                 $q->where('id', $mrid);
             })
@@ -61,7 +64,7 @@ class EgmMoneyreceiptController extends Controller
                 $q->whereBetween('issue_date', [$fromDate, $tillDate]);
             })
             ->latest()->paginate(100);
-        return view('moneyreceipts.index',compact('moneyReceipts', 'mrid', 'housebl','client','principal','fromDate','tillDate'));
+        return view('egm.moneyreceipts.index',compact('moneyReceipts', 'mrid', 'housebl','client','principal','fromDate','tillDate'));
     }
 
     public function create()
@@ -69,11 +72,12 @@ class EgmMoneyreceiptController extends Controller
         $formType = 'create';
         $particulars = MoneyReceiptHead::orderBy('name')->pluck('name', 'name');
         $clients = Cnfagent::pluck('cnfagent', 'id');
-        $housebls = Housebl::where('moneyreceiptStatus', 0)->pluck('bolreference');
-        return view('moneyreceipts.create',compact('clients','formType', 'housebls', 'particulars'));
+        $housebls = EgmHouseBl::where('moneyreceiptStatus', 0)->pluck('bolreference');
+        return view('egm.moneyreceipts.create',compact('clients','formType', 'housebls', 'particulars'));
     }
 
-    public function store(MoneyreceiptRequest $request){
+    public function store(EgmMoneyreceiptRequest $request){
+        //dd($request->all());
         try{
             $clientContact = Cnfagent::where('cnfagent', $request->client_name)->firstOrFail(['contact']);
             $mr_details_data = array_combine($request->particular, $request->amount);
@@ -88,24 +92,24 @@ class EgmMoneyreceiptController extends Controller
 
             $moneyReceiptData['client_mobile'] = $clientContact ? $clientContact->contact : null;
             $moneyReceiptData['mr_details'] = $mr_details_data;
-            $previousMoneyReceipt= MoneyReceipt::where('hblno', $request->hblno)->latest()->first();
+            $previousMoneyReceipt= EgmMoneyreceipt::where('hblno', $request->hblno)->latest()->first();
             if($previousMoneyReceipt){
                 $moneyReceiptData['extension_no'] = $previousMoneyReceipt->extension_no + 1;
             }
 
             $moneyReceiptDetails = [];
             foreach($request->particular as $key => $v) {
-                $moneyReceiptDetails[] = new MoneyreceiptDetail(
+                $moneyReceiptDetails[] = new EgmMoneyreceiptDetail(
                     array(
                         'particular' => $request->particular[$key],
                         'amount' => $request->amount[$key],
                     )
                 );
             }
-            $data= Moneyreceipt::create($moneyReceiptData);
+            $data= EgmMoneyreceipt::create($moneyReceiptData);
             $data->MoneyreceiptDetail()->saveMany($moneyReceiptDetails);
 
-            $createdBy = Activity::with('causer')->where('subject_type', 'App\Moneyreceipt')->where(['subject_id' => $data->id, 'description' => 'created'])->first();
+            $createdBy = Activity::with('causer')->where('subject_type', 'App\EgmMoneyreceipt')->where(['subject_id' => $data->id, 'description' => 'created'])->first();
             $data['createdBy'] = $createdBy ? $createdBy->causer->name : null;
 
             $f = new \NumberFormatter( locale_get_default(), \NumberFormatter::SPELLOUT );
@@ -115,7 +119,7 @@ class EgmMoneyreceiptController extends Controller
             $contTypeCount =$data->houseBl->containers->groupBy('type')->map(function($container, $key){
                 return $container->count();
             });
-            return PDF::loadView('moneyreceipts.mrPdf',compact('data','mrid', 'contTypeCount', 'inWord', 'total'))->stream('mrPDF.pdf');
+            return PDF::loadView('egm.moneyreceipts.mrPdf',compact('data', 'contTypeCount', 'inWord', 'total'))->stream('mrPDF.pdf');
         }
         catch (QueryException $exception){
             return redirect()->back()->withInput()->withErrors($exception->getMessage());
@@ -127,21 +131,21 @@ class EgmMoneyreceiptController extends Controller
 
     }
 
-    public function edit(Moneyreceipt $moneyreceipt)
+    public function edit(EgmMoneyreceipt $egmmoneyreceipt)
     {
-        $houseblData = Housebl::where('id', $moneyreceipt->hblno)->firstOrFail();
+        $houseblData = EgmHouseBl::where('id', $egmmoneyreceipt->hblno)->firstOrFail();
         $bolreference = $houseblData->bolreference;
-        $containers = $moneyreceipt->houseBl->containers->groupBy('type')->map(function($item){
+        $containers = $egmmoneyreceipt->houseBl->containers->groupBy('type')->map(function($item){
             return count($item);
         });
         $formType = 'edit';
         $clients = Cnfagent::pluck('cnfagent');
-        $housebls = Housebl::where('moneyreceiptStatus', 0)->pluck('bolreference');
+        $housebls = EgmHouseBl::where('moneyreceiptStatus', 0)->pluck('bolreference');
         $particulars = MoneyReceiptHead::orderBy('name')->pluck('name', 'name');
-        return view('moneyreceipts.create',compact('clients','moneyreceipt','formType', 'bolreference', 'housebls', 'containers', 'particulars'));
+        return view('egm.moneyreceipts.create',compact('clients','egmmoneyreceipt','formType', 'bolreference', 'housebls', 'containers', 'particulars'));
     }
 
-    public function update(MoneyreceiptRequest $request, Moneyreceipt $moneyreceipt)
+    public function update(EgmMoneyreceiptRequest $request, EgmMoneyreceipt $egmmoneyreceipt)
     {
         try{
             $clientContact = Cnfagent::where('cnfagent', $request->client_name)->firstOrFail(['contact']);
@@ -158,27 +162,27 @@ class EgmMoneyreceiptController extends Controller
             $moneyReceiptData['pay_number'] = $request->pay_mode == "cash" ? null : $request->pay_number;
             $moneyReceiptData['mr_details'] = $mr_details_data;
 
-            $previousMoneyReceipt= MoneyReceipt::where('hblno', $request->hblno)->latest()->first();
+            $previousMoneyReceipt= EgmMoneyreceipt::where('hblno', $request->hblno)->latest()->first();
             if($previousMoneyReceipt){
                 $moneyReceiptData['extension_no'] = $previousMoneyReceipt->extension_no + 1;
             }
 
             $moneyReceiptDetails = [];
             foreach($request->particular as $key => $v) {
-                $moneyReceiptDetails[] = new MoneyreceiptDetail(
+                $moneyReceiptDetails[] = new EgmMoneyreceiptDetail(
                     array(
                         'particular' => $request->particular[$key],
                         'amount' => $request->amount[$key],
                     )
                 );
             }
-            DB::transaction(function()use($moneyreceipt, $moneyReceiptData, $request, $moneyReceiptDetails){
-                $moneyreceipt->MoneyreceiptDetail()->delete();
-                $moneyreceipt->update($moneyReceiptData);
-                $moneyreceipt->MoneyreceiptDetail()->saveMany($moneyReceiptDetails);
+            DB::transaction(function()use($egmmoneyreceipt, $moneyReceiptData, $request, $moneyReceiptDetails){
+                $egmmoneyreceipt->MoneyreceiptDetail()->delete();
+                $egmmoneyreceipt->update($moneyReceiptData);
+                $egmmoneyreceipt->MoneyreceiptDetail()->saveMany($moneyReceiptDetails);
             });
 
-            return redirect()->route('moneyreceipts.index')->with('message', 'Money Receipt Updated Successfully');
+            return redirect()->route('egmmoneyreceipts.index')->with('message', 'Money Receipt Updated Successfully');
         }
         catch (QueryException $exception){
             return redirect()->back()->withInput()->withErrors($exception->getMessage());
@@ -191,15 +195,15 @@ class EgmMoneyreceiptController extends Controller
 
     }
 
-    public function destroy(Moneyreceipt $moneyreceipt)
+    public function destroy(EgmMoneyreceipt $egmmoneyreceipt)
     {
-        $moneyreceipt->delete();
-        return redirect()->route('moneyreceipts.index')->with('message', 'Money Receipt Deleted Successfully');
+        $egmmoneyreceipt->delete();
+        return redirect()->route('egmmoneyreceipts.index')->with('message', 'Money Receipt Deleted Successfully');
     }
 
     public function getHouseBlinfo($bolreference){
-        $hblInfo = Housebl::with('masterbl')->where('bolreference', $bolreference)->firstOrFail();
-        $moneyReceipt = Moneyreceipt::where('hblno', $hblInfo->id)->latest()->first();
+        $hblInfo = EgmHouseBl::with('masterbl')->where('bolreference', $bolreference)->firstOrFail();
+        $moneyReceipt = EgmMoneyreceipt::where('hblno', $hblInfo->id)->latest()->first();
 
         if($moneyReceipt && $moneyReceipt->upto_date){
             $from_date = Carbon::parse($moneyReceipt->upto_date)->addDay()->format('d/m/Y');
@@ -233,10 +237,10 @@ class EgmMoneyreceiptController extends Controller
     }
 
     public function mrPdf($mrid){
-        $createdBy = Activity::with('causer')->where('subject_type', 'App\Moneyreceipt')->where(['subject_id' => $mrid, 'description' => 'created'])->first();
-        $updatedBy = Activity::with('causer')->where('subject_type', 'App\Moneyreceipt')->where(['subject_id' => $mrid, 'description' => 'updated'])->orderBy('updated_at', 'DESC')->first();
+        $createdBy = Activity::with('causer')->where('subject_type', 'App\EgmMoneyreceipt')->where(['subject_id' => $mrid, 'description' => 'created'])->first();
+        $updatedBy = Activity::with('causer')->where('subject_type', 'App\EgmMoneyreceipt')->where(['subject_id' => $mrid, 'description' => 'updated'])->orderBy('updated_at', 'DESC')->first();
 
-        $data = Moneyreceipt::with('MoneyreceiptDetail', 'houseBl.containers', 'houseBl.masterbl')->where('id',$mrid)->firstOrFail();
+        $data = EgmMoneyreceipt::with('MoneyreceiptDetail', 'houseBl.containers', 'houseBl.masterbl')->where('id',$mrid)->firstOrFail();
 
         $f = new \NumberFormatter( locale_get_default(), \NumberFormatter::SPELLOUT );
         $total= $data->MoneyreceiptDetail->sum('amount');
@@ -248,7 +252,7 @@ class EgmMoneyreceiptController extends Controller
         $contTypeCount =$data->houseBl->containers->groupBy('type')->map(function($container, $key){
             return $container->count();
         });
-        return PDF::loadView('moneyreceipts.mrPdf',compact('data','mrid', 'contTypeCount', 'inWord', 'total'))->stream('mrPDF.pdf');
+        return PDF::loadView('egm.moneyreceipts.mrPdf',compact('data','mrid', 'contTypeCount', 'inWord', 'total'))->stream('mrPDF.pdf');
     }
 
     public function mrreport(Request $request)
@@ -260,7 +264,7 @@ class EgmMoneyreceiptController extends Controller
 
         $reportType = $request->reportType;
 
-        $moneyReceipts = Moneyreceipt::with('MoneyreceiptDetail', 'houseBl:id,containernumber,igm,bolreference,packageno', 'houseBl.masterbl:id,mv,fvessel,principal')
+        $moneyReceipts = EgmMoneyreceipt::with('MoneyreceiptDetail', 'houseBl:id,containernumber,igm,bolreference,packageno', 'houseBl.masterbl:id,mv,fvessel,principal')
             ->when($principal, function($q)use($principal){
                 $q->whereHas('houseBl.masterbl',function($q) use ($principal){
                     if($principal=='others'){
@@ -287,9 +291,9 @@ class EgmMoneyreceiptController extends Controller
         $groupByPrincipals = $moneyReceipts->groupBy('houseBl.masterbl.principal');
 
         if($reportType == "pdf"){
-            return PDF::loadView('moneyreceipts.mrReportPdf',compact('groupByPrincipals', 'dateType', 'fromDate', 'tillDate', 'principal'))->setPaper('A4', 'landscape')->stream('mrReport.pdf');
+            return PDF::loadView('egm.moneyreceipts.mrReportPdf',compact('groupByPrincipals', 'dateType', 'fromDate', 'tillDate', 'principal'))->setPaper('A4', 'landscape')->stream('mrReport.pdf');
         }else{
-            return view('moneyreceipts.mrreport', compact('groupByPrincipals', 'dateType', 'fromDate', 'tillDate', 'principal'));
+            return view('egm.moneyreceipts.mrreport', compact('groupByPrincipals', 'dateType', 'fromDate', 'tillDate', 'principal'));
         }
 //        dd($deliveryOrders);
     }

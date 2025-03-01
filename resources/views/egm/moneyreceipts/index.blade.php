@@ -1,11 +1,11 @@
-@extends('layouts.new-layout')
+@extends('layouts.egm-layout')
 @section('title', 'List of Money Receipt')
 
 @section('breadcrumb-title', 'List of Money Receipt')
 
 @section('breadcrumb-button')
     @can('moneyreceipt-create')
-        <a target="_blank" href="{{ route('moneyreceipts.create') }}" class="btn btn-out-dashed btn-sm btn-success">
+        <a target="_blank" href="{{ route('egmmoneyreceipts.create') }}" class="btn btn-out-dashed btn-sm btn-success">
             <i class="fa fa-plus"></i>
         </a>
     @endcan
@@ -100,7 +100,7 @@
                         <td>
                             <div class="icon-btn">
                                 @can('moneyreceipt-edit')
-                                    <a href="{{ url('moneyreceipts/' . $data->id . '/edit') }}" data-toggle="tooltip"
+                                    <a href="{{ url('egmmoneyreceipts/' . $data->id . '/edit') }}" data-toggle="tooltip"
                                         title="Edit" class="btn btn-warning"><i class="fas fa-pen"></i></a>
                                 @endcan
                             </div>
@@ -108,7 +108,7 @@
                         <td>{{ $data->issue_date ? date('d-m-Y', strtotime($data->issue_date)) : null }}</td>
                         <td class="text-left">
                             <a class="link" data-toggle="tooltip" title="Click for HBL Details" target="_blank"
-                                href="{{ url('housebls/' . $data->houseBl->id) }}">{{ $data->houseBl->bolreference }}</a>
+                                href="{{ url('egmhousebls/' . $data->houseBl->id) }}">{{ $data->houseBl->bolreference }}</a>
 
                             <strong>{{ $data->extension_no ? "(Ext-$data->extension_no)" : null }}</strong>
                         </td>
@@ -158,11 +158,11 @@
                                 <nobr>
                                     {{-- <a href="" data-toggle="tooltip" title="Details" class="btn btn-primary"><i class="fas fa-eye"></i></a> --}}
                                     @can('moneyreceipt-edit')
-                                        <a href="{{ url('moneyreceipts/' . $data->id . '/edit') }}" data-toggle="tooltip"
+                                        <a href="{{ url('egmmoneyreceipts/' . $data->id . '/edit') }}" data-toggle="tooltip"
                                             title="Edit" class="btn btn-warning"><i class="fas fa-pen"></i></a>
                                     @endcan
                                     @can('moneyreceipt-delete')
-                                        <form action="{{ url('moneyreceipts', [$data->id]) }}" method="POST"
+                                        <form action="{{ url('egmmoneyreceipts', [$data->id]) }}" method="POST"
                                             data-toggle="tooltip" title="Delete" class="d-inline">
                                             @csrf
                                             @method('DELETE')
@@ -170,9 +170,9 @@
                                                     class="fas fa-trash"></i></button>
                                         </form>
                                     @endcan
-                                    <a href="{{ route('mrPdf', $data->id) }}" target="_blank" data-toggle="tooltip"
+                                    <a href="{{ route('egmmrPdf', $data->id) }}" target="_blank" data-toggle="tooltip"
                                         title="Print" class="btn btn-success"><i class="fas fa-print"></i></a>
-                                    <a href="{{ url('moneyreceipts/log/' . $data->id) }}" data-toggle="tooltip"
+                                    <a href="{{ url('egmmoneyreceipts/log/' . $data->id) }}" data-toggle="tooltip"
                                         title="Log" class="btn btn-dark"><i class="fas fa-history"></i></a>
                                 </nobr>
                             </div>
@@ -180,7 +180,7 @@
                     </tr>
                     @empty
                         <tr>
-                            <td colspan="12">
+                            <td colspan="15">
                                 <h5 class="text-muted my-3"> No Data Found Based on your query. </h5>
                             </td>
                         </tr>
@@ -221,7 +221,7 @@
             $("#bolreference").autocomplete({
                 source: function(request, response) {
                     $.ajax({
-                        url: "{{ route('loadHouseblBolreferenceAutoComplete') }}",
+                        url: "{{ route('egmLoadHouseblBolreferenceAutoComplete') }}",
                         type: 'post',
                         dataType: "json",
                         data: {
@@ -242,7 +242,7 @@
             $("#principal").autocomplete({
                 source: function(request, response) {
                     $.ajax({
-                        url: "{{ route('loadMasterPrincipalAutoComplete') }}",
+                        url: "{{ route('egmLoadMasterPrincipalAutoComplete') }}",
                         type: 'post',
                         dataType: "json",
                         data: {
@@ -263,7 +263,7 @@
             $("#client").autocomplete({
                 source: function(request, response) {
                     $.ajax({
-                        url: "{{ route('loadCnfClientNameAutoComplete') }}",
+                        url: "{{ route('egmLoadCnfClientNameAutoComplete') }}",
                         type: 'post',
                         dataType: "json",
                         data: {

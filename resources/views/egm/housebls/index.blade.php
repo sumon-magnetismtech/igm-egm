@@ -190,7 +190,7 @@
                                     @endcan
 
                                     @can('housebl-delete')
-                                    <form action="{{ url('egmhousebls', [$housebl->id]) }}" method="POST" data-toggle="tooltip" title="Delete" class="d-inline">
+                                    <form action="{{ route('egmhousebls.destroy', [$housebl->id]) }}" method="POST" data-toggle="tooltip" title="Delete" class="d-inline">
                                         @csrf
                                         @method('DELETE')
                                         <button type="submit" class="btn btn-danger btn-sm delete"><i class="fas fa-trash"></i></button>

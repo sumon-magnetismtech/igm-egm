@@ -1,4 +1,4 @@
-@extends('layouts.new-layout')
+@extends('layouts.egm-layout')
 @section('title', 'HBL Tracking')
 
 @section('breadcrumb-title', 'HBL Tracking')
@@ -13,7 +13,7 @@
 
 @section('content')
 
-    <form action="{{ route('houseblstatusPDF') }}" method="post">
+    <form action="{{ route('egmhouseblstatusPDF') }}" method="post">
         @csrf
         <div class="row px-2">
             <div class="col-md-1 px-1 my-md-0">
