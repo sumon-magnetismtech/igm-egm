@@ -1,11 +1,11 @@
-@extends('layouts.new-layout')
+@extends('layouts.egm-layout')
 @section('title', 'List of Delivery Order')
 
 @section('breadcrumb-title', 'List of Delivery Order')
 
 @section('breadcrumb-button')
-    @can('deliveryorder-create')
-    <a href="{{ route('deliveryorders.create') }}" class="btn btn-out-dashed btn-sm btn-success"><i class="fa fa-plus"></i></a>
+    @can('egmdeliveryorders-create')
+    <a href="{{ route('egmdeliveryorders.create') }}" class="btn btn-out-dashed btn-sm btn-success"><i class="fa fa-plus"></i></a>
     @endcan
 @endsection
 
@@ -78,7 +78,7 @@
                     <td>QCLOGFRD-{{$data->id}}</td>
                     <td>
                         <div class="icon-btn">
-                            <a target="_blank" href="{{ url('mrPdf/'.$data->moneyrecept_id)}}" data-toggle="tooltip" title="Money Receipt" class="btn btn-success">{{$data->moneyrecept_id}}</a>
+                            <a target="_blank" href="{{ url('egmmrPdf/'.$data->moneyrecept_id)}}" data-toggle="tooltip" title="Money Receipt" class="btn btn-success">{{$data->moneyrecept_id}}</a>
                         </div>
                     </td>
                     <td>{{$data->moneyReceipt->houseBl->bolreference}}</td>
@@ -93,16 +93,16 @@
                     <td>
                         <div class="icon-btn">
                             <nobr>
-                                @can('deliveryorder-edit')
-                                <a href="{{ route('deliveryorders.edit',$data->id) }}" data-toggle="tooltip" title="Edit" class="btn btn-warning"><i class="fas fa-pen"></i></a>
+                                @can('egmdeliveryorders-edit')
+                                <a href="{{ route('egmdeliveryorders.edit',$data->id) }}" data-toggle="tooltip" title="Edit" class="btn btn-warning"><i class="fas fa-pen"></i></a>
                                 @endcan
                                 {{--<form action="{{ url('moneyreceipts', [$data->id]) }}" method="POST" data-toggle="tooltip" title="Delete" class="d-inline">--}}
                                 {{--@csrf--}}
                                 {{--@method('DELETE')--}}
                                 {{--<button type="submit" class="btn btn-danger btn-sm delete"><i class="fas fa-trash"></i></button>--}}
                                 {{--</form>--}}
-                                <a href="{{ route('doPdf',$data->id) }}" target="_blank" data-toggle="tooltip" title="Print" class="btn btn-success"><i class="fas fa-print"></i></a>
-                                <a href="{{ url("deliverorders/log/$data->id")}}" data-toggle="tooltip" title="Log" class="btn btn-dark"><i class="fas fa-history"></i></a>
+                                <a href="{{ route('egmdoPdf',$data->id) }}" target="_blank" data-toggle="tooltip" title="Print" class="btn btn-success"><i class="fas fa-print"></i></a>
+                                <a href="{{ url("egmdeliveryorders/log/$data->id")}}" data-toggle="tooltip" title="Log" class="btn btn-dark"><i class="fas fa-history"></i></a>
                             </nobr>
                         </div>
                     </td>
@@ -133,7 +133,7 @@
             $( "#bolreference" ).autocomplete({
                 source: function( request, response ) {
                     $.ajax({
-                        url:"{{route('loadHouseblBolreferenceAutoComplete')}}",
+                        url:"{{route('egmLoadHouseblBolreferenceAutoComplete')}}",
                         type: 'post',
                         dataType: "json",
                         data: {

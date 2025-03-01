@@ -26,7 +26,7 @@ class EgmDeliveryorderRequest extends FormRequest
     {
         $moneyReceipt = Request::instance()->moneyrecept_id;
         return [
-            'moneyrecept_id' => 'required|unique:deliveryorders,moneyrecept_id,'.$moneyReceipt,
+            'moneyrecept_id' => 'required|unique:egm_deliveryorders,moneyrecept_id,'.$moneyReceipt,
             'BE_Date' => 'date_format:d/m/Y',
             'issue_date' => 'date_format:d/m/Y',
             'upto_date' => 'nullable|date_format:d/m/Y',

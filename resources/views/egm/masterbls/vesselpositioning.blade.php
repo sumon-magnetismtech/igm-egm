@@ -146,7 +146,7 @@
             let igm= $(this).closest('tr').find('.igm').val();
             $.ajax({
                 type: 'post',
-                url: '{{url("updateMasterRotBerthing")}}',
+                url: '{{url("egmupdateMasterRotBerthing")}}',
                 data: {
                         rotno:rotno,
                         berthing:berthing,
@@ -175,7 +175,7 @@
             $( "#mblno" ).autocomplete({
                 source: function( request, response ) {
                     $.ajax({
-                        url:"{{route('loadHouseblMblNoAutoComplete')}}",
+                        url:"{{route('egmLoadHouseblMblNoAutoComplete')}}",
                         type: 'post',
                         dataType: "json",
                         data: {
@@ -197,7 +197,7 @@
             $( "#motherVessel" ).autocomplete({
                 source: function( request, response ) {
                     $.ajax({
-                        url:"{{route('loadHouseblMotherVesselAutoComplete')}}",
+                        url:"{{route('egmLoadHouseblMotherVesselAutoComplete')}}",
                         type: 'post',
                         dataType: "json",
                         data: {
@@ -221,7 +221,7 @@
             $( "#vesselname" ).autocomplete({
                 source: function( request, response ) {
                     $.ajax({
-                        url:"{{route('loadHouseblFeederVesselAutoComplete')}}",
+                        url:"{{route('egmLoadHouseblFeederVesselAutoComplete')}}",
                         type: 'post',
                         dataType: "json",
                         data: {
@@ -260,7 +260,7 @@
             $( "#principal").autocomplete({
                 source: function( request, response ) {
                     $.ajax({
-                        url:"{{route('loadMasterPrincipalAutoComplete')}}",
+                        url:"{{route('egmLoadMasterPrincipalAutoComplete')}}",
                         type: 'post',
                         dataType: "json",
                         data: {

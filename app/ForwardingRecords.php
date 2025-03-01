@@ -12,4 +12,9 @@ class ForwardingRecords extends Model
     {
         return $this->belongsTo(Masterbl::class, 'mblno', 'mblno');
     }
+
+    public function egmmasterbl()
+    {
+        return $this->belongsTo(EgmMasterBl::class, 'mblno', 'mblno');
+    }
 }

@@ -1,4 +1,4 @@
-@extends('layouts.new-layout')
+@extends('layouts.egm-layout')
 @section('title', 'E-Delivery Request List')
 
 @section('breadcrumb-title', 'List of E-Delivery Request')

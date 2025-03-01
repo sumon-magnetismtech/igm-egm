@@ -605,22 +605,21 @@ class EgmHouseBlController extends Controller
     public function searchFrdLetter()
     {
         $clients = Cnfagent::pluck('cnfagent');
-
-        return view('housebls.reports', compact('clients'));
+        return view('egm.housebls.reports', compact('clients'));
     }
 
     public function extensionLetter()
     {
         $clients = Cnfagent::pluck('cnfagent');
 
-        return view('housebls.reports', compact('clients'));
+        return view('egm.housebls.reports', compact('clients'));
     }
 
     public function onChassisLetter()
     {
         $clients = Cnfagent::pluck('cnfagent');
 
-        return view('housebls.reports', compact('clients'));
+        return view('egm.housebls.reports', compact('clients'));
     }
 
     /**
@@ -628,22 +627,22 @@ class EgmHouseBlController extends Controller
      */
     public function frdLetter(Request $request)
     {
-        //    dd($request->all());
+         //  dd($request->all());
         $letterType         = 'forwarding';
         $frdData            = $request->except('withPad');
         $frdData['user_id'] = auth()->id();
         $masterBlData       = $request->only('mloLineNo', 'mloCommodity', 'contMode');
         $withPad            = $request->withPad;
 
-        Masterbl::where('mblno', $request->mblno)->update($masterBlData);
-        $masterBl = Masterbl::where('mblno', $request->mblno)->with('housebls.containers')->firstOrFail();
+        EgmMasterBl::where('mblno', $request->mblno)->update($masterBlData);
+        $masterBl = EgmMasterBl::where('mblno', $request->mblno)->with('housebls.containers')->firstOrFail();
         if (!empty($masterBl))
         {
             $houseBl    = EgmHouseBl::where('igm', $masterBl->id)->pluck('id');
             $containers = EgmHouseBlContainers::whereIn('housebl_id', $houseBl)->get();
             ForwardingRecords::create($frdData);
 
-            return \Barryvdh\DomPDF\Facade::loadView('housebls.frdLetter', compact('masterBl', 'containers', 'frdData', 'letterType', 'withPad'))->stream('frdLetter.pdf');
+            return \Barryvdh\DomPDF\Facade::loadView('egm.housebls.frdLetter', compact('masterBl', 'containers', 'frdData', 'letterType', 'withPad'))->stream('frdLetter.pdf');
         }
         else
         {
@@ -686,7 +685,7 @@ class EgmHouseBlController extends Controller
 
         ForwardingRecords::create($frdRecordData);
 
-        return \Barryvdh\DomPDF\Facade::loadView('housebls.frdLetter', compact('masterBl', 'containers', 'frdData', 'letterType', 'withPad'))->stream('frdLetter.pdf');
+        return \Barryvdh\DomPDF\Facade::loadView('egm.housebls.frdLetter', compact('masterBl', 'containers', 'frdData', 'letterType', 'withPad'))->stream('frdLetter.pdf');
     }
 
     /**
@@ -970,10 +969,10 @@ class EgmHouseBlController extends Controller
     {
         $mblno = \request()->mblno;
 
-        $masterbls = ForwardingRecords::with('masterbl')->where('mblno', 'LIKE', "%$mblno%")->where('type', 'e-frd')->latest()->paginate();
+        $masterbls = ForwardingRecords::with('egmmasterbl')->where('mblno', 'LIKE', "%$mblno%")->where('type', 'e-frd')->latest()->paginate();
 //        dd($masterbls);
 
-        return view('housebls.mailList', compact('masterbls', 'mblno'));
+        return view('egm.housebls.mailList', compact('masterbls', 'mblno'));
     }
 
 }
