@@ -358,13 +358,14 @@ class EgmMLOReportController extends Controller
     public function inboundPerformanceReport(Request $request)
     {
 
+
         $dateType = $request->dateType;
         $fromDate = $request->fromDate ? Carbon::createFromFormat('d/m/Y', $request->fromDate)->startOfDay() : null;
         $tillDate = $request->tillDate ? Carbon::createFromFormat('d/m/Y', $request->tillDate)->endOfDay() : null;
 
         $reportType = $request->reportType;
 
-        $mloblinformations = EgmMloblinformation::with('principal', 'mlofeederInformation:id,feederVessel,voyageNumber,rotationNo,berthingDate', 'blcontainers:id,mloblinformation_id,contref,type', 'blcontainers.containerGroup')
+        $mloblinformations = EgmMloblinformation::with('principal', 'mlofeederInformation:id,feederVessel,voyageNumber,rotationNo,berthingDate', 'blcontainers:id,egm_mloblinformation_id,contref,type', 'blcontainers.containerGroup')
             ->when($dateType === 'weekly', function ($q) {
                 $q->whereHas('mlofeederInformation', function ($q) {
                     $q->whereBetween('berthingDate', [now()->subDays(7), now()]);
@@ -387,11 +388,14 @@ class EgmMLOReportController extends Controller
             })
             ->get(['id', 'feederinformations_id', 'PUloding', 'principal_id', 'bolreference']);
 
+
+            // dd( $mloblinformations);
+
         //Grouping All Blinformations by Unloading Port
         $unloadingLocations = $mloblinformations->groupBy('PUloding');
 
         $locationWiseContTypesWithCount = $unloadingLocations->map(function ($blinformations) {
-            $container = EgmMloBlcontainer::with('containerGroup:isocode,group')->whereIn('mloblinformation_id', $blinformations->pluck('id'))->get(['type']);
+            $container = EgmMloBlcontainer::with('containerGroup:isocode,group')->whereIn('egm_mloblinformation_id', $blinformations->pluck('id'))->get(['type']);
             return $data = $container->groupBy('containerGroup.group')->map(function ($item) {
                 return collect($item)->count();
             });
