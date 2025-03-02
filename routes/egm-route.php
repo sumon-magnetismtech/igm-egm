@@ -30,11 +30,13 @@ Route::group(['middleware' => ['auth', 'preventBackHistory']], function () {
     Route::get('hblPdf/{hblid}', 'EgmHouseBlController@hblPdf')->name('hblPdf');
     Route::get('egm-searchFrdLetter', 'EgmHouseBlController@searchFrdLetter')->name('egmsearchFrdLetter');
     Route::get('egm-extensionLetter', 'EgmHouseBlController@extensionLetter')->name('egmextensionLetter');
+    Route::get('egmeDeliverySearch', function(){return view('egm.housebls.reports');})->name('egmeDeliverySearch');
+    Route::get('egmeDeliveryData/', 'EgmHouseBlController@eDeliveryData')->name('egmeDeliveryData');
     Route::get('egmmailList', 'EgmHouseBlController@mailList')->name('egmmailList');
     Route::post('egmextensionLetterData', 'EgmHouseBlController@extensionLetterData')->name('egmextensionLetterData');
 
-    Route::get('onChassisLetter', 'EgmHouseBlController@onChassisLetter')->name('onChassisLetter');
-    Route::post('onChassisLetterData', 'EgmHouseBlController@onChassisLetterData')->name('onChassisLetterData');
+    Route::get('egmonChassisLetter', 'EgmHouseBlController@onChassisLetter')->name('egmonChassisLetter');
+    Route::post('egmonChassisLetterData', 'EgmHouseBlController@onChassisLetterData')->name('egmonChassisLetterData');
 
 
     Route::get('submitsearchigmforpdf', 'EgmHouseBlController@searchresultforigmpdf')->name('submitsearchigmforpdf');
@@ -74,7 +76,7 @@ Route::group(['middleware' => ['auth', 'preventBackHistory']], function () {
     Route::get('/egmloadHouseblVoyage/{vesselname}', 'JsonDataController@egmLoadHouseblVoyage')->name('egmLoadHouseblVoyage');
 
 
-    Route::get('containerExtension/{mlono}', 'JsonDataController@egmContainerExtension')->name('egmContainerExtension');
+    Route::get('egmContainerExtension/{mlono}', 'JsonDataController@egmContainerExtension')->name('egmContainerExtension');
     Route::get('egmcontainerExtensionByBolRef/{bolref?}', 'JsonDataController@egmContainerExtensionByBolRef');
     Route::get('/loadExporterInfo/{name}', 'JsonDataController@egmLoadExporterAddress');
 

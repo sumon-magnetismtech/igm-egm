@@ -1,4 +1,4 @@
-@extends('layouts.layout')
+@extends('layouts.egm-layout')
 @section('title','E Delivery Data')
 @section('content')
 <div class="container-fluid">

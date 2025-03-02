@@ -477,8 +477,12 @@ class JsonDataController extends Controller
     }
     public function egmContainerExtension($mblno)
     {
-        $houseBl = EgmHouseBl::where('mblno', 'LIKE', $mblno)->pluck('id');
+        $houseBl = EgmHouseBl::whereHas('masterbl', function ($query) use ($mblno) {
+            $query->where('mblno', 'LIKE', $mblno);
+        })->pluck('id');
+
         $containers = EgmHouseBlContainers::whereIn('housebl_id', $houseBl)->get(['id', 'contref']);
+
         return $containers;
     }
 
