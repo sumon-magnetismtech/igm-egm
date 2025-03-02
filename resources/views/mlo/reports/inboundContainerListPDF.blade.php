@@ -223,7 +223,7 @@
         </div> <!-- tableArea -->
         <div id="seal overFlow">
             <div class="pullRight textCenter">
-                <h4 class="textUpper"> For Magnetism Tech Ltd Limited </h4>
+                <h4 class="textUpper"> For MAGNETISM TECH LTD </h4>
                 <br><br><br>
                 <p><strong>AS Agents </strong></p>
             </div>

@@ -161,7 +161,7 @@
                 <img src="{{ asset('img/logo.jpeg') }}" alt="Logo">
             </div>
             <div id="brand" style="margin-top: -80px" class="textCenter">
-                <h1 id="companyName"> Magnetism Tech Ltd Limited </h1>
+                <h1 id="companyName"> MAGNETISM TECH LTD </h1>
                 <p><small> C&F Tower, 4th Floor, 1222 Sk. Mujib Road, Agrabad, Chittagong. Tel : +880-31-2515926-7,
                         721659.</small></p>
             </div>
@@ -185,7 +185,8 @@
                 <p>We are pleased to inform you that above feeder vessel is scheduled to arrive at
                     <strong>{{ $hblInfo->puname }}</strong>
                     on or about <b> {{ date('d-m-yy'), strtotime($hblInfo->arrival) }}</b> with the under noted cargo on
-                    your account. </p>
+                    your account.
+                </p>
             </div>
         </div> <!-- end contentArea -->
 
@@ -278,7 +279,7 @@
             </p>
             <p>Truly Yours,</p><br><br><br>
             <p> As Agents</p>
-            <p> For: <strong>Magnetism Tech Ltd Limited.</strong></p>
+            <p> For: <strong>MAGNETISM TECH LTD.</strong></p>
         </div> <br> <!-- end contentArea -->
         <div class="page_break"></div>
     @endforeach

@@ -144,7 +144,7 @@
 
     <header>
         <div id="company">
-            <h1> Magnetism Tech Ltd Limited</h1>
+            <h1> MAGNETISM TECH LTD</h1>
             <p><strong>Chittagong Office : </strong> C & F Tower (4th Floor), 1222, Sk. Mujib Road, Agrabad, Chittagong,
                 Bangladesh. </p>
             <p><strong>Dhaka Office : </strong>Sanmar Tower (7th Floor), Plot No # 38/A, Road # 35, Gulshan-2,
@@ -211,7 +211,8 @@
                 <td class="">
                     <p class="my-5"> HBL: <strong>{{ $data->houseBl->bolreference }}</strong> </p>
                     <p class="my-5"> Vessel: <strong>{{ $data->houseBl->masterbl->fvessel }} </strong> V.
-                        <strong>{{ $data->houseBl->masterbl->voyage }}</strong></p>
+                        <strong>{{ $data->houseBl->masterbl->voyage }}</strong>
+                    </p>
                     <p class="my-5">IMP. REG. No: <strong>{{ $data->houseBl->masterbl->rotno }}</strong></p>
                     <p class="my-5"> Quantity: <strong>{{ $data->quantity }}
                             {{ $data->houseBl->packagetype }}</strong> </p>
@@ -266,7 +267,7 @@
     <div id="footerTop">
         <div id="seal">
             <div class="pullRight textCenter">
-                <h4> For: Magnetism Tech Ltd Limited </h4>
+                <h4> For: MAGNETISM TECH LTD </h4>
                 <br>
                 <p>AS Agents</p>
             </div>

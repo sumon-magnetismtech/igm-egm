@@ -109,7 +109,7 @@
 <body>
 
     <header>
-        <h6 style="text-align: center" id="companyName"> Magnetism Tech Ltd Limited (DO Report) </h6>
+        <h6 style="text-align: center" id="companyName"> MAGNETISM TECH LTD (DO Report) </h6>
     </header>
     <footer>
         <p>

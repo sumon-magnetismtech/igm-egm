@@ -50,7 +50,7 @@ Route::group(['middleware' => ['auth', 'preventBackHistory']], function () {
 
 
 
-    Route::get('egmMloDoPDF/{id}', 'EgmMloDeliveryorderController@mloDoPDF')->name('mloDoPDF');
+    Route::get('egmMloDoPDF/{id}', 'EgmMloDeliveryorderController@mloDoPDF')->name('egmMloDoPDF');
     Route::get('egmMloDoReport', 'EgmMloDeliveryorderController@mloDoReport')->name('egmMloDoReport');
 
 
@@ -67,7 +67,7 @@ Route::group(['middleware' => ['auth', 'preventBackHistory']], function () {
     Route::get('egmMlofeederinformations/{feeder_id}/arrivalNoticePDF', 'EgmMLOReportController@arrivalNoticePDF')->name('arrivalNoticePDF');
 
     Route::get('egmMloinboundPerformanceReport/', 'EgmMLOReportController@inboundPerformanceReport')->name('egmMloinboundPerformanceReport');
-    Route::get('mloMoneyReceiptPdf/{mrid}', 'MLO\MoneyReceiptController@mloMoneyReceiptPdf')->name('mloMoneyReceiptPdf');
+    Route::get('egmMloMoneyReceiptPdf/{mrid}', 'EgmMloMoneyReceiptController@mloMoneyReceiptPdf')->name('egmMloMoneyReceiptPdf');
     Route::get('getRotationNoReport/{vesselName}', 'MLO\MLOReportController@getRotationNoReport')->name('getRotationNoReport');
     Route::get('egmMloladenReport', 'EgmMLOReportController@ladenReport')->name('egmMloladenReport');
 

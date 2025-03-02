@@ -220,7 +220,7 @@ class EgmMloMoneyReceiptController extends Controller
         $moneyReceipt['createdBy'] = $createdAt ? $createdAt->causer->name : null;
         $moneyReceipt['updatedBy'] = $updatedAt ? $updatedAt->causer->name : null;
 
-        return PDF::loadView('mlo/moneyreceipts.mloMoneyReceiptPdf', compact('moneyReceipt', 'contTypeCount'))
+        return PDF::loadView('egm.mlo/moneyreceipts.mloMoneyReceiptPdf', compact('moneyReceipt', 'contTypeCount'))
             ->stream('mloMoneyReceiptPdf.pdf');
     }
 

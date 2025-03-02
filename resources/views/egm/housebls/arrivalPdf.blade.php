@@ -140,7 +140,7 @@
             <img src="{{ public_path('img/logo.jpeg') }}" alt="Logo">
         </div>
         <div id="brand" class="textCenter">
-            <h1 id="companyName"> Magnetism Tech Ltd Limited </h1>
+            <h1 id="companyName"> MAGNETISM TECH LTD </h1>
             <p><small> C&F Tower, 4th Floor, 1222 Sk. Mujib Road, Agrabad, Chittagong. Tel : +880-31-2515926-7,
                     721659.</small></p>
         </div>
@@ -266,7 +266,7 @@
         </p>
         <p>Truly Yours,</p><br><br>
         <p> As Agents</p>
-        <p> For: <strong>Magnetism Tech Ltd Limited.</strong></p>
+        <p> For: <strong>MAGNETISM TECH LTD.</strong></p>
     </div> <!-- end contentArea -->
 </body>
 

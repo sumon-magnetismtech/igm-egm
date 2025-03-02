@@ -171,7 +171,7 @@
                                 <td rowspan="{{ $totalContainer }}">
                                     @if ($mlobl->mloMoneyReceipt)
                                         <a target="_blank" class="btn btn-sm bg-success p-2 m-2"
-                                            href="{{ route('mloMoneyReceiptPdf', $mlobl->mloMoneyReceipt->id) }}">MR-{{ $mlobl->mloMoneyReceipt->id }}</a>
+                                            href="{{ route('egmMloMoneyReceiptPdf', $mlobl->mloMoneyReceipt->id) }}">MR-{{ $mlobl->mloMoneyReceipt->id }}</a>
                                         <br>
                                         <strong>{{ $mlobl->mloMoneyReceipt->issueDate ? date('d/m/Y', strtotime($mlobl->mloMoneyReceipt->issueDate)) : null }}</strong>
                                     @endif
@@ -180,7 +180,7 @@
                                     @if ($mlobl->mloMoneyReceipt)
                                         @if ($mlobl->mloMoneyReceipt->deliveryOrder && $mlobl->mloMoneyReceipt->deliveryOrder->id)
                                             <a target="_blank" class="btn btn-sm bg-success p-2 m-2"
-                                                href="{{ route('mloDoPDF', $mlobl->mloMoneyReceipt->deliveryOrder->id) }}">DO-{{ $mlobl->mloMoneyReceipt->deliveryOrder->id }}</a>
+                                                href="{{ route('egmMloDoPDF', $mlobl->mloMoneyReceipt->deliveryOrder->id) }}">DO-{{ $mlobl->mloMoneyReceipt->deliveryOrder->id }}</a>
                                             <br>
                                             <strong>{{ $mlobl->mloMoneyReceipt->deliveryOrder->DO_Date ? date('d/m/Y', strtotime($mlobl->mloMoneyReceipt->deliveryOrder->DO_Date)) : null }}</strong>
                                         @endif

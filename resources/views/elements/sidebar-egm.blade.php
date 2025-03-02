@@ -295,7 +295,8 @@
                                 <span class="pcoded-mcaret"></span>
                             </a>
                         </li>
-                        <li class="{{ request()->routeIs(['egmhouseblstatus', 'egmhouseblstatusPDF']) ? 'active' : null }}">
+                        <li
+                            class="{{ request()->routeIs(['egmhouseblstatus', 'egmhouseblstatusPDF']) ? 'active' : null }}">
                             <a href="{{ route('egmhouseblstatus') }}">
                                 <span class="pcoded-micon"><i class="ti-angle-right"></i></span>
                                 <span class="pcoded-mtext">House BL Tracking</span>

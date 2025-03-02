@@ -35,7 +35,7 @@
     <p class="first-p"><strong style="color: #8f4800">Vessel: </strong>{{ $houseblquery->vesselname }} <strong
             style="color: #8f4800">Voyage: </strong>{{ $houseblquery->voyage }} <strong style="color: #8f4800">Rotation:
         </strong> {{ $houseblquery->rotation }} <span><strong style="color: #8f4800">AIN: </strong> 301043125</span> -
-        Magnetism Tech Ltd LIMITED - C&F TOWER, 4TH FLOOR, AGRABAD, CHITTAGONG</p>
+        MAGNETISM TECH LTD - C&F TOWER, 4TH FLOOR, AGRABAD, CHITTAGONG</p>
     <table>
         <thead>
             <tr>
