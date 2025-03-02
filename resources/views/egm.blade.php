@@ -25,7 +25,8 @@
                                                     class="f-right">{{ $masterblCurrentMonth }}</span></p>
                                         </div>
                                         @can('masterbl-create')
-                                            <a href="{{ route('egmmasterbls.create') }}" class="btn btn-dark btn-sm btn-block">
+                                            <a href="{{ route('egmmasterbls.create') }}"
+                                                class="btn btn-dark btn-sm btn-block">
                                                 Add Master BL</a>
                                         @endcan
                                     </div>
@@ -40,7 +41,8 @@
                                                     class="f-right">{{ $houseblCurrentMonth }}</span></p>
                                         </div>
                                         @can('housebl-create')
-                                            <a href="{{ route('egmhousebls.create') }}" class="btn btn-dark btn-sm btn-block">
+                                            <a href="{{ route('egmhousebls.create') }}"
+                                                class="btn btn-dark btn-sm btn-block">
                                                 Add House BL</a>
                                         @endcan
                                     </div>

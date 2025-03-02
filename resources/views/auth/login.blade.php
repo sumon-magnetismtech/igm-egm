@@ -2,7 +2,7 @@
 <html lang="en">
 
 <head>
-    <title>Magnetism Tech Ltd </title>
+    <title> Magnetism Tech Ltd </title>
     <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
     <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
     <![endif]-->
@@ -35,7 +35,7 @@
                     <form class="md-float-material" method="POST" action="{{ route('login') }}">
                         @csrf
                         <div class="text-center d-none d-lg-block">
-                            <h2 style="color: white">Magnetism Tech Ltd Ltd.</h2>
+                            <h2 style="color: white"> Magnetism Tech Ltd Ltd.</h2>
                             {{--                            <img src="../files/assets/images/logo.png" alt="logo.png"> --}}
                         </div>
                         <div class="auth-box">

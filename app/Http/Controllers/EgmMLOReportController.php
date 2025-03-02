@@ -170,7 +170,7 @@ class EgmMLOReportController extends Controller
         $xml->startElement('Transport_information');
         $xml->startElement('Carrier');
         $xml->writeElement('Carrier_code', $feederInfo->careerName);
-        $xml->writeElement('Carrier_name', 'Magnetism Tech Ltd');
+        $xml->writeElement('Carrier_name', ' Magnetism Tech Ltd');
         $xml->writeElement('Carrier_address', $feederInfo->careerAddress);
         $xml->endElement();
 
@@ -222,7 +222,7 @@ class EgmMLOReportController extends Controller
             $xml->startElement('Traders_segment');
             $xml->startElement('Carrier');
             $xml->writeElement('Carrier_code', $feederInfo->careerName);
-            $xml->writeElement('Carrier_name', 'Magnetism Tech Ltd');
+            $xml->writeElement('Carrier_name', ' Magnetism Tech Ltd');
             $xml->writeElement('Carrier_address', $feederInfo->careerAddress);
             $xml->endElement();
 
@@ -389,7 +389,7 @@ class EgmMLOReportController extends Controller
             ->get(['id', 'feederinformations_id', 'PUloding', 'principal_id', 'bolreference']);
 
 
-            // dd( $mloblinformations);
+        // dd( $mloblinformations);
 
         //Grouping All Blinformations by Unloading Port
         $unloadingLocations = $mloblinformations->groupBy('PUloding');

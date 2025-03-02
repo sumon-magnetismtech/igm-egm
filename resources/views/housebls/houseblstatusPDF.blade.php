@@ -107,12 +107,12 @@
 <body>
 
     <header>
-        <h6 class="float-left pl-5" id="companyName"> MAGNETISM TECH LTD </h6>
+        <h6 class="float-left pl-5" id="companyName"> Magnetism Tech Ltd </h6>
     </header>
     <footer>
         <p>
             <span style="margin-left: 130px"> Print Time: {{ date('d-M-y H:i:s a', strtotime(now())) }}</span>
-            <span style="margin-left: 70px"> Software Developed By <strong>Magnetism Tech Ltd</strong>, Cell: +88 01717
+            <span style="margin-left: 70px"> Software Developed By <strong> Magnetism Tech Ltd</strong>, Cell: +88 01717
                 103 605 </span>
         </p>
     </footer>

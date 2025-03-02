@@ -193,7 +193,7 @@
     <header>
         <div class="{{ $withPad ? 'd-block' : 'd-none' }}">
             <div id="company">
-                <h1> MAGNETISM TECH LTD</h1>
+                <h1> Magnetism Tech Ltd</h1>
             </div>
 
             <div id="companyContact">
@@ -302,7 +302,7 @@
 
         <p> Thankfully Yours,</p><br><br><br>
         <p> As Agents </p>
-        <p> For: <strong>MAGNETISM TECH LTD.</strong></p>
+        <p> For: <strong> Magnetism Tech Ltd.</strong></p>
     </div> <!-- end contentArea -->
 
     {{-- <div class="page-break"></div> --}}

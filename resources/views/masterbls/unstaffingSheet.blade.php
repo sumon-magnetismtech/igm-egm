@@ -175,7 +175,7 @@
                 <img src="{{ public_path('img/logo.jpeg') }}" alt="Logo">
             </div>
             <div id="brand" style="margin-top: -80px" class="textCenter">
-                <h1 id="companyName"> MAGNETISM TECH LTD </h1>
+                <h1 id="companyName"> Magnetism Tech Ltd </h1>
                 <p><small> C&F Tower, 4th Floor, 1222 Sk. Mujib Road, Agrabad, Chittagong. Tel : +880-31-2515926-7,
                         721659.</small></p>
             </div>
@@ -192,7 +192,7 @@
         {{-- <p> --}}
         {{-- <strong> IGM No. {{$masterbl->id}} </strong> --}}
         {{-- <span style="margin-left: 130px"> Print Time: {{date('d-M-y H:i:s a', strtotime(now()))}}</span> --}}
-        {{-- <span style="margin-left: 70px"> Software Developed By <strong>Magnetism Tech Ltd</strong>, Cell: +88 01717 103 605 </span> --}}
+        {{-- <span style="margin-left: 70px"> Software Developed By <strong> Magnetism Tech Ltd</strong>, Cell: +88 01717 103 605 </span> --}}
         {{-- </p> --}}
         {{-- </footer> --}}
 

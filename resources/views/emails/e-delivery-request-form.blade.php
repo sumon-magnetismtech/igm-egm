@@ -1,4 +1,4 @@
-@component('mail::message', ['header_url' => '', 'header_title' => 'MAGNETISM TECH LTD.'])
+@component('mail::message', ['header_url' => '', 'header_title' => ' Magnetism Tech Ltd.'])
     To
     {{ $masterbl->name }} <br>
     {{ $masterbl->mloaddress }}
@@ -38,11 +38,11 @@
     </p>
 
     <p>
-        Full Name: <strong>MAGNETISM TECH LTD (Mohammad Yeakub)</strong> <br>
+        Full Name: <strong> Magnetism Tech Ltd (Mohammad Yeakub)</strong> <br>
         Full Address : C & F Tower (4th Floor), 1222, <br>
         SK Mujib Road, Agrabad, Chittagong. <br>
         Tel No: 25155926-7, 720415, 2510220 <br>
-        For: MAGNETISM TECH LTD <br>
+        For: Magnetism Tech Ltd <br>
         Customs License Number : 0083/2008 <br>
         AIN Number : 301080083 <br>
     </p>
@@ -51,6 +51,6 @@
 {{-- Footer --}}
 @slot('footer')
     @component('mail::footer')
-        © {{ date('Y') }} MAGNETISM TECH LTD. All rights reserved.
+        © {{ date('Y') }} Magnetism Tech Ltd. All rights reserved.
     @endcomponent
 @endslot

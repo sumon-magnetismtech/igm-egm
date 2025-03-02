@@ -2,7 +2,7 @@
 <html lang="en">
 
 <head>
-    <title>Magnetism Tech Ltd</title>
+    <title> Magnetism Tech Ltd</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0, minimal-ui">
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
@@ -23,7 +23,8 @@
             font-weight: bold;
             font-size: 20px;
             background: #e0f2e9;
-            border-radius: 50px; /* Fully rounded corners */
+            border-radius: 50px;
+            /* Fully rounded corners */
             border: none;
             position: relative;
             overflow: hidden;
@@ -54,8 +55,10 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            min-height: 100vh; /* Makes sure the section takes full screen height */
-            padding: 20px; /* Prevents touching screen edges */
+            min-height: 100vh;
+            /* Makes sure the section takes full screen height */
+            padding: 20px;
+            /* Prevents touching screen edges */
         }
 
 
