@@ -122,7 +122,7 @@
 
 <body>
     <header>
-        <h6 id="companyName" class=""> Magnetism Tech Ltd Limited </h6>
+        <h6 id="companyName" class=""> MAGNETISM TECH LTD </h6>
         <p class=""> <small>AIN: 301080083; <span style="margin-left: 5px">LICENSE NO: 0083/2008</span></small> </p>
         <p class=""> <small>CNF TOWER 4TH FLOOR, AGRABAD C/A, CHITTAGONG, BANGLADESH.</small> </p>
 

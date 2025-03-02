@@ -154,7 +154,7 @@
                 <img src="{{ public_path('img/logo.jpeg') }}" alt="Logo">
             </div>
             <div id="brand" style="margin-top: -80px" class="textCenter">
-                <h1 id="companyName"> Magnetism Tech Ltd Limited </h1>
+                <h1 id="companyName"> MAGNETISM TECH LTD </h1>
                 <p><small> C&F Tower, 4th Floor, 1222 Sk. Mujib Road, Agrabad, Chittagong. Tel : +880-31-2515926-7,
                         721659.</small></p>
             </div>
@@ -179,7 +179,8 @@
                     <strong>{{ $housebl->masterbl->puname }}</strong>
                     on or about <b>
                         {{ $housebl->masterbl->arrival ? date('d-m-Y', strtotime($housebl->masterbl->arrival)) : '---' }}
-                    </b> with the under noted cargo on your account. </p>
+                    </b> with the under noted cargo on your account.
+                </p>
             </div>
         </div> <!-- end contentArea -->
 
@@ -277,7 +278,7 @@
             </p>
             <p>Truly Yours,</p><br><br>
             <p> As Agents</p>
-            <p> For: <strong>Magnetism Tech Ltd Limited.</strong></p>
+            <p> For: <strong>MAGNETISM TECH LTD.</strong></p>
         </div> <br> <!-- end contentArea -->
         {{--    @if (!$loop->last) --}}
         <div class="page_break"></div>
@@ -287,7 +288,7 @@
     @if ($housebls->isNotEmpty())
         <div id="ArrivalSummary">
             <div id="brand" class="textCenter">
-                <h1 id="companyName" style="line-height: 25px"> Magnetism Tech Ltd Limited </h1>
+                <h1 id="companyName" style="line-height: 25px"> MAGNETISM TECH LTD </h1>
                 <p><small> C&F Tower, 4th Floor, 1222 Sk. Mujib Road, Agrabad, Chittagong. Tel : +880-31-2515926-7,
                         721659.</small></p>
                 <h2 style="border: 1px solid; padding: 5px; border-radius: 5px; width: 300px; margin: 10px auto"> LIST

@@ -111,8 +111,8 @@
         <div class="col-xl-5 col-lg-6 col-md-6">
             <div class="input-group input-group-sm ">
                 <span class="input-group-addon"> Carrier Name <span class="text-danger">*</span></span>
-                <input type="text" id="carrier" name="carrier" class="form-control"
-                    value="Magnetism Tech Ltd Limited" placeholder="Magnetism Tech Ltd Limited" disabled>
+                <input type="text" id="carrier" name="carrier" class="form-control" value="MAGNETISM TECH LTD"
+                    placeholder="MAGNETISM TECH LTD" disabled>
                 <input type="hidden" name="carrier" value="301080083">
             </div>
         </div>

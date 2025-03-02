@@ -107,7 +107,7 @@
 <body>
 
     <header>
-        <h6 class="float-left pl-5" id="companyName"> Magnetism Tech Ltd Limited </h6>
+        <h6 class="float-left pl-5" id="companyName"> MAGNETISM TECH LTD </h6>
     </header>
     <footer>
         <p>

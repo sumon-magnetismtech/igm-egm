@@ -207,7 +207,7 @@
             Thanking you,<br><br>
             Yours faithfully,
             <br>
-            For Magnetism Tech Ltd Limited.<br><br><br><br>
+            For MAGNETISM TECH LTD.<br><br><br><br>
             (Mohammad Yeakub)
         </p>
         <br>

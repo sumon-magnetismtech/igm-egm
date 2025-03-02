@@ -158,7 +158,7 @@
             <img src="{{ public_path('img/logo.jpeg') }}" alt="Logo">
         </div>
         <div id="brand" class="textCenter">
-            <h1 id="companyName"> Magnetism Tech Ltd Limited </h1>
+            <h1 id="companyName"> MAGNETISM TECH LTD </h1>
             <p><small> C&F Tower, 4th Floor, 1222 Sk. Mujib Road, Agrabad, Chittagong. Tel : +88 02333315926-7.</small>
             </p>
         </div>
@@ -184,7 +184,8 @@
                 <br><br><br><br> <br><br>
                 <p> D/O No. <strong>QCLOGFRD-{{ $moneyReceipt->deliveryOrder->id }}</strong> </p>
                 <p> ISSUE DATE.
-                    <strong>{{ date('d-M-Y', strtotime($moneyReceipt->deliveryOrder->issue_date)) }}</strong></p>
+                    <strong>{{ date('d-M-Y', strtotime($moneyReceipt->deliveryOrder->issue_date)) }}</strong>
+                </p>
             </div>
         </div>
     </div> <!-- end contentArea -->
@@ -272,7 +273,7 @@
     <div id="footerTop">
         <div id="seal">
             <div class="pullRight textCenter">
-                <h4> For: Magnetism Tech Ltd Limited </h4>
+                <h4> For: MAGNETISM TECH LTD </h4>
                 <br>
                 <p>AS Agents</p>
             </div>
