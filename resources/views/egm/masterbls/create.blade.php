@@ -312,7 +312,7 @@
         }
 
         function loadMloName() {
-            let url = '{{ url('getMloname') }}/' + document.getElementById('mlocode').value;
+            let url = '{{ url('getEgmMloname') }}/' + document.getElementById('mlocode').value;
             fetch(url)
                 .then((resp) => resp.json())
                 .then(function(mlocode) {

@@ -10,6 +10,7 @@ Route::group(['middleware' => ['auth', 'preventBackHistory']], function () {
     Route::get('egmmoneyreceipts/log/{id}', 'FRDActivityLogController@egmmoneyreceiptlog');
     Route::get('moneyreceipts/log/{id}', 'FRDActivityLogController@moneyreceiptlog');
     Route::get('deliverorders/log/{id}', 'FRDActivityLogController@deliveryorderlog');
+    Route::get('egmdeliveryorders/log/{id}', 'FRDActivityLogController@egmdeliveryorderlog');
 
     Route::get('feeders/log/{id}', 'MLO\MLOActivityLogController@feederslog');
     Route::get('blinformations/log/{id}', 'MLO\MLOActivityLogController@blinformationslog');

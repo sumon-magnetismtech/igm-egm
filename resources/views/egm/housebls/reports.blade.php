@@ -1,11 +1,11 @@
-@extends('layouts.new-layout')
+@extends('layouts.egm-layout')
 @section('title', 'FRD - Reports')
 
 @section('breadcrumb-title')
-    @if (\Request::is('searchFrdLetter'))
+    @if (\Request::is('egm-searchFrdLetter'))
         Forwarding Letter
     @endif
-    @if (\Request::is('extensionLetter'))
+    @if (\Request::is('egm-extensionLetter'))
         Extension Letter
     @endif
     @if (\Request::is('onChassisLetter'))
@@ -26,8 +26,8 @@
 @endsection
 
 @section('content')
-    @if (\Request::is('searchFrdLetter'))
-    <form action="{{ route('frdLetter') }}" method="post">
+    @if (\Request::is('egm-searchFrdLetter'))
+    <form action="{{ route('egmfrdLetter') }}" method="post">
         @csrf
         <input type="hidden" name="type" value="frd">
         <div class="row px-2">
@@ -84,8 +84,8 @@
     </form>
     @endif
 
-    @if (\Request::is('extensionLetter'))
-    <form action="{{ route('extensionLetterData') }}" method="post">
+    @if (\Request::is('egm-extensionLetter'))
+    <form action="{{ route('egmextensionLetterData') }}" method="post">
         @csrf
         <input type="hidden" name="type" value="extension">
         <div class="row px-2">
@@ -214,7 +214,7 @@
             $("#bolreference").val(null).removeAttr('required');
 
             let mblno = $("#mblno").val();
-            let url = '{{url("containerExtension")}}/'+mblno;
+            let url = '{{url("egmContainerExtension")}}/'+mblno;
             let containerArea = $("#containerArea");
             containerArea.empty();
             fetch(url)
@@ -238,7 +238,7 @@
             $("#mblno").val(null).removeAttr('required');
 
             let bolref = $("#bolreference").val();
-            let url = '{{url("containerExtensionByBolRef")}}/'+bolref;
+            let url = '{{url("egmContainerExtensionByBolRef")}}/'+bolref;
             let containerArea = $("#containerArea");
             containerArea.empty();
             fetch(url)
@@ -264,7 +264,7 @@
             $( "#igm").autocomplete({
                 source: function( request, response ) {
                     $.ajax({
-                        url:"{{route('loadHouseblIgmAutoComplete')}}",
+                        url:"{{route('egmLoadHouseblIgmAutoComplete')}}",
                         type: 'post',
                         dataType: "json",
                         data: {
@@ -285,7 +285,7 @@
             $( "#mblno" ).autocomplete({
                 source: function( request, response ) {
                     $.ajax({
-                        url:"{{route('loadHouseblMblNoAutoComplete')}}",
+                        url:"{{route('egmLoadHouseblMblNoAutoComplete')}}",
                         type: 'post',
                         dataType: "json",
                         data: {
@@ -306,7 +306,7 @@
             $( "#bolreference" ).autocomplete({
                 source: function( request, response ) {
                     $.ajax({
-                        url:"{{route('loadHouseblBolreferenceAutoComplete')}}",
+                        url:"{{route('egmLoadHouseblBolreferenceAutoComplete')}}",
                         type: 'post',
                         dataType: "json",
                         data: {

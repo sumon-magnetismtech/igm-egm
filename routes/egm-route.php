@@ -6,9 +6,9 @@ Route::group(['middleware'=>['auth', 'preventBackHistory']], function(){
     //Masterbl Extra Controler
     Route::get('/egm-trashmaster', 'EgmMasterBlController@mblTrash')->name('egmtrashmaster');
     Route::get('/trashmblrestore/{id}', 'EgmMasterBlController@mblRestore')->name('mblrestore');
-    Route::post('updateMasterRotBerthing', 'EgmMasterBlController@updateMasterRotBerthing');
-    Route::get('/getMloname/{mlocode}', 'EgmMasterBlController@getMloNameByMloCode');
-    Route::get('vesselpositioning', 'EgmMasterBlController@vesselpositioning')->name('vesselpositioning');
+    Route::post('egmupdateMasterRotBerthing', 'EgmMasterBlController@updateMasterRotBerthing');
+    Route::get('/getEgmMloname/{mlocode}', 'EgmMasterBlController@getMloNameByMloCode');
+    Route::get('egmvesselpositioning', 'EgmMasterBlController@vesselpositioning')->name('egmvesselpositioning');
     Route::get('egmmasterbls/unstaffingSheet/{id}', 'EgmMasterBlController@unstaffingSheet');
 
     Route::get('egmCloneMasterblById/{id}', 'EgmMasterBlController@egmCloneMasterblById');
@@ -28,10 +28,10 @@ Route::group(['middleware'=>['auth', 'preventBackHistory']], function(){
     Route::get('/getIgm/{igmno}', 'EgmHouseBlController@getIgmByIgmNo');
     Route::get('/getIgmByMbl/{mblno}', 'EgmHouseBlController@getIgmByMblNo');
     Route::get('hblPdf/{hblid}', 'EgmHouseBlController@hblPdf')->name('hblPdf');
-    Route::get('searchFrdLetter', 'EgmHouseBlController@searchFrdLetter')->name('searchFrdLetter');
-    Route::get('extensionLetter', 'EgmHouseBlController@extensionLetter')->name('extensionLetter');
-    Route::get('mailList', 'EgmHouseBlController@mailList')->name('mailList');
-    Route::post('extensionLetterData', 'EgmHouseBlController@extensionLetterData')->name('extensionLetterData');
+    Route::get('egm-searchFrdLetter', 'EgmHouseBlController@searchFrdLetter')->name('egmsearchFrdLetter');
+    Route::get('egm-extensionLetter', 'EgmHouseBlController@extensionLetter')->name('egmextensionLetter');
+    Route::get('egmmailList', 'EgmHouseBlController@mailList')->name('egmmailList');
+    Route::post('egmextensionLetterData', 'EgmHouseBlController@extensionLetterData')->name('egmextensionLetterData');
 
     Route::get('onChassisLetter', 'EgmHouseBlController@onChassisLetter')->name('onChassisLetter');
     Route::post('onChassisLetterData', 'EgmHouseBlController@onChassisLetterData')->name('onChassisLetterData');
@@ -40,7 +40,7 @@ Route::group(['middleware'=>['auth', 'preventBackHistory']], function(){
     Route::get('submitsearchigmforpdf', 'EgmHouseBlController@searchresultforigmpdf')->name('submitsearchigmforpdf');
     Route::get('masterbls/arrivalNotice/{igm}', 'EgmHouseBlController@arrivalNoticepdf')->name('arrivalNoticepdf');
 
-    Route::post('frdLetter', 'EgmHouseBlController@frdLetter')->name('frdLetter');
+    Route::post('egmfrdLetter', 'EgmHouseBlController@frdLetter')->name('egmfrdLetter');
 
     Route::get('eDeliveryData/', 'EgmHouseBlController@eDeliveryData')->name('eDeliveryData');
 
@@ -54,6 +54,10 @@ Route::group(['middleware'=>['auth', 'preventBackHistory']], function(){
 
     Route::get('/getEgmHouseBlinfo/{bolreference?}', 'EgmMoneyreceiptController@getHouseBlinfo')->where('bolreference', '(.*)');
     Route::get('egmmrPdf/{mrid}', 'EgmMoneyreceiptController@mrPDF')->name('egmmrPdf');
+
+    Route::get('egm-doreport', 'EgmDeliveryorderController@doreport')->name('egmdoreport');
+    Route::get('/getEgmHBLid/{hblno?}', 'EgmDeliveryorderController@getHouseBlbyId')->where('hblno', '(.*)');
+    Route::get('egmDoPdf/{doid}', 'EgmDeliveryorderController@doPDF')->name('egmdoPdf');
 
     //json Route From Here..
     Route::post('/egmloadHouseblIgmAutoComplete','JsonDataController@egmLoadHouseblIgmAutoComplete')->name('egmLoadHouseblIgmAutoComplete');
@@ -80,7 +84,7 @@ Route::group(['middleware'=>['auth', 'preventBackHistory']], function(){
         'egmmoneyreceiptheads' => 'MoneyReceiptHeadController',
         'egmhousebls' => 'EgmHouseBlController',
         'egmmoneyreceipts' => 'EgmMoneyreceiptController',
-        'egmdeliveryorders' => 'DeliveryorderController',
+        'egmdeliveryorders' => 'EgmDeliveryorderController',
     ]);
 
     Route::group(['middleware'=>['auth']], function(){

@@ -55,6 +55,11 @@ class FRDActivityLogController extends Controller
         $deliveryorders = Activity::with('causer')->where(['subject_type' => 'App\Deliveryorder', 'subject_id' => $id])->get();
         return view('activitylog.deliveryorderLog', compact('deliveryorders'));
     }
+    public function egmdeliveryorderlog($id)
+    {
+        $deliveryorders = Activity::with('causer')->where(['subject_type' => 'App\EgmDeliveryorder', 'subject_id' => $id])->get();
+        return view('activitylog.egmdeliveryorderLog', compact('deliveryorders'));
+    }
 
 
 

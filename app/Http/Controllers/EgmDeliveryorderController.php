@@ -5,9 +5,13 @@ namespace App\Http\Controllers;
 use App\EgmDeliveryorder;
 use App\Container;
 use App\Deliveryorder;
+use App\EgmHouseBl;
+use App\EgmHouseBlContainers;
+use App\EgmMoneyreceipt;
 use App\Exports\DeliveryReportExport;
 use App\Housebl;
 use App\Http\Requests\DeliveryOrderRequest;
+use App\Http\Requests\EgmDeliveryorderRequest;
 use App\Moneyreceipt;
 use Carbon\Carbon;
 use Illuminate\Database\QueryException;
@@ -32,7 +36,7 @@ class EgmDeliveryorderController extends Controller
     }
     public function index(Request $request)
     {
-        $Donos = Deliveryorder::with('moneyReceipt.houseBl.containers')
+        $Donos = EgmDeliveryorder::with('moneyReceipt.houseBl.containers')
             ->when($request->do_id, function($q){
                 $q->where('id', request()->do_id);
             })
@@ -54,7 +58,7 @@ class EgmDeliveryorderController extends Controller
             })
             ->latest()
             ->paginate(100);
-        return view('deliveryorders.index',compact('Donos', 'request'));
+        return view('egm.deliveryorders.index',compact('Donos', 'request'));
     }
 
     /**
@@ -65,11 +69,11 @@ class EgmDeliveryorderController extends Controller
     public function create()
     {
         $formType = 'create';
-        $moneyReceipts = Moneyreceipt::with('houseBl:id,bolreference')
+        $moneyReceipts = EgmMoneyreceipt::with('houseBl:id,bolreference')
             ->doesntHave('deliveryOrder')
             ->whereHas('houseBl.masterbl', function($q){$q->where('noc', false);})
             ->get(['id','hblno']);
-        return view('deliveryorders.create',compact('formType', 'moneyReceipts'));
+        return view('egm.deliveryorders.create',compact('formType', 'moneyReceipts'));
     }
 
     /**
@@ -78,10 +82,10 @@ class EgmDeliveryorderController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(DeliveryOrderRequest $request)
+    public function store(EgmDeliveryorderRequest $request)
     {
         try{
-            $checkNOC = Housebl::whereHas('masterbl', function($q){$q->where('noc', false);})->where('bolreference', $request->hblno)->first();
+            $checkNOC = EgmHouseBl::whereHas('masterbl', function($q){$q->where('noc', false);})->where('bolreference', $request->hblno)->first();
             if($checkNOC){
                 $DoData=[];
                 $DoData['moneyrecept_id'] = $request->moneyrecept_id;
@@ -91,17 +95,17 @@ class EgmDeliveryorderController extends Controller
                 $DoData['issue_date'] = $request->issue_date ? date('Y-m-d', strtotime(str_replace('/', '-',$request->issue_date))) : null;
                 $DoData['upto_date'] = $request->upto_date ? date('Y-m-d', strtotime(str_replace('/', '-',$request->upto_date))) : null;
 
-                $do = Deliveryorder::create($DoData);
+                $do = EgmDeliveryorder::create($DoData);
                 $doID = $do->id;
-                $moneyReceipt = Moneyreceipt::with(
+                $moneyReceipt = EgmMoneyreceipt::with(
                     'houseBl:id,igm,packagetype,shippingmark,bolreference,packageno,description,grosswt',
                     'houseBl.masterbl:id,fvessel,mblno,rotno,arrival,voyage',
                     'deliveryOrder:id,moneyrecept_id,BE_No,BE_Date,issue_date,upto_date')
                     ->whereHas('deliveryOrder', function($q) use ($doID){
                         $q->where('id', $doID);
                     })->firstOrFail(['id', 'client_name', 'hblno']);
-                $containers = Container::where('housebl_id',$moneyReceipt->houseBl->id)->get();
-                return PDF::loadView('deliveryorders.doPdf',compact('moneyReceipt','containers'))->stream('doPDF.pdf');
+                $containers = EgmHouseBlContainers::where('housebl_id',$moneyReceipt->houseBl->id)->get();
+                return PDF::loadView('egm.deliveryorders.doPdf',compact('moneyReceipt','containers'))->stream('doPDF.pdf');
             }else{
                 return redirect()->back()->withInput()->withErrors("NOC BL. Can't create Delivery Order.");
             }
@@ -128,12 +132,12 @@ class EgmDeliveryorderController extends Controller
      * @param  \App\Deliveryorder  $deliveryorder
      * @return \Illuminate\Http\Response
      */
-    public function edit(Deliveryorder $deliveryorder)
+    public function edit(EgmDeliveryorder $egmdeliveryorder)
     {
 //        dd($deliveryorder->moneyReceipt->houseBl->toArray());
         $formType = 'edit';
-        $moneyReceipts = Moneyreceipt::with('houseBl:id,bolreference')->doesntHave('deliveryOrder')->whereHas('houseBl.masterbl', function($q){$q->where('noc', false);})->get(['id','hblno']);
-        return view('deliveryorders.create',compact('formType', 'moneyReceipts', 'deliveryorder'));
+        $moneyReceipts = EgmMoneyreceipt::with('houseBl:id,bolreference')->doesntHave('deliveryOrder')->whereHas('houseBl.masterbl', function($q){$q->where('noc', false);})->get(['id','hblno']);
+        return view('egm.deliveryorders.create',compact('formType', 'moneyReceipts', 'egmdeliveryorder'));
     }
 
     /**
@@ -143,7 +147,7 @@ class EgmDeliveryorderController extends Controller
      * @param  \App\Deliveryorder  $deliveryorder
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Deliveryorder $deliveryorder)
+    public function update(Request $request, EgmDeliveryorder $egmdeliveryorder)
     {
         try{
             $DoData=[];
@@ -154,8 +158,8 @@ class EgmDeliveryorderController extends Controller
             $DoData['issue_date'] = $request->issue_date ? date('Y-m-d', strtotime(str_replace('/', '-',$request->issue_date))) : null;
             $DoData['upto_date'] = $request->upto_date ? date('Y-m-d', strtotime(str_replace('/', '-',$request->upto_date))) : null;
 
-            $deliveryorder->update($DoData);
-            return redirect()->route('deliveryorders.index')->with('message', "DO has been updated successfully.");
+            $egmdeliveryorder->update($DoData);
+            return redirect()->route('egmdeliveryorders.index')->with('message', "DO has been updated successfully.");
         }
         catch (QueryException $exception){
             return redirect()->back()->withInput()->withErrors($exception->getMessage());
@@ -174,11 +178,11 @@ class EgmDeliveryorderController extends Controller
     }
 
     public function getHouseBlbyId($hblno){
-        $hblInfo = Moneyreceipt::with('houseBl:id,igm,packageno,containernumber,grosswt,consigneebin,consigneename,consigneeaddress,notifybin,notifyname,notifyaddress', 'houseBl.masterbl:id,fvessel,mblno,rotno,arrival')
+        $hblInfo = EgmMoneyreceipt::with('houseBl:id,igm,packageno,containernumber,grosswt,consigneebin,consigneename,consigneeaddress,notifybin,notifyname,notifyaddress', 'houseBl.masterbl:id,fvessel,mblno,rotno,arrival')
             ->whereHas('houseBl', function($q) use ($hblno){
                 $q->where('bolreference', $hblno);
             })->firstOrFail();
-        $specialContainer = Housebl::where('bolreference',$hblno)
+        $specialContainer = EgmHouseBl::where('bolreference',$hblno)
             ->whereHas('containers', function($q){
                 $q->where('status', 'PRT')->orWhere('status', "FCL");
             })->first(['id']);
@@ -204,14 +208,14 @@ class EgmDeliveryorderController extends Controller
     }
 
     public function doPdf($doid){
-        $moneyReceipt = Moneyreceipt::with(
+        $moneyReceipt = EgmMoneyreceipt::with(
             'houseBl:id,igm,packagetype,shippingmark,bolreference,packageno,description,grosswt',
             'houseBl.masterbl:id,fvessel,mblno,rotno,arrival,voyage',
             'deliveryOrder:id,moneyrecept_id,BE_No,BE_Date,issue_date,upto_date')
             ->whereHas('deliveryOrder', function($q) use ($doid){
                 $q->where('id', $doid);
             })->firstOrFail(['id', 'client_name', 'hblno']);
-        $containers = Container::where('housebl_id',$moneyReceipt->houseBl->id)->get();
+        $containers = EgmHouseBlContainers::where('housebl_id',$moneyReceipt->houseBl->id)->get();
 
 //        return view('deliveryorders.doPdf',compact('hblInfo','containers'));
 
@@ -227,8 +231,8 @@ class EgmDeliveryorderController extends Controller
         $tillDate = $request->tillDate ? Carbon::createFromFormat('d/m/Y', $request->tillDate)->endOfDay() : null;
 
         if($dateType === 'weekly'){
-            $deliveryOrders = Deliveryorder::with('moneyReceipt.houseBl.masterbl')->whereBetween('issue_date', [now()->subDays(7), now()])->whereHas('moneyReceipt.houseBl.masterbl', function($q) use ($principal){$q->where('principal', "LIKE", "%$principal%");})->get();
-            $noc = Moneyreceipt::with(['houseBl.masterbl'])
+            $deliveryOrders = EgmDeliveryorder::with('moneyReceipt.houseBl.masterbl')->whereBetween('issue_date', [now()->subDays(7), now()])->whereHas('moneyReceipt.houseBl.masterbl', function($q) use ($principal){$q->where('principal', "LIKE", "%$principal%");})->get();
+            $noc = EgmMoneyreceipt::with(['houseBl.masterbl'])
                 ->whereBetween('issue_date', [now()->subDays(7), now()])
                 ->whereHas('houseBl.masterbl', function($q) use($principal){
                     $q->where('noc', true)
@@ -236,9 +240,9 @@ class EgmDeliveryorderController extends Controller
                 })
                 ->get();
         }elseif($dateType === 'monthly'){
-            $deliveryOrders = Deliveryorder::with('moneyReceipt.houseBl.masterbl')->whereBetween('issue_date', [now()->subDays(30), now()])->whereHas('moneyReceipt.houseBl.masterbl', function($q) use ($principal){$q->where('principal', "LIKE", "%$principal%");})->get();
+            $deliveryOrders = EgmDeliveryorder::with('moneyReceipt.houseBl.masterbl')->whereBetween('issue_date', [now()->subDays(30), now()])->whereHas('moneyReceipt.houseBl.masterbl', function($q) use ($principal){$q->where('principal', "LIKE", "%$principal%");})->get();
 
-            $noc = Moneyreceipt::with(['houseBl.masterbl'])
+            $noc = EgmMoneyreceipt::with(['houseBl.masterbl'])
                 ->whereBetween('issue_date', [now()->subDays(30), now()])
 
                 ->whereHas('houseBl.masterbl', function($q) use($principal){
@@ -249,8 +253,8 @@ class EgmDeliveryorderController extends Controller
                 ->get();
 
         }elseif($dateType === 'custom'){
-            $deliveryOrders = Deliveryorder::with('moneyReceipt.houseBl.masterbl')->whereBetween('issue_date', [$fromDate, $tillDate])->whereHas('moneyReceipt.houseBl.masterbl', function($q) use ($principal){$q->where('principal', "LIKE", "%$principal%");})->get();
-            $noc = Moneyreceipt::with(['houseBl.masterbl'])->whereBetween('issue_date', [$fromDate, $tillDate])
+            $deliveryOrders = EgmDeliveryorder::with('moneyReceipt.houseBl.masterbl')->whereBetween('issue_date', [$fromDate, $tillDate])->whereHas('moneyReceipt.houseBl.masterbl', function($q) use ($principal){$q->where('principal', "LIKE", "%$principal%");})->get();
+            $noc = EgmMoneyreceipt::with(['houseBl.masterbl'])->whereBetween('issue_date', [$fromDate, $tillDate])
                 ->whereHas('houseBl.masterbl', function($q) use($principal){
                     $q->where('noc', true)
                     ->where('principal', "LIKE", "%$principal%");
@@ -259,8 +263,8 @@ class EgmDeliveryorderController extends Controller
         }
 
         else{
-            $deliveryOrders = Deliveryorder::with('moneyReceipt.houseBl.masterbl')->whereDate('issue_date', now())->whereHas('moneyReceipt.houseBl.masterbl', function($q) use ($principal){$q->where('principal', "LIKE", "%$principal%");})->get();
-            $noc = Moneyreceipt::with(['houseBl.masterbl'])->whereDate('issue_date', now())
+            $deliveryOrders = EgmDeliveryorder::with('moneyReceipt.houseBl.masterbl')->whereDate('issue_date', now())->whereHas('moneyReceipt.houseBl.masterbl', function($q) use ($principal){$q->where('principal', "LIKE", "%$principal%");})->get();
+            $noc = EgmMoneyreceipt::with(['houseBl.masterbl'])->whereDate('issue_date', now())
                 ->whereHas('houseBl.masterbl', function($q) use($principal){
                     $q->where('noc', true)
                         ->where('principal', "LIKE", "%$principal%");
@@ -269,9 +273,9 @@ class EgmDeliveryorderController extends Controller
         }
 
         if($requestType == 'pdf'){
-            return \Barryvdh\DomPDF\Facade::loadView('deliveryorders.doreportPDF', compact('deliveryOrders', 'noc'))->setPaper('A4', 'landscape')->stream("DO_Report_$dateType".time().".pdf");
+            return \Barryvdh\DomPDF\Facade::loadView('egm.deliveryorders.doreportPDF', compact('deliveryOrders', 'noc'))->setPaper('A4', 'landscape')->stream("DO_Report_$dateType".time().".pdf");
         }else{
-            return view('deliveryorders.doreport', compact('deliveryOrders', 'dateType', 'fromDate', 'tillDate', 'noc', 'principal'));
+            return view('egm.deliveryorders.doreport', compact('deliveryOrders', 'dateType', 'fromDate', 'tillDate', 'noc', 'principal'));
         }
     }
 

@@ -1,4 +1,4 @@
-@extends('layouts.new-layout')
+@extends('layouts.egm-layout')
 @section('title', 'FRD Delivery Order')
 
 @section('breadcrumb-title')
@@ -10,7 +10,7 @@
 @endsection
 
 @section('breadcrumb-button')
-    <a href="{{ url('deliveryorders') }}" class="btn btn-out-dashed btn-sm btn-warning"><i class="fas fa-database"></i></a>
+    <a href="{{ url('egmdeliveryorders') }}" class="btn btn-out-dashed btn-sm btn-warning"><i class="fas fa-database"></i></a>
 @endsection
 
 @section('sub-title')
@@ -19,117 +19,117 @@
 
 @section('content')
     @if($formType == 'edit')
-        <form action="{{ route('deliveryorders.update', $deliveryorder->id) }}" method="post" class="custom-form">
+        <form action="{{ route('egmdeliveryorders.update', $egmdeliveryorder->id) }}" method="post" class="custom-form">
             @method('PUT')
-            <input type="hidden"  name="id" value="{{$deliveryorder->id}}">
+            <input type="hidden"  name="id" value="{{$egmdeliveryorder->id}}">
             @else
-        <form action="{{ route('deliveryorders.store') }}" method="post" class="custom-form">
+        <form action="{{ route('egmdeliveryorders.store') }}" method="post" class="custom-form">
             @endif
             @csrf
             <div class="row d-flex align-items-end">
                 <div class="col-xl-4 col-md-6">
                     <div class="input-group input-group-sm">
                         <span class="input-group-addon"> House BL <span class="text-danger">*</span></span>
-                        <input type="text" list="housebls" id="hblno" name="hblno" class="form-control" onchange="getHouseBLData()" value="{{ old("hblno") ? old("hblno") : (!empty($deliveryorder) ? $deliveryorder->moneyReceipt->houseBl->bolreference : null) }}" autocomplete="off" autofocus required>
+                        <input type="text" list="housebls" id="hblno" name="hblno" class="form-control" onchange="getHouseBLData()" value="{{ old("hblno") ? old("hblno") : (!empty($egmdeliveryorder) ? $egmdeliveryorder->moneyReceipt->houseBl->bolreference : null) }}" autocomplete="off" autofocus required>
                         {{-- <datalist id="housebls">
                             @foreach($moneyReceipts as $moneyReceipt)
                                 <option> {{Str::upper($moneyReceipt->houseBl->bolreference)}} </option>
                             @endforeach
                         </datalist> --}}
-                        <input type="hidden" id="moneyReceipt" name="moneyrecept_id" value="{{ old("moneyrecept_id") ? old("moneyrecept_id") : (!empty($deliveryorder) ? $deliveryorder->moneyrecept_id : null) }}">
+                        <input type="hidden" id="moneyReceipt" name="moneyrecept_id" value="{{ old("moneyrecept_id") ? old("moneyrecept_id") : (!empty($egmdeliveryorder) ? $egmdeliveryorder->moneyrecept_id : null) }}">
                     </div>
                 </div>
                 <div class="col-xl-5 col-md-6">
                     <div class="input-group input-group-sm">
                         <span class="input-group-addon"> Client Name </span>
-                        <input type="text" id="client_name" name="client_name" class="form-control" value="{{ old("client_name") ? old("client_name") : (!empty($deliveryorder) ? $deliveryorder->moneyReceipt->client_name : null) }}" tabindex="-1" readonly>
+                        <input type="text" id="client_name" name="client_name" class="form-control" value="{{ old("client_name") ? old("client_name") : (!empty($egmdeliveryorder) ? $egmdeliveryorder->moneyReceipt->client_name : null) }}" tabindex="-1" readonly>
                     </div>
                 </div>
                 <div class="col-xl-3 col-md-6">
                     <div class="input-group input-group-sm">
                         <span class="input-group-addon"> Master BL No. </span>
-                        <input type="text" id="mblno" name="mblno" class="form-control" value="{{ old("mblno") ? old("mblno") : (!empty($deliveryorder) ? $deliveryorder->moneyReceipt->houseBl->masterbl->mblno : null) }}" readonly tabindex="-1">
+                        <input type="text" id="mblno" name="mblno" class="form-control" value="{{ old("mblno") ? old("mblno") : (!empty($egmdeliveryorder) ? $egmdeliveryorder->moneyReceipt->houseBl->masterbl->mblno : null) }}" readonly tabindex="-1">
                     </div>
                 </div>
                 <div class="col-xl-4 col-md-6">
                     <div class="input-group input-group-sm">
                         <span class="input-group-addon"> Feeder Vessel </span>
-                        <input type="text" id="fvsl" name="fvsl" class="form-control" value="{{ old("fvsl") ? old("fvsl") : (!empty($deliveryorder) ? $deliveryorder->moneyReceipt->houseBl->masterbl->fvessel : null) }}" readonly tabindex="-1">
+                        <input type="text" id="fvsl" name="fvsl" class="form-control" value="{{ old("fvsl") ? old("fvsl") : (!empty($egmdeliveryorder) ? $egmdeliveryorder->moneyReceipt->houseBl->masterbl->fvessel : null) }}" readonly tabindex="-1">
                     </div>
                 </div>
                 <div class="col-xl-4 col-md-6">
                     <div class="input-group input-group-sm">
                         <span class="input-group-addon"> Rotation </span>
-                        <input type="text" id="rotation" name="rotation" class="form-control" value="{{ old("rotation") ? old("rotation") : (!empty($deliveryorder) ? $deliveryorder->moneyReceipt->houseBl->masterbl->rotno : null) }}" readonly tabindex="-1">
+                        <input type="text" id="rotation" name="rotation" class="form-control" value="{{ old("rotation") ? old("rotation") : (!empty($egmdeliveryorder) ? $egmdeliveryorder->moneyReceipt->houseBl->masterbl->rotno : null) }}" readonly tabindex="-1">
                     </div>
                 </div>
                 <div class="col-xl-4 col-md-6">
                     <div class="input-group input-group-sm">
                         <span class="input-group-addon"> Arrival Date </span>
-                        <input type="text" id="arrival_date" name="arrival_date" class="form-control" value="{{ old("arrival_date") ? old("arrival_date") : (!empty($deliveryorder) ? date('d-m-Y', strtotime($deliveryorder->moneyReceipt->houseBl->masterbl->arrival)) : null) }}" readonly tabindex="-1" autocomplete="off">
+                        <input type="text" id="arrival_date" name="arrival_date" class="form-control" value="{{ old("arrival_date") ? old("arrival_date") : (!empty($egmdeliveryorder) ? date('d-m-Y', strtotime($egmdeliveryorder->moneyReceipt->houseBl->masterbl->arrival)) : null) }}" readonly tabindex="-1" autocomplete="off">
                     </div>
                 </div>
                 <div class="col-xl-4 col-md-4">
                     <div class="input-group input-group-sm">
                         <span class="input-group-addon"> Total Container </span>
-                        <input type="text" id="containernumber" name="containernumber" class="form-control" readonly tabindex="-1" value="{{ old("package") ? old("containernumber") : (!empty($deliveryorder) ? $deliveryorder->moneyReceipt->houseBl->containernumber : null) }}">
+                        <input type="text" id="containernumber" name="containernumber" class="form-control" readonly tabindex="-1" value="{{ old("package") ? old("containernumber") : (!empty($egmdeliveryorder) ? $egmdeliveryorder->moneyReceipt->houseBl->containernumber : null) }}">
                     </div>
                 </div>
                 <div class="col-xl-4 col-md-4">
                     <div class="input-group input-group-sm">
                         <span class="input-group-addon"> Total Package </span>
-                        <input type="text" id="package" name="package" class="form-control" value="{{ old("package") ? old("package") : (!empty($deliveryorder) ? $deliveryorder->moneyReceipt->houseBl->packageno : null) }}" readonly tabindex="-1">
+                        <input type="text" id="package" name="package" class="form-control" value="{{ old("package") ? old("package") : (!empty($egmdeliveryorder) ? $egmdeliveryorder->moneyReceipt->houseBl->packageno : null) }}" readonly tabindex="-1">
                     </div>
                 </div>
                 <div class="col-xl-4 col-md-4">
                     <div class="input-group input-group-sm">
                         <span class="input-group-addon"> Gross Weight </span>
-                        <input type="text" id="grosswt" name="grosswt" class="form-control" value="{{ old("grosswt") ? old("grosswt") : (!empty($deliveryorder) ? $deliveryorder->moneyReceipt->houseBl->grosswt : null) }}" readonly tabindex="-1">
+                        <input type="text" id="grosswt" name="grosswt" class="form-control" value="{{ old("grosswt") ? old("grosswt") : (!empty($egmdeliveryorder) ? $egmdeliveryorder->moneyReceipt->houseBl->grosswt : null) }}" readonly tabindex="-1">
                     </div>
                 </div>
                 <div class="col-xl-6 col-md-6">
                     <div class="input-group input-group-sm">
                         <span class="input-group-addon"> Consignee </span>
-                        <textarea type="text" id="consignee" name="consignee" rows="3" class="form-control" readonly tabindex="-1">{{ old("consignee") ? old("consignee") : (!empty($deliveryorder) ? $deliveryorder->moneyReceipt->houseBl->consigneename.', '.$deliveryorder->moneyReceipt->houseBl->consigneeaddress.' ('.$deliveryorder->moneyReceipt->houseBl->consigneebin.')': null)}}</textarea>
+                        <textarea type="text" id="consignee" name="consignee" rows="3" class="form-control" readonly tabindex="-1">{{ old("consignee") ? old("consignee") : (!empty($egmdeliveryorder) ? $egmdeliveryorder->moneyReceipt->houseBl->consigneename.', '.$egmdeliveryorder->moneyReceipt->houseBl->consigneeaddress.' ('.$egmdeliveryorder->moneyReceipt->houseBl->consigneebin.')': null)}}</textarea>
                     </div>
                 </div>
                 <div class="col-xl-6 col-md-6">
                     <div class="input-group input-group-sm">
                         <span class="input-group-addon"> Notify </span>
-                        <textarea type="text" id="notify" name="notify" rows="3" class="form-control" readonly tabindex="-1">{{ old("notify") ? old("notify") : (!empty($deliveryorder) ? $deliveryorder->moneyReceipt->houseBl->notifyname.', '.$deliveryorder->moneyReceipt->houseBl->notifyaddress.' ('.$deliveryorder->moneyReceipt->houseBl->notifybin.')': null) }}</textarea>
+                        <textarea type="text" id="notify" name="notify" rows="3" class="form-control" readonly tabindex="-1">{{ old("notify") ? old("notify") : (!empty($egmdeliveryorder) ? $egmdeliveryorder->moneyReceipt->houseBl->notifyname.', '.$egmdeliveryorder->moneyReceipt->houseBl->notifyaddress.' ('.$egmdeliveryorder->moneyReceipt->houseBl->notifybin.')': null) }}</textarea>
                     </div>
                 </div>
                 <div class="col-xl-3 col-md-6">
                     <div class="input-group input-group-sm">
                         <span class="input-group-addon"> BE No <span class="text-danger">*</span></span>
-                        <input type="text" id="BE_No" name="BE_No" class="form-control" value="{{ old("BE_No") ? old("BE_No") : (!empty($deliveryorder) ? $deliveryorder->BE_No : null) }}" required>
+                        <input type="text" id="BE_No" name="BE_No" class="form-control" value="{{ old("BE_No") ? old("BE_No") : (!empty($egmdeliveryorder) ? $egmdeliveryorder->BE_No : null) }}" required>
                     </div>
                 </div>
                 <div class="col-xl-3 col-md-6">
                     <div class="input-group input-group-sm">
                         <span class="input-group-addon"> BE Date <span class="text-danger">*</span></span>
-                        <input type="text" id="BE_Date" name="BE_Date" class="form-control" value="{{ old("BE_Date") ? old("BE_Date") : (!empty($deliveryorder) ? date('d-m-Y', strtotime($deliveryorder->BE_Date)) : null) }}" required placeholder="dd/mm/yyyy" autocomplete="off">
+                        <input type="text" id="BE_Date" name="BE_Date" class="form-control" value="{{ old("BE_Date") ? old("BE_Date") : (!empty($egmdeliveryorder) ? date('d-m-Y', strtotime($egmdeliveryorder->BE_Date)) : null) }}" required placeholder="dd/mm/yyyy" autocomplete="off">
                     </div>
                 </div>
                 <div class="col-xl-3 col-md-6">
                     <div class="input-group input-group-sm">
                         <span class="input-group-addon"> Issue Date <span class="text-danger">*</span></span>
-                        <input type="text" id="issue_date" name="issue_date" class="form-control" value="{{ old("issue_date") ? old("issue_date") : (!empty($deliveryorder) ? date('d-m-Y', strtotime($deliveryorder->issue_date)) : date('d/m/Y')) }}" required placeholder="dd/mm/yyyy" autocomplete="off">
+                        <input type="text" id="issue_date" name="issue_date" class="form-control" value="{{ old("issue_date") ? old("issue_date") : (!empty($egmdeliveryorder) ? date('d-m-Y', strtotime($egmdeliveryorder->issue_date)) : date('d/m/Y')) }}" required placeholder="dd/mm/yyyy" autocomplete="off">
                     </div>
                 </div>
                 <div class="col-xl-3 col-md-6">
                     <div class="input-group input-group-sm">
                         <span class="input-group-addon"> Up To Date </span>
-                        <input type="text" id="upto_date" name="upto_date" class="form-control" value="{{ old("upto_date") ? old("upto_date") : (!empty($deliveryorder) ? $deliveryorder->upto_date ? date('d-m-Y', strtotime($deliveryorder->upto_date)) : null : null) }}" placeholder="dd/mm/yyyy" autocomplete="off">
+                        <input type="text" id="upto_date" name="upto_date" class="form-control" value="{{ old("upto_date") ? old("upto_date") : (!empty($egmdeliveryorder) ? $egmdeliveryorder->upto_date ? date('d-m-Y', strtotime($egmdeliveryorder->upto_date)) : null : null) }}" placeholder="dd/mm/yyyy" autocomplete="off">
                     </div>
                 </div>
                 <div class="col-xl-4 col-md-6">
                     <div class="input-group input-group-sm">
                         <span class="input-group-addon"> Type of HBL </span>
                         <select type="text" id="bl_type" name="bl_type" class="form-control" required>
-                            <option value="Original" {{old('bl_type') &&  old('bl_type')=='Original' ? 'selected' : (!empty($deliveryorder) &&  $deliveryorder->bl_type ==='Original' ? 'selected' : null)}}> Original </option>
-                            <option value="Telex Release" {{old('bl_type') &&  old('bl_type')=='Telex Release' ? 'selected' : (!empty($deliveryorder) &&  $deliveryorder->bl_type ==='Telex Release' ? 'selected' : null)}}> Telex Release </option>
-                            <option value="Bank Guarantee" {{old('bl_type') &&  old('bl_type')=='Bank Guarantee' ? 'selected' : (!empty($deliveryorder) &&  $deliveryorder->bl_type ==='Bank Guarantee' ? 'selected' : null)}}> Bank Guarantee </option>
+                            <option value="Original" {{old('bl_type') &&  old('bl_type')=='Original' ? 'selected' : (!empty($egmdeliveryorder) &&  $egmdeliveryorder->bl_type ==='Original' ? 'selected' : null)}}> Original </option>
+                            <option value="Telex Release" {{old('bl_type') &&  old('bl_type')=='Telex Release' ? 'selected' : (!empty($egmdeliveryorder) &&  $egmdeliveryorder->bl_type ==='Telex Release' ? 'selected' : null)}}> Telex Release </option>
+                            <option value="Bank Guarantee" {{old('bl_type') &&  old('bl_type')=='Bank Guarantee' ? 'selected' : (!empty($egmdeliveryorder) &&  $egmdeliveryorder->bl_type ==='Bank Guarantee' ? 'selected' : null)}}> Bank Guarantee </option>
                         </select>
                     </div>
                 </div>
@@ -148,7 +148,7 @@
 @section('script')
 <script>
     function getHouseBLData(){
-        let url = '{{url("getHBLid")}}/'+document.getElementById('hblno').value;
+        let url = '{{url("getEgmHBLid")}}/'+document.getElementById('hblno').value;
         fetch(url)
                 .then((resp) => resp.json())
     .then(function (hblno) {
