@@ -238,7 +238,7 @@
             $("#mblno").val(null).removeAttr('required');
 
             let bolref = $("#bolreference").val();
-            let url = '{{url("egmContainerExtensionByBolRef")}}/'+bolref;
+            let url = '{{url("egmcontainerExtensionByBolRef")}}/'+bolref;
             let containerArea = $("#containerArea");
             containerArea.empty();
             fetch(url)

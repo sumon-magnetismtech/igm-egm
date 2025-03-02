@@ -394,14 +394,14 @@
                             <span class="pcoded-mcaret"></span>
                         </a>
                     </li>
-                    {{-- <li class="{{ request()->routeIs('egmextensionLetter') ? 'active' : null }}">
+                    <li class="{{ request()->routeIs('egmextensionLetter') ? 'active' : null }}">
                         <a href="{{ route('egmextensionLetter') }}">
                             <span class="pcoded-micon"><i class="ti-angle-right"></i></span>
                             <span class="pcoded-mtext">Extension Letter</span>
                             <span class="pcoded-mcaret"></span>
                         </a>
                     </li>
-                    <li class="{{ request()->routeIs('eDeliverySearch') ? 'active' : null }}">
+                    {{-- <li class="{{ request()->routeIs('eDeliverySearch') ? 'active' : null }}">
                         <a href="{{ route('eDeliverySearch') }}">
                             <span class="pcoded-micon"><i class="ti-angle-right"></i></span>
                             <span class="pcoded-mtext">E-Forwarding Letter</span>

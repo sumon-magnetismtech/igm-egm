@@ -13,9 +13,9 @@ Route::group(['middleware' => ['auth', 'preventBackHistory']], function () {
 
     Route::get('egmCloneMasterblById/{id}', 'EgmMasterBlController@egmCloneMasterblById');
 
-    Route::get('printhousebl', 'EgmHouseBlController@printhousebl');
-    Route::view('egmhouseblstatus', 'egm.housebls.houseblstatus')->name('egmhouseblstatus');
-    Route::post('egmhouseblstatusPDF', 'EgmHouseBlController@houseblstatusPDF')->name('egmhouseblstatusPDF');
+    Route::get('egmprinthousebl', 'EgmHouseBlController@printhousebl');
+    Route::view('egmhouseblstatus','egm.housebls.houseblstatus')->name('egmhouseblstatus');
+    Route::post('egmhouseblstatusPDF','EgmHouseBlController@houseblstatusPDF')->name('egmhouseblstatusPDF');
     Route::get('loadHouseByBolRef/{bolRef?}', 'EgmHouseBlController@loadHouseByBolRef')->where('bolRef', '(.*)')->name('loadHouseByBolRef');
 
     Route::get('checkFCLContainer/{igmno}/{currentStatus}', 'EgmHouseBlController@checkFCLContainer')->name('checkFCLContainer'); //check FCL Container in Same IGM.

@@ -243,7 +243,7 @@ class EgmHouseBlController extends Controller
      */
     public function destroy($egmhousebl)
     {
-        dd($egmhousebl);
+       // dd($egmhousebl);
         try {
             $egmhousebl->delete();
 
@@ -727,7 +727,7 @@ class EgmHouseBlController extends Controller
         //        $pdf->getDomPDF()->set_option("enable_php", true);
         //        return $pdf->loadView('housebls.printhousebl', compact('masterbl'))->setPaper('A4', 'landscape')->stream('houseblchecklist.pdf');
 
-        return \Barryvdh\DomPDF\Facade::loadView('housebls.printhousebl', compact('masterbl'))->setPaper('a4', 'landscape')->stream('frdLetter.pdf');
+        return \Barryvdh\DomPDF\Facade::loadView('egm.housebls.printhousebl', compact('masterbl'))->setPaper('a4', 'landscape')->stream('frdLetter.pdf');
     }
 
     /**
