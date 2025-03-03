@@ -122,7 +122,7 @@
 
 <body>
     <header>
-        <h6 id="companyName" class=""> MAGNETISM TECH LTD </h6>
+        <h6 id="companyName" class="">  Magnetism Tech Ltd </h6>
         <p class=""> <small>AIN: 301080083; <span style="margin-left: 5px">LICENSE NO: 0083/2008</span></small> </p>
         <p class=""> <small>CNF TOWER 4TH FLOOR, AGRABAD C/A, CHITTAGONG, BANGLADESH.</small> </p>
 
@@ -152,7 +152,7 @@
         <p>
             <strong> IGM No. {{ $feederinformation->id }} </strong>
             <span style="margin-left: 130px"> Print Time: {{ date('d-M-y H:m:s a', strtotime(now())) }}</span>
-            <span style="margin-left: 70px"> Software Developed By <strong>Magnetism Tech Ltd</strong>, Cell: +88 01717
+            <span style="margin-left: 70px"> Software Developed By <strong> Magnetism Tech Ltd</strong>, Cell: +88 01717
                 103 605 </span>
         </p>
     </footer>

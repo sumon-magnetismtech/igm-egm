@@ -144,7 +144,7 @@
 
     <header>
         <div id="company">
-            <h1>Magnetism Tech Ltd</h1>
+            <h1> Magnetism Tech Ltd</h1>
             <p><strong>Chittagong Office : </strong> C & F Tower (4th Floor), 1222, Sk. Mujib Road, Agrabad, Chittagong,
                 Bangladesh. </p>
             <p><strong>Dhaka Office : </strong>Sanmar Tower (7th Floor), Plot No # 38/A, Road # 35, Gulshan-2,
@@ -272,7 +272,7 @@
     <div id="footerTop">
         <div id="seal">
             <div class="pullRight textCenter">
-                <h4> For: Magnetism Tech Ltd </h4>
+                <h4> For:  Magnetism Tech Ltd </h4>
                 <br><br><br>
                 <p>AS Agents</p>
             </div>

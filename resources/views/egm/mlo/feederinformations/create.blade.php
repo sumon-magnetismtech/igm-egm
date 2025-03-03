@@ -57,8 +57,8 @@
         <div class="col-xl-4 col-lg-4 col-md-4 px-1">
             <div class="input-group input-group-sm ">
                 <span class="input-group-addon"> Carrier Name <span class="text-danger">*</span></span>
-                <input type="text" id="careerName" class="form-control" value="MAGNETISM TECH LTD"
-                    placeholder="MAGNETISM TECH LTD" readonly tabindex="-1">
+                <input type="text" id="careerName" class="form-control" value=" Magnetism Tech Ltd"
+                    placeholder=" Magnetism Tech Ltd" readonly tabindex="-1">
                 <input type="hidden" name="careerName" value="301043125" required>
             </div>
         </div>
