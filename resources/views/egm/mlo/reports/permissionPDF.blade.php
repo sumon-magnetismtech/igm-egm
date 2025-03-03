@@ -179,7 +179,7 @@
         <header>
             <div class="">
                 <div id="company">
-                    <h1>Magnetism Tech Ltd</h1>
+                    <h1> Magnetism Tech Ltd</h1>
                 </div>
 
                 <div id="companyContact">
@@ -272,7 +272,7 @@
 
             <p>Truly Yours,</p><br><br><br>
             <p> As Agents</p>
-            <p> For: <strong>Magnetism Tech Ltd.</strong></p>
+            <p> For: <strong> Magnetism Tech Ltd.</strong></p>
         </div> <!-- end contentArea -->
 
         <footer class="">
