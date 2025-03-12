@@ -118,7 +118,7 @@
             <ul class="pcoded-item pcoded-left-item">
 
                 @can('mlo-feederinformation-view')
-                    <li class="pcoded-hasmenu pcoded-trigger" aria-hidden="true">
+                    <li class="pcoded-hasmenu {{ in_array(request()->route()->getName(), ['egmfeederinformations.create', 'egmfeederinformations.index', 'egmmloblinformations.index',]) ? 'active pcoded-trigger' : null }}" aria-hidden="true">
                         <a href="javascript:void(0)"> <span class="pcoded-micon"><i
                                     class="ti-layout-grid2"></i><b>BC</b></span><span class="pcoded-mtext">Feeder
                                 Information</span><span class="pcoded-mcaret"></span></a>
@@ -146,7 +146,7 @@
 
                 @can('mlo-moneyreceipt-view')
                     <li
-                        class="pcoded-hasmenu pcoded-trigger {{ in_array(request()->route()->getName(), ['egmmlomoneyreceipts.create', 'egmmlomoneyreceipts.index', 'egmmlomrreport', 'egmfeederListForCustomUpdate']) ? 'active pcoded-trigger' : null }}">
+                        class="pcoded-hasmenu {{ in_array(request()->route()->getName(), ['egmmlomoneyreceipts.create', 'egmmlomoneyreceipts.index', 'egmmlomrreport', 'egmfeederListForCustomUpdate']) ? 'active pcoded-trigger' : null }}">
                         <a href="javascript:void(0)"> <span class="pcoded-micon"><i
                                     class="ti-layout-grid2"></i><b>BC</b></span><span class="pcoded-mtext">Money
                                 Receipts</span><span class="pcoded-mcaret"></span></a>
@@ -176,7 +176,7 @@
 
                 @can('mlo-deliveryorder-view')
                     <li
-                        class="pcoded-hasmenu pcoded-trigger {{ in_array(request()->route()->getName(), ['egmmlodeliveryorders.create', 'egmmlodeliveryorders.index', 'egmMloDoReport', 'egmMloDoContainerReport']) ? 'active pcoded-trigger' : null }}">
+                        class="pcoded-hasmenu {{ in_array(request()->route()->getName(), ['egmmlodeliveryorders.create', 'egmmlodeliveryorders.index', 'egmMloDoReport', 'egmMloDoContainerReport']) ? 'active pcoded-trigger' : null }}">
                         <a href="javascript:void(0)"> <span class="pcoded-micon"><i
                                     class="ti-layout-grid2"></i><b>BC</b></span><span class="pcoded-mtext">Delivery
                                 Order</span><span class="pcoded-mcaret"></span></a>
@@ -207,7 +207,7 @@
                 @endcan
                 @can('mlo-report')
                     <li
-                        class="pcoded-hasmenu pcoded-trigger {{ in_array(request()->route()->getName(), ['egmMloinboundPerformanceReport', 'egmcommitmentPDF', 'egmMloladenReport']) ? 'active pcoded-trigger' : null }}">
+                        class="pcoded-hasmenu {{ in_array(request()->route()->getName(), ['egmMloinboundPerformanceReport', 'egmcommitmentPDF', 'egmMloladenReport']) ? 'active pcoded-trigger' : null }}">
                         <a href="javascript:void(0)"> <span class="pcoded-micon"><i
                                     class="ti-layout-grid2"></i><b>BC</b></span><span class="pcoded-mtext">MLO
                                 Reports</span><span class="pcoded-mcaret"></span></a>
@@ -264,7 +264,7 @@
 
             @can('housebl-view')
                 <li
-                    class="pcoded-hasmenu {{ in_array(request()->route()->getName(), ['housebls.create', 'housebls.index', 'searchhouseblcontainersForm', 'searchhouseblcontainers', 'houseblstatus', 'houseblstatusPDF']) ? 'active pcoded-trigger' : null }}">
+                    class="pcoded-hasmenu {{ in_array(request()->route()->getName(), ['egmhousebls.create', 'egmhousebls.index', 'egmsearchhouseblcontainersForm', 'egmsearchhouseblcontainers', 'egmhouseblstatus', 'houseblstatusPDF']) ? 'active pcoded-trigger' : null }}">
                     <a href="javascript:void(0)">
                         <span class="pcoded-micon"><i class="ti-package"></i><b>BC</b></span>
                         <span class="pcoded-mtext">House BL</span>
@@ -272,7 +272,7 @@
                     </a>
                     <ul class="pcoded-submenu">
                         @can('housebl-create')
-                            <li class="{{ request()->routeIs('housebls.create') ? 'active' : null }}">
+                            <li class="{{ request()->routeIs('egmhousebls.create') ? 'active' : null }}">
                                 <a href="{{ route('egmhousebls.create') }}">
                                     <span class="pcoded-micon"><i class="ti-angle-right"></i></span>
                                     <span class="pcoded-mtext">Create House BL</span>
@@ -280,7 +280,7 @@
                                 </a>
                             </li>
                         @endcan
-                        <li class="{{ request()->routeIs('housebls.index') ? 'active' : null }}">
+                        <li class="{{ request()->routeIs('egmhousebls.index') ? 'active' : null }}">
                             <a href="{{ route('egmhousebls.index') }}">
                                 <span class="pcoded-micon"><i class="ti-angle-right"></i></span>
                                 <span class="pcoded-mtext">List of House BL</span>
@@ -309,7 +309,7 @@
 
             @can('moneyreceipt-view')
                 <li
-                    class="pcoded-hasmenu {{ in_array(request()->route()->getName(), ['egmmoneyreceipts.create', 'egmmoneyreceipts.index', 'mrreport']) ? 'active pcoded-trigger' : null }}">
+                    class="pcoded-hasmenu {{ in_array(request()->route()->getName(), ['egmmoneyreceipts.create', 'egmmoneyreceipts.index', 'egmmrreport']) ? 'active pcoded-trigger' : null }}">
                     <a href="javascript:void(0)">
                         <span class="pcoded-micon"><i class="ti-package"></i><b>BC</b></span>
                         <span class="pcoded-mtext">Money Receipt</span>
@@ -345,7 +345,7 @@
 
             @can('deliveryorder-view')
                 <li
-                    class="pcoded-hasmenu {{ in_array(request()->route()->getName(), ['egmdeliveryorders.create', 'egmdeliveryorders.index', 'doreport']) ? 'active pcoded-trigger' : null }}">
+                    class="pcoded-hasmenu {{ in_array(request()->route()->getName(), ['egmdeliveryorders.create', 'egmdeliveryorders.index', 'egmdoreport']) ? 'active pcoded-trigger' : null }}">
                     <a href="javascript:void(0)">
                         <span class="pcoded-micon"><i class="ti-package"></i><b>BC</b></span>
                         <span class="pcoded-mtext">Delivery Order</span>
@@ -380,7 +380,7 @@
             @endcan
 
             <li
-                class="pcoded-hasmenu {{ in_array(request()->route()->getName(), ['egmsearchFrdLetter', 'egmextensionLetter', 'eDeliverySearch', 'onChassisLetter', 'egmvesselpositioning', 'egmmailList']) ? 'active pcoded-trigger' : null }}">
+                class="pcoded-hasmenu {{ in_array(request()->route()->getName(), ['egmsearchFrdLetter', 'egmextensionLetter', 'egmeDeliverySearch', 'egmonChassisLetter', 'egmvesselpositioning', 'egmmailList']) ? 'active pcoded-trigger' : null }}">
                 <a href="javascript:void(0)">
                     <span class="pcoded-micon"><i class="ti-package"></i><b>BC</b></span>
                     <span class="pcoded-mtext">Forwarding Reports</span>
@@ -394,27 +394,27 @@
                             <span class="pcoded-mcaret"></span>
                         </a>
                     </li>
-                    {{-- <li class="{{ request()->routeIs('egmextensionLetter') ? 'active' : null }}">
+                    <li class="{{ request()->routeIs('egmextensionLetter') ? 'active' : null }}">
                         <a href="{{ route('egmextensionLetter') }}">
                             <span class="pcoded-micon"><i class="ti-angle-right"></i></span>
                             <span class="pcoded-mtext">Extension Letter</span>
                             <span class="pcoded-mcaret"></span>
                         </a>
                     </li>
-                    <li class="{{ request()->routeIs('eDeliverySearch') ? 'active' : null }}">
-                        <a href="{{ route('eDeliverySearch') }}">
+                    <li class="{{ request()->routeIs('egmeDeliverySearch') ? 'active' : null }}">
+                        <a href="{{ route('egmeDeliverySearch') }}">
                             <span class="pcoded-micon"><i class="ti-angle-right"></i></span>
                             <span class="pcoded-mtext">E-Forwarding Letter</span>
                             <span class="pcoded-mcaret"></span>
                         </a>
                     </li>
-                    <li class="{{ request()->routeIs('onChassisLetter') ? 'active' : null }}">
-                        <a href="{{ route('onChassisLetter') }}">
+                    <li class="{{ request()->routeIs('egmonChassisLetter') ? 'active' : null }}">
+                        <a href="{{ route('egmonChassisLetter') }}">
                             <span class="pcoded-micon"><i class="ti-angle-right"></i></span>
                             <span class="pcoded-mtext">On-Chassis Letter</span>
                             <span class="pcoded-mcaret"></span>
                         </a>
-                    </li> --}}
+                    </li>
                     <li class="{{ request()->routeIs('egmvesselpositioning') ? 'active' : null }}">
                         <a href="{{ route('egmvesselpositioning') }}">
                             <span class="pcoded-micon"><i class="ti-angle-right"></i></span>

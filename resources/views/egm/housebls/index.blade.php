@@ -81,7 +81,7 @@
             </div>
         </div><!-- end form row -->
     </form> <!-- end search form -->
-    <form action="{{url('printhousebl')}}" method="get" id="houseBlForm">
+    <form action="{{url('egmprinthousebl')}}" method="get" id="houseBlForm">
         @csrf
         <div class="table-responsive">
             <table id="containerTable" class="table table-striped table-bordered">

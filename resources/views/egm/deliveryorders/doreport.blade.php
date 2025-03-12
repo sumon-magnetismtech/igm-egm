@@ -28,7 +28,7 @@
 @endsection
 
 @section('content')
-    <form action="{{ route('doreport') }}" method="get">
+    <form action="{{ route('egmdoreport') }}" method="get">
         <div class="row">
             <div class="col-md-1 pr-md-1 my-1 my-md-0" data-toggle="tooltip" title="Output">
                 <select name="requestType" class="form-control form-control-sm">

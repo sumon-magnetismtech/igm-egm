@@ -8,10 +8,10 @@
     @if (\Request::is('egm-extensionLetter'))
         Extension Letter
     @endif
-    @if (\Request::is('onChassisLetter'))
+    @if (\Request::is('egmonChassisLetter'))
         On-Chassis Letter
     @endif
-    @if (\Request::is('eDeliverySearch'))
+    @if (\Request::is('egmeDeliverySearch'))
         E-Delivery Letter
 @endif
 
@@ -132,8 +132,8 @@
     </form>
     @endif
 
-    @if (\Request::is('eDeliverySearch'))
-    <form action="{{ route('eDeliveryData') }}" method="get">
+    @if (\Request::is('egmeDeliverySearch'))
+    <form action="{{ route('egmeDeliveryData') }}" method="get">
         <input type="hidden" name="type" value="e-frd">
         @csrf
         <div class="row px-2">
@@ -166,8 +166,8 @@
     </form>
     @endif
 
-    @if (\Request::is('onChassisLetter'))
-    <form action="{{ route('onChassisLetterData') }}" method="post">
+    @if (\Request::is('egmonChassisLetter'))
+    <form action="{{ route('egmonChassisLetterData') }}" method="post">
         @csrf
         <input type="hidden" name="type" value="onChassis">
         <div class="row px-2">
@@ -238,7 +238,7 @@
             $("#mblno").val(null).removeAttr('required');
 
             let bolref = $("#bolreference").val();
-            let url = '{{url("egmContainerExtensionByBolRef")}}/'+bolref;
+            let url = '{{url("egmcontainerExtensionByBolRef")}}/'+bolref;
             let containerArea = $("#containerArea");
             containerArea.empty();
             fetch(url)

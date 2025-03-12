@@ -243,7 +243,7 @@ class EgmHouseBlController extends Controller
      */
     public function destroy($egmhousebl)
     {
-        dd($egmhousebl);
+       // dd($egmhousebl);
         try {
             $egmhousebl->delete();
 
@@ -671,7 +671,7 @@ class EgmHouseBlController extends Controller
 
                 return redirect()->route('mailList')->with('message', 'Email has been sent successfully.');
             } else {
-                return view('housebls.eDeliveryData', compact('countContTypes', 'masterbl'))->with('message', 'Data Not Found.');
+                return view('egm.housebls.eDeliveryData', compact('countContTypes', 'masterbl'))->with('message', 'Data Not Found.');
             }
         } else {
             return redirect()->back()->withInput()->with('message', 'Data Not Found.');
@@ -704,7 +704,7 @@ class EgmHouseBlController extends Controller
                 });
                 ForwardingRecords::create($onChassisData);
 
-                return \Barryvdh\DomPDF\Facade::loadView('housebls.onChassisLetter', compact('housebl', 'onChassisData', 'countContTypes'))->stream("onchassis_HBL-$bolreference.pdf");
+                return \Barryvdh\DomPDF\Facade::loadView('egm.housebls.onChassisLetter', compact('housebl', 'onChassisData', 'countContTypes'))->stream("onchassis_HBL-$bolreference.pdf");
             } else {
                 return redirect()->back()->withInput()->with('message', 'No FCL Container Found Based on your query.');
             }
@@ -727,7 +727,7 @@ class EgmHouseBlController extends Controller
         //        $pdf->getDomPDF()->set_option("enable_php", true);
         //        return $pdf->loadView('housebls.printhousebl', compact('masterbl'))->setPaper('A4', 'landscape')->stream('houseblchecklist.pdf');
 
-        return \Barryvdh\DomPDF\Facade::loadView('housebls.printhousebl', compact('masterbl'))->setPaper('a4', 'landscape')->stream('frdLetter.pdf');
+        return \Barryvdh\DomPDF\Facade::loadView('egm.housebls.printhousebl', compact('masterbl'))->setPaper('a4', 'landscape')->stream('frdLetter.pdf');
     }
 
     /**

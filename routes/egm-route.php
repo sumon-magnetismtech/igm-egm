@@ -13,9 +13,9 @@ Route::group(['middleware' => ['auth', 'preventBackHistory']], function () {
 
     Route::get('egmCloneMasterblById/{id}', 'EgmMasterBlController@egmCloneMasterblById');
 
-    Route::get('printhousebl', 'EgmHouseBlController@printhousebl');
-    Route::view('egmhouseblstatus', 'egm.housebls.houseblstatus')->name('egmhouseblstatus');
-    Route::post('egmhouseblstatusPDF', 'EgmHouseBlController@houseblstatusPDF')->name('egmhouseblstatusPDF');
+    Route::get('egmprinthousebl', 'EgmHouseBlController@printhousebl');
+    Route::view('egmhouseblstatus','egm.housebls.houseblstatus')->name('egmhouseblstatus');
+    Route::post('egmhouseblstatusPDF','EgmHouseBlController@houseblstatusPDF')->name('egmhouseblstatusPDF');
     Route::get('loadHouseByBolRef/{bolRef?}', 'EgmHouseBlController@loadHouseByBolRef')->where('bolRef', '(.*)')->name('loadHouseByBolRef');
 
     Route::get('checkFCLContainer/{igmno}/{currentStatus}', 'EgmHouseBlController@checkFCLContainer')->name('checkFCLContainer'); //check FCL Container in Same IGM.
@@ -30,11 +30,13 @@ Route::group(['middleware' => ['auth', 'preventBackHistory']], function () {
     Route::get('hblPdf/{hblid}', 'EgmHouseBlController@hblPdf')->name('hblPdf');
     Route::get('egm-searchFrdLetter', 'EgmHouseBlController@searchFrdLetter')->name('egmsearchFrdLetter');
     Route::get('egm-extensionLetter', 'EgmHouseBlController@extensionLetter')->name('egmextensionLetter');
+    Route::get('egmeDeliverySearch', function(){return view('egm.housebls.reports');})->name('egmeDeliverySearch');
+    Route::get('egmeDeliveryData/', 'EgmHouseBlController@eDeliveryData')->name('egmeDeliveryData');
     Route::get('egmmailList', 'EgmHouseBlController@mailList')->name('egmmailList');
     Route::post('egmextensionLetterData', 'EgmHouseBlController@extensionLetterData')->name('egmextensionLetterData');
 
-    Route::get('onChassisLetter', 'EgmHouseBlController@onChassisLetter')->name('onChassisLetter');
-    Route::post('onChassisLetterData', 'EgmHouseBlController@onChassisLetterData')->name('onChassisLetterData');
+    Route::get('egmonChassisLetter', 'EgmHouseBlController@onChassisLetter')->name('egmonChassisLetter');
+    Route::post('egmonChassisLetterData', 'EgmHouseBlController@onChassisLetterData')->name('egmonChassisLetterData');
 
 
     Route::get('submitsearchigmforpdf', 'EgmHouseBlController@searchresultforigmpdf')->name('submitsearchigmforpdf');
@@ -55,7 +57,7 @@ Route::group(['middleware' => ['auth', 'preventBackHistory']], function () {
     Route::get('/getEgmHouseBlinfo/{bolreference?}', 'EgmMoneyreceiptController@getHouseBlinfo')->where('bolreference', '(.*)');
     Route::get('egmmrPdf/{mrid}', 'EgmMoneyreceiptController@mrPDF')->name('egmmrPdf');
 
-    Route::get('egm-doreport', 'EgmDeliveryorderController@doreport')->name('egmdoreport');
+    Route::get('egmdoreport', 'EgmDeliveryorderController@doreport')->name('egmdoreport');
     Route::get('/getEgmHBLid/{hblno?}', 'EgmDeliveryorderController@getHouseBlbyId')->where('hblno', '(.*)');
     Route::get('egmDoPdf/{doid}', 'EgmDeliveryorderController@doPDF')->name('egmdoPdf');
 
@@ -74,7 +76,7 @@ Route::group(['middleware' => ['auth', 'preventBackHistory']], function () {
     Route::get('/egmloadHouseblVoyage/{vesselname}', 'JsonDataController@egmLoadHouseblVoyage')->name('egmLoadHouseblVoyage');
 
 
-    Route::get('containerExtension/{mlono}', 'JsonDataController@egmContainerExtension')->name('egmContainerExtension');
+    Route::get('egmContainerExtension/{mlono}', 'JsonDataController@egmContainerExtension')->name('egmContainerExtension');
     Route::get('egmcontainerExtensionByBolRef/{bolref?}', 'JsonDataController@egmContainerExtensionByBolRef');
     Route::get('/loadExporterInfo/{name}', 'JsonDataController@egmLoadExporterAddress');
 

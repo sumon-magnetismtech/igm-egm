@@ -145,6 +145,7 @@ class HouseblService
         else
         {
             $container      = Excel::toCollection(new ContainerDetailsImport(), request()->file('file'));
+            //dd( $container);
             $containersData = $container->collapse()->toArray();
         }
         if (empty($containersData))
