@@ -57,7 +57,7 @@ Route::group(['middleware' => ['auth', 'preventBackHistory']], function () {
     Route::get('/getEgmHouseBlinfo/{bolreference?}', 'EgmMoneyreceiptController@getHouseBlinfo')->where('bolreference', '(.*)');
     Route::get('egmmrPdf/{mrid}', 'EgmMoneyreceiptController@mrPDF')->name('egmmrPdf');
 
-    Route::get('egm-doreport', 'EgmDeliveryorderController@doreport')->name('egmdoreport');
+    Route::get('egmdoreport', 'EgmDeliveryorderController@doreport')->name('egmdoreport');
     Route::get('/getEgmHBLid/{hblno?}', 'EgmDeliveryorderController@getHouseBlbyId')->where('hblno', '(.*)');
     Route::get('egmDoPdf/{doid}', 'EgmDeliveryorderController@doPDF')->name('egmdoPdf');
 
