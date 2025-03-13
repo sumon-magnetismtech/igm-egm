@@ -119,7 +119,7 @@
                                     <div class="icon-btn">
                                         <nobr>
                                             @can('mlo-mloblinformation-edit')
-                                                <a href="{{ url('mloblinformations/' . $mlobl->id . '/edit') }}"
+                                                <a href="{{ url('egmmloblinformations/' . $mlobl->id . '/edit') }}"
                                                     data-toggle="tooltip" title="Edit" class="btn btn-warning"><i
                                                         class="fas fa-pen"></i></a>
                                             @endcan

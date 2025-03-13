@@ -75,7 +75,7 @@
                     <td> QCLOGMLO-{{$deliveryOrder->id}} </td>
                     <td>
                         <div class="icon-btn">
-                            <a target="_blank" href="{{ url('mloMoneyReceiptPdf/'.$deliveryOrder->moneyReceipt->id)}}" data-toggle="tooltip" title="Money Receipt" class="btn btn-success">{{$deliveryOrder->moneyReceipt->id}}</a>
+                            <a target="_blank" href="{{ url('egmMloMoneyReceiptPdf/'.$deliveryOrder->moneyReceipt->id)}}" data-toggle="tooltip" title="Money Receipt" class="btn btn-success">{{$deliveryOrder->moneyReceipt->id}}</a>
                         </div>
                     </td>
                     <td class="text-left"> {{$deliveryOrder->moneyReceipt->bolRef}} {{$deliveryOrder->moneyReceipt->extensionNo ? "(Ext-".$deliveryOrder->moneyReceipt->extensionNo.")" : null}} </td>
@@ -92,7 +92,7 @@
                                 <a href="{{ url('egmmlodeliveryorders/'.$deliveryOrder->id.'/edit') }}" data-toggle="tooltip" title="Edit" class="btn btn-warning"><i class="fas fa-pen"></i></a>
                                 @endcan
                                 <a href="{{ url('egmMloDoPDF/'.$deliveryOrder->id) }}" data-toggle="tooltip" title="Print" class="btn btn-success"><i class="fas fa-print"></i></a>
-                                <a href="{{ url('mlodeliverorders/log/'.$deliveryOrder->id) }}" data-toggle="tooltip" title="Log" class="btn btn-dark"><i class="fas fa-history"></i></a>
+                                <a href="{{ url('egmmlodeliverorders/log/'.$deliveryOrder->id) }}" data-toggle="tooltip" title="Log" class="btn btn-dark"><i class="fas fa-history"></i></a>
                             </nobr>
                         </div>
                     </td>

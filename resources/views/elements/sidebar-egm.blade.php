@@ -264,7 +264,7 @@
 
             @can('housebl-view')
                 <li
-                    class="pcoded-hasmenu {{ in_array(request()->route()->getName(), ['egmhousebls.create', 'egmhousebls.index', 'egmsearchhouseblcontainersForm', 'egmsearchhouseblcontainers', 'egmhouseblstatus', 'houseblstatusPDF']) ? 'active pcoded-trigger' : null }}">
+                    class="pcoded-hasmenu {{ in_array(request()->route()->getName(), ['egmhousebls.create', 'egmhousebls.index', 'egmsearchhouseblcontainersForm', 'egmsearchhouseblcontainers', 'egmhouseblstatus', 'egmhouseblstatusPDF']) ? 'active pcoded-trigger' : null }}">
                     <a href="javascript:void(0)">
                         <span class="pcoded-micon"><i class="ti-package"></i><b>BC</b></span>
                         <span class="pcoded-mtext">House BL</span>

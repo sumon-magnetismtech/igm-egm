@@ -14,6 +14,11 @@ class MLOActivityLogController extends Controller
         $feeders = Activity::with('causer')->where(['subject_type' => 'App\MLO\Feederinformation', 'subject_id' => $id])->get();
         return view('activitylog.mloFeederLog', compact('feeders'));
     }
+    public function egmfeederslog($id)
+    {
+        $feeders = Activity::with('causer')->where(['subject_type' => 'App\EgmFeederinformation', 'subject_id' => $id])->get();
+        return view('activitylog.egmMloFeederLog', compact('feeders'));
+    }
 
     public function blinformationslog($id)
     {
@@ -44,5 +49,10 @@ class MLOActivityLogController extends Controller
     {
         $logs = Activity::with('causer')->where(['subject_type' => 'App\MLO\Deliveryorder', 'subject_id' => $id])->get();
         return view('activitylog.mloDeliveryOrderLog', compact('logs'));
+    }
+    public function egmmlodeliverorderslog($id)
+    {
+        $logs = Activity::with('causer')->where(['subject_type' => 'App\EgmMloDeliveryorder', 'subject_id' => $id])->get();
+        return view('activitylog.egmmloDeliveryOrderLog', compact('logs'));
     }
 }
