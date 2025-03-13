@@ -4,7 +4,7 @@
 @section('breadcrumb-title', 'Master BL-Details')
 
 @section('breadcrumb-button')
-    <a href="{{route('feederinformations.index') }}" class="btn btn-out-dashed btn-sm btn-danger"><i class="fas fa-database"></i></a>
+    <a href="{{route('egmfeederinformations.index') }}" class="btn btn-out-dashed btn-sm btn-danger"><i class="fas fa-database"></i></a>
 @endsection
 
 @section('sub-title')

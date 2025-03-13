@@ -296,7 +296,7 @@ class EgmMloMoneyReceiptController extends Controller
         $groupByPrincipals = $moneyReceipts->groupBy('molblInformations.principal.name');
 
         if ($reportType == "pdf") {
-            return PDF::loadView('mlo.moneyreceipts.mloMrReportPdf', compact('groupByPrincipals', 'dateType', 'fromDate', 'tillDate', 'principal'))->setPaper('A4', 'landscape')->stream("mlo-money-receipt" . now()->format('d-m-Y') . ".pdf");
+            return PDF::loadView('egm.mlo.moneyreceipts.mloMrReportPdf', compact('groupByPrincipals', 'dateType', 'fromDate', 'tillDate', 'principal'))->setPaper('A4', 'landscape')->stream("mlo-money-receipt" . now()->format('d-m-Y') . ".pdf");
         } else {
             return view('egm.mlo.moneyreceipts.mloMrReport', compact('groupByPrincipals', 'dateType', 'fromDate', 'tillDate', 'principal'));
         }

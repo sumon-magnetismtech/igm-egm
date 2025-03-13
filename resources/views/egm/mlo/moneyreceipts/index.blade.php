@@ -76,9 +76,7 @@
                         @foreach ($moneyReceipt->molblInformations->blcontainers as $blcontainer)
                             @if ($loop->first)
                                 <td rowspan="{{ $countContainers }}">{{ $moneyReceipts->firstItem() + $key }}</td>
-                                <td rowspan="{{ $countContainers }}"><a
-                                        href="{{ url('feederinformations/' . $moneyReceipt->id) }}"
-                                        class="btn btn-sm btn-dark-green">{{ $moneyReceipt->id }} </a></td>
+                                <td rowspan="{{ $countContainers }}">{{ $moneyReceipt->id }}</td>
                                 <td rowspan="{{ $countContainers }}" class="text-left"> {{ $moneyReceipt->bolRef ?? '' }}
                                     {{ $moneyReceipt->extensionNo ? "(Ext-$moneyReceipt->extensionNo)" : null }}</td>
                             @endif
@@ -114,7 +112,7 @@
                                     @if ($moneyReceipt->deliveryOrder)
                                         @if ($moneyReceipt->deliveryOrder->id)
                                             <a target="_blank" class="btn btn-sm bg-success p-1 m-1"
-                                                href="{{ route('mloDoPDF', $moneyReceipt->deliveryOrder->id) }}">DO-{{ $moneyReceipt->deliveryOrder->id }}</a>
+                                                href="{{ route('egmMloDoPDF', $moneyReceipt->deliveryOrder->id) }}">DO-{{ $moneyReceipt->deliveryOrder->id }}</a>
                                             <br>
                                             <strong>{{ $moneyReceipt->deliveryOrder->DO_Date ? date('d/m/Y', strtotime($moneyReceipt->deliveryOrder->DO_Date)) : null }}</strong>
                                         @endif
@@ -129,7 +127,7 @@
                                                         class="fas fa-pen"></i></a>
                                             @endcan
 
-                                            <a href="{{ url('mloMoneyReceiptPdf/' . $moneyReceipt->id) }}"
+                                            <a href="{{ url('egmMloMoneyReceiptPdf/' . $moneyReceipt->id) }}"
                                                 data-toggle="tooltip" title="Print" class="btn btn-success"><i
                                                     class="fas fa-print"></i></a>
 

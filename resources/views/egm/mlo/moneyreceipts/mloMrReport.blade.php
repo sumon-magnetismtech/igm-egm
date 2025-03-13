@@ -87,7 +87,7 @@
                 @foreach($groupByPrincipal as $key => $moneyReceipt)
                     <tr class="{{$loop->parent->index % 2 == 0 ? 'primary-color' : 'secondary-color-dark'}}">
                         <td>{{$i++}}</td>
-                        <td><strong><a target="_blank" class="bg-success p-1" href="{{route("mloMoneyReceiptPdf", $moneyReceipt->id)}}">{{$moneyReceipt->id}}</a></strong></td>
+                        <td><strong><a target="_blank" class="bg-success p-1" href="{{route("egmMloMoneyReceiptPdf", $moneyReceipt->id)}}">{{$moneyReceipt->id}}</a></strong></td>
                         <td style="text-align: center"><nobr>{{date('d-m-Y', strtotime($moneyReceipt->issueDate))}}</nobr></td>
                         <td>{{$moneyReceipt->molblInformations->bolreference}} {{$moneyReceipt->extensionNo ? "(Ex-$moneyReceipt->extensionNo)" : null}} </td>
                         @if(!$principal)

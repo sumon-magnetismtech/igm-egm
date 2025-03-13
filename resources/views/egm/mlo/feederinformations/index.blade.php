@@ -92,7 +92,7 @@
                     @foreach ($feederInformations as $key => $feederInfo)
                         <tr>
                             <td>{{ $feederInformations->firstItem() + $key }}</td>
-                            <td><a href="{{ url('feederinformations/' . $feederInfo->id) }}"
+                            <td><a href="{{ url('egmfeederinformations/' . $feederInfo->id) }}"
                                     class="btn btn-sm btn-dark-green">{{ $feederInfo->id }} </a></td>
                             <td class="text-left"> {{ $feederInfo->feederVessel }} </td>
                             <td class="text-left"> {{ $feederInfo->voyageNumber }} </td>
@@ -143,7 +143,7 @@
                                             </form>
                                         @endcan
 
-                                        <a href="{{ url('feeders/log/' . $feederInfo->id) }}" data-toggle="tooltip"
+                                        <a href="{{ url('egmfeeders/log/' . $feederInfo->id) }}" data-toggle="tooltip"
                                             title="Log" class="btn btn-dark"><i class="fas fa-history"></i></a>
                                         <button class="btn btn-outline-success moreButtonsSwitch" data-toggle="tooltip"
                                             title="More Options"><i class="fas fa-chevron-down"></i></button>
