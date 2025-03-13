@@ -1,7 +1,7 @@
 @section('title', 'Dashboard - Magnetism Tech Ltd')
 
 
-@include('elements.header')
+@include('elements.egmheader')
 @include('elements.sidebar-chat')
 <div class="pcoded-main-container">
     <div class="pcoded-wrapper">

@@ -1,4 +1,4 @@
-@extends('layouts.new-layout')
+@extends('layouts.egm-layout')
 @section('title', 'MLO-Money Receipt Log')
 
 @section('breadcrumb-title', 'MLO-Money Receipt Log')
