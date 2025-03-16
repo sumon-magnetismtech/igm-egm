@@ -159,7 +159,7 @@
         </div>
         <div id="brand" class="textCenter">
             <h1 id="companyName"> Magnetism Tech Ltd </h1>
-            <p><small> C&F Tower, 4th Floor, 1222 Sk. Mujib Road, Agrabad, Chittagong. Tel : +88 02333315926-7.</small>
+            <p><small> Admin Future Park, 5th Floor, Barik Building, Chittagong. Tel : +88 02333315926-7.</small>
             </p>
         </div>
         <hr width="100%">
@@ -283,16 +283,13 @@
             <img
                 src="data:image/png;base64, {{ base64_encode(
                     SimpleSoftwareIO\QrCode\Facades\QrCode::format('png')->size(100)->generate(
-                            'BL: ' .
-                                $moneyReceipt->houseBl->bolreference .
-                                "\nDO: QCLOGFRD-" .
-                                $moneyReceipt->deliveryOrder->id .
-                                "\nIssue Date: " .
-                                date('d-m-Y', strtotime($moneyReceipt->deliveryOrder->issue_date)) .
-                                "\n Client: " .
-                                $moneyReceipt->client_name,
-                        ),
-                ) }} ">
+                        'BL: ' . $moneyReceipt->houseBl->bolreference .
+                        "\nDO: QCLOGFRD-" . $moneyReceipt->deliveryOrder->id .
+                        "\nIssue Date: " . date('d-m-Y', strtotime($moneyReceipt->deliveryOrder->issue_date)) .
+                        "\n Client: " . $moneyReceipt->client_name
+                    )
+                ) }}">
+
         </div>
     </div>
 

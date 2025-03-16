@@ -9,9 +9,9 @@ Route::group(['middleware' => ['auth', 'preventBackHistory']], function () {
     Route::get('/loadMLOExporterInfo/{name}', 'MLO\CommonDataController@loadMLOExporterInfo');
 
     //Auto Suggest / Complete
-    Route::post('/feederNameAutoComplete', 'MLO\CommonDataController@feederNameAutoComplete')->name('feederNameAutoComplete');
-    Route::get('/voyageAutoComplete/{vesselname}', 'MLO\CommonDataController@voyageAutoComplete')->name('voyageAutoComplete');
-    Route::post('/rotationNoAutoComplete', 'MLO\CommonDataController@rotationNoAutoComplete')->name('rotationNoAutoComplete');
+    Route::post('/egmfeederNameAutoComplete', 'MLO\CommonDataController@egmFeederNameAutoComplete')->name('egmfeederNameAutoComplete');
+    Route::get('/egmvoyageAutoComplete/{vesselname}', 'MLO\CommonDataController@egmVoyageAutoComplete')->name('egmvoyageAutoComplete');
+    Route::post('/egmrotationNoAutoComplete', 'MLO\CommonDataController@egmRotationNoAutoComplete')->name('egmrotationNoAutoComplete');
 
 
     Route::post('/bolreferenceAutoComplete', 'MLO\CommonDataController@bolreferenceAutoComplete')->name('bolreferenceAutoComplete');
@@ -20,9 +20,9 @@ Route::group(['middleware' => ['auth', 'preventBackHistory']], function () {
 
 
     //MLO Feeder Extra Controller
-    Route::get("feederinformations/{feeder}/restore", 'MLO\FeederinformationController@restore');
-    Route::get("feederinformations/{feeder_id}/forceDelete", 'MLO\FeederinformationController@forceDelete');
-    Route::get('feederinformations/trashed', 'MLO\FeederinformationController@trashed')->name('trashfeeder');
+    Route::get("egmfeederinformations/{feeder}/restore", 'EgmFeederinformationController@restore');
+    Route::get("egmfeederinformations/{feeder_id}/forceDelete", 'EgmFeederinformationController@forceDelete');
+    Route::get('egmfeederinformations/trashed', 'EgmFeederinformationController@trashed')->name('egmtrashfeeder');
 
     Route::get('egmfeederListForCustomUpdate', 'EgmMloMoneyReceiptController@feederListForCustomUpdate');
     Route::post('egmfeederCustomUpdate', 'EgmMloMoneyReceiptController@feederCustomUpdate');

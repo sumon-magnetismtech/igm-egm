@@ -159,8 +159,7 @@
         </div>
         <div id="brand" style="" class="textCenter">
             <h1 id="companyName">  Magnetism Tech Ltd </h1>
-            <p><small> C&F Tower, 4th Floor, 1222 Sk. Mujib Road, Agrabad, Chittagong. Tel : +880-31-2515926-7,
-                    721659.</small></p>
+            <p><small>Admin Future Park, 5th Floor, Barik Building, Chittagong. Tel : +88 02333315926-7.</small></p>
             <br>
             <h2 class="textCenter" style="margin: 5px"> INTER-OFFICE CORRESPONDENCE (IOC) <br> Container List </h2>
         </div>

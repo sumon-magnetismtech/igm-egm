@@ -217,9 +217,9 @@ class EgmDeliveryorderController extends Controller
             })->firstOrFail(['id', 'client_name', 'hblno']);
         $containers = EgmHouseBlContainers::where('housebl_id',$moneyReceipt->houseBl->id)->get();
 
-//        return view('deliveryorders.doPdf',compact('hblInfo','containers'));
+//        return view('egm.deliveryorders.doPdf',compact('hblInfo','containers'));
 
-        return PDF::loadView('deliveryorders.doPdf',compact('moneyReceipt','containers'))->stream('doPDF.pdf');
+        return PDF::loadView('egm.deliveryorders.doPdf',compact('moneyReceipt','containers'))->stream('doPDF.pdf');
     }
 
     public function doreport(Request $request)

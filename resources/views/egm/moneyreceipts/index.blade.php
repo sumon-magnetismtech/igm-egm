@@ -147,7 +147,7 @@
                         <td>
                             @if ($data->deliveryOrder)
                                 <a target="_blank" class="btn btn-sm bg-success p-1 m-1"
-                                    href="{{ route('doPdf', $data->deliveryOrder->id) }}">DO-{{ $data->deliveryOrder->id }}</a>
+                                    href="{{ route('egmdoPdf', $data->deliveryOrder->id) }}">DO-{{ $data->deliveryOrder->id }}</a>
                                 <br>
                                 <strong>{{ $data->deliveryOrder->issue_date ? date('d/m/Y', strtotime($data->deliveryOrder->issue_date)) : null }}</strong>
                             @endif
