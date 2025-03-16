@@ -290,8 +290,8 @@
                                 "\nIssue Date: " .
                                 date('d-m-Y', strtotime($moneyReceipt->deliveryOrder->issue_date)) .
                                 "\n Client: " .
-                                $moneyReceipt->client_name,
-                        ),
+                                $moneyReceipt->client_name
+                        )
                 ) }} ">
         </div>
     </div>

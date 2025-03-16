@@ -1,10 +1,10 @@
-@extends('layouts.egm-layout')
+@extends('layouts.new-layout')
 @section('title', 'MLO-Money Receipt Log')
 
 @section('breadcrumb-title', 'MLO-Money Receipt Log')
 
 @section('breadcrumb-button')
-    <a href="{{ url('mloblinformations') }}" class="btn btn-out-dashed btn-sm btn-warning"><i class="fas fa-database"></i></a>
+    <a href="{{ url('mlomoneyreceipts') }}" class="btn btn-out-dashed btn-sm btn-warning"><i class="fas fa-database"></i></a>
 @endsection
 
 @section('sub-title')
