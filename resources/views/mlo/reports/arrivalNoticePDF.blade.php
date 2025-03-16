@@ -155,8 +155,7 @@
             </div>
             <div id="brand" style="margin-top: -80px" class="textCenter">
                 <h1 id="companyName"> Magnetism Tech Ltd </h1>
-                <p><small> C&F Tower, 4th Floor, 1222 Sk. Mujib Road, Agrabad, Chittagong. Tel : +880-31-2515926-7,
-                        721659.</small></p>
+                <p><small>Admin Future Park, 5th Floor, Barik Building, Chittagong. Tel : +88 02333315926-7.</small></p>
             </div>
             <hr width="100%">
         </header>
@@ -289,8 +288,7 @@
         <div id="ArrivalSummary">
             <div id="brand" class="textCenter">
                 <h1 id="companyName" style="line-height: 25px"> Magnetism Tech Ltd </h1>
-                <p><small> C&F Tower, 4th Floor, 1222 Sk. Mujib Road, Agrabad, Chittagong. Tel : +880-31-2515926-7,
-                        721659.</small></p>
+                <p><small>Admin Future Park, 5th Floor, Barik Building, Chittagong. Tel : +88 02333315926-7.</small></p>
                 <h2 style="border: 1px solid; padding: 5px; border-radius: 5px; width: 300px; margin: 10px auto"> LIST
                     OF ARRIVAL NOTICE </h2>
             </div>

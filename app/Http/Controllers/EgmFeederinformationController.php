@@ -57,17 +57,20 @@ class EgmFeederinformationController extends Controller
         $feederVessel       = \request()->feederVessel ? \request()->feederVessel : null;
         $rotationNo         = \request()->rotationNo ? \request()->rotationNo : null;
         $arrivalDate        = \request()->arrivalDate ? date('Y-m-d', strtotime(str_replace('/', '-', request('arrivalDate')))) : null;
-        $feederInformations = Feederinformation::onlyTrashed()
-            ->where('feederVessel', 'LIKE', "%$feederVessel%")
+        $feederInformations = EgmFeederinformation::onlyTrashed()
+            ->when($feederVessel, function ($q) use ($feederVessel) {
+                $q->where('feederVessel', 'LIKE', "%{$feederVessel}%");
+            })
             ->when($rotationNo, function ($q) use ($rotationNo) {
-                $q->where('rotationNo', 'LIKE', "%$rotationNo%");
+                $q->where('rotationNo', 'LIKE', "%{$rotationNo}%");
             })
             ->when($arrivalDate, function ($q) use ($arrivalDate) {
                 $q->whereDate('arrivalDate', $arrivalDate);
             })
-            ->orderBy('id', 'desc')->paginate(10);
-
-        return view('mlo.feederinformations.trashed', compact('feederInformations', 'feederVessel', 'rotationNo', 'arrivalDate'));
+            ->orderByDesc('id')
+            ->paginate(10);
+            
+        return view('egm.mlo.feederinformations.trashed', compact('feederInformations', 'feederVessel', 'rotationNo', 'arrivalDate'));
     }
 
     /**

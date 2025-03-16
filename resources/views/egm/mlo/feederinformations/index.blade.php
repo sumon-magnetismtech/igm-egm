@@ -10,7 +10,7 @@
     @endcan
 
     @role('super-admin')
-        <a href="{{ route('trashfeeder') }}" class="btn btn-out-dashed btn-sm btn-danger"><i class="fas fa-trash"></i> Trash</a>
+        <a href="{{ route('egmtrashfeeder') }}" class="btn btn-out-dashed btn-sm btn-danger"><i class="fas fa-trash"></i> Trash</a>
     @endcan
 @endsection
 

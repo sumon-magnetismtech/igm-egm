@@ -6,7 +6,7 @@
 
 @section('breadcrumb-button')
     @role('super-admin')
-        <a href="{{ route('feederinformations.index') }}" class="btn btn-sm btn-warning"><i class="fas fa-database"></i> Main
+        <a href="{{ route('egmfeederinformations.index') }}" class="btn btn-sm btn-warning"><i class="fas fa-database"></i> Main
             List</a>
     @endcan
 @endsection
@@ -79,7 +79,7 @@
                 @forelse($feederInformations as $key => $feederInfo)
                     <tr>
                         <td>{{ $feederInformations->firstItem() + $key }}</td>
-                        <td><a href="{{ url('feederinformations/' . $feederInfo->id) }}"
+                        <td><a href="{{ url('egmfeederinformations/' . $feederInfo->id) }}"
                                 class="btn btn-sm btn-dark-green">{{ $feederInfo->id }} </a></td>
                         <td class="text-left"> {{ $feederInfo->feederVessel }} </td>
                         <td class="text-left"> {{ $feederInfo->voyageNumber }} </td>
@@ -97,11 +97,11 @@
                         <td style="text-align: left">
                             <div class="icon-btn">
                                 <nobr>
-                                    <a href="{{ url('feederinformations/' . $feederInfo->id) }}" data-toggle="tooltip"
+                                    <a href="{{ url('egmfeederinformations/' . $feederInfo->id) }}" data-toggle="tooltip"
                                         title="Details" class="btn btn-primary"><i class="fas fa-eye"></i></a>
-                                    <a href="{{ url('feederinformations/' . $feederInfo->id . '/restore') }}"
+                                    <a href="{{ url('egmfeederinformations/' . $feederInfo->id . '/restore') }}"
                                         class="btn btn-success">Restore</a>
-                                    <a href="{{ url('feederinformations/' . $feederInfo->id . '/forceDelete') }}"
+                                    <a href="{{ url('egmfeederinformations/' . $feederInfo->id . '/forceDelete') }}"
                                         class="btn btn-danger">Delete</a>
                                 </nobr>
                             </div>
@@ -147,7 +147,7 @@
             $("#feederVessel").autocomplete({
                 source: function(request, response) {
                     $.ajax({
-                        url: "{{ route('feederNameAutoComplete') }}",
+                        url: "{{ route('egmfeederNameAutoComplete') }}",
                         type: 'post',
                         dataType: "json",
                         data: {
@@ -168,7 +168,7 @@
                 let vesselName = $(this).val();
                 let dataList = $("#voyageList");
                 if (vesselName != null) {
-                    const url = '{{ url('voyageAutoComplete') }}/' + vesselName;
+                    const url = '{{ url('egmvoyageAutoComplete') }}/' + vesselName;
                     fetch(url)
                         .then((resp) => resp.json())
                         .then(function(hblno) {
@@ -187,7 +187,7 @@
             $("#rotationNo").autocomplete({
                 source: function(request, response) {
                     $.ajax({
-                        url: "{{ route('rotationNoAutoComplete') }}",
+                        url: "{{ route('egmrotationNoAutoComplete') }}",
                         type: 'post',
                         dataType: "json",
                         data: {
