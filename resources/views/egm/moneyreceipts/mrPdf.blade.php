@@ -145,8 +145,7 @@
     <header>
         <div id="company">
             <h1> Magnetism Tech Ltd</h1>
-            <p><strong>Chittagong Office : </strong> C & F Tower (4th Floor), 1222, Sk. Mujib Road, Agrabad, Chittagong,
-                Bangladesh. </p>
+            <p><strong>Chittagong Office : </strong>Admin Future Park, 5th Floor, Barik Building, Chittagong. Tel : +88 02333315926-7.</p>
             <p><strong>Dhaka Office : </strong>Sanmar Tower (7th Floor), Plot No # 38/A, Road # 35, Gulshan-2,
                 Dhaka-1212.</p>
         </div>

@@ -203,7 +203,7 @@
                 <p style="margin-bottom: 0"><span> E-mail </span> : info@qclogistics.com</p>
             </div>
             <hr width="100%" style="display: block; clear: both; margin: 0 -50px">
-            <p class="spacing"> C & F Tower (4th Floor), 1222, Sk. Mujib Road, Agrabad, Chittagong, Bangladesh. </p>
+            <p class="spacing">Admin Future Park, 5th Floor, Barik Building, Chittagong. Tel : +88 02333315926-7.</p>
         </div>
     </header>
 

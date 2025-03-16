@@ -39,9 +39,9 @@
 
     <p>
         Full Name: <strong> Magnetism Tech Ltd (Mohammad Yeakub)</strong> <br>
-        Full Address : C & F Tower (4th Floor), 1222, <br>
-        SK Mujib Road, Agrabad, Chittagong. <br>
-        Tel No: 25155926-7, 720415, 2510220 <br>
+        Full Address : Admin Future Park, 5th Floor<br>
+        Barik Building, Chittagong<br>
+        Tel No: +88 02333315926-7.<br>
         For: Magnetism Tech Ltd <br>
         Customs License Number : 0083/2008 <br>
         AIN Number : 301080083 <br>
