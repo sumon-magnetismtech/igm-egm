@@ -1,4 +1,4 @@
-@extends('layouts.layoutMLO')
+@extends('layouts.new-layout')
 @section('title','Delay Reasons')
 @section('style')
     <style>
