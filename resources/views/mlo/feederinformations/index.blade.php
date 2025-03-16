@@ -134,7 +134,7 @@
                                 <div class="d-none moreButtons">
                                     <div class="icon-btn">
                                         <a href="{{url('blxmldownload/'.$feederInfo->id)}}" data-toggle="tooltip" title="Download XML" class="mt-1 btn btn-outline-dark"><i class="fas fa-download"></i> XML</a>
-                                        <a href="{{url("feederinformations/$feederInfo->id/containerList")}}" data-toggle="tooltip" title="Download Container List" class="mt-1 btn btn-outline-dark"><i class="fas fa-download"></i> CNT</a>
+                                        {{-- <a href="{{url("feederinformations/$feederInfo->id/containerList")}}" data-toggle="tooltip" title="Download Container List" class="mt-1 btn btn-outline-dark"><i class="fas fa-download"></i> CNT</a> --}}
                                         <a href="{{url("printAllBLByFeederID/$feederInfo->id/all")}}" target="_blank" data-toggle="tooltip" title="Print All IGM" class="mt-1 btn btn-outline-dark"><i class="fas fa-print"></i> IGM</a>
                                         <a href="{{url("printAllBLByFeederID/$feederInfo->id/bdkam")}}" target="_blank" data-toggle="tooltip" title="Print BDKAM" class="mt-1 btn btn-outline-dark"><i class="fas fa-print"></i> BDKAM </a>
                                         <a href="{{url("printAllBLByFeederID/$feederInfo->id/bdpng")}}" target="_blank" data-toggle="tooltip" title="Print BDPNG" class="mt-1 btn btn-outline-dark"><i class="fas fa-print"></i> BDPNG </a>
