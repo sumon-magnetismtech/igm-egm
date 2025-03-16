@@ -66,7 +66,7 @@
             <div class="input-group input-group-sm ">
                 <span class="input-group-addon"> Carrier Address <span class="text-danger">*</span></span>
                 <input type="text" id="careerAddress" name="careerAddress" class="form-control"
-                    value="CANDF TOWER, 4TH FLOOR, AGRABAD, CHITTAGONG, BANGLADESH." readonly tabindex="-1" required>
+                    value="Admin Future Park, 5th Floor, Barik Building, Chittagong. Tel : +88 02333315926-7." readonly tabindex="-1" required>
             </div>
         </div>
     </div>

@@ -16,7 +16,7 @@ $factory->define(Feederinformation::class, function (Faker $faker) {
         'berthingDate' => $faker->date(),
         'rotationNo' => "Rota-".$faker->randomNumber(6, true),
         'careerName' => 301080083,
-        'careerAddress' => 'CANDF TOWER, 4TH FLOOR, AGRABAD, CHITTAGONG, BANGLADESH',
+        'careerAddress' => 'Admin Future Park, 5th Floor, Barik Building, Chittagong. Tel : +88 02333315926-7.',
         'depPortCode' => 'ADPAS',
         'depPortName' => 'Pas de la Casa',
         'desPortCode' => 'ADORD',

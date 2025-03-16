@@ -35,7 +35,7 @@
     <p class="first-p"><strong style="color: #8f4800">Vessel: </strong>{{ $houseblquery->vesselname }} <strong
             style="color: #8f4800">Voyage: </strong>{{ $houseblquery->voyage }} <strong style="color: #8f4800">Rotation:
         </strong> {{ $houseblquery->rotation }} <span><strong style="color: #8f4800">AIN: </strong> 301043125</span> -
-        Magnetism Tech Ltd - C&F TOWER, 4TH FLOOR, AGRABAD, CHITTAGONG</p>
+        Magnetism Tech Ltd - Admin Future Park, 5th Floor, Barik Building, Chittagong. Tel : +88 02333315926-7.</p>
     <table>
         <thead>
             <tr>

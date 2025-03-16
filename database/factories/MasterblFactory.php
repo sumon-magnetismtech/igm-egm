@@ -28,7 +28,7 @@ $factory->define(Masterbl::class, function (Faker $faker) {
     'pucode' => "BDCGP",
     'puname' => "Chittagong",
     'carrier' => "301080083",
-    'carrieraddress' => "CANDF TOWER, 4TH FLOOR, AGRABAD, CHITTAGONG, BANGLADESH",
+    'carrieraddress' => "Admin Future Park, 5th Floor, Barik Building, Chittagong. Tel : +88 02333315926-7.",
     'depot' => "CHITTAGONG PORT",
     'mv' => $faker->text(15),
     'mlocode' => $faker->randomNumber(5, true),

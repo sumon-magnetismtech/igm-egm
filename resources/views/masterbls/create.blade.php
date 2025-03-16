@@ -120,7 +120,7 @@
             <div class="input-group input-group-sm ">
                 <span class="input-group-addon"> Carrier Address <span class="text-danger">*</span></span>
                 <textarea class="form-control" rows="1" aria-label="Carrier Address" tabindex="-1" name="carrieraddress"
-                    id="carrieraddress" readonly>CANDF TOWER, 4TH FLOOR, AGRABAD, CHITTAGONG, BANGLADESH</textarea>
+                    id="carrieraddress" readonly>Admin Future Park, 5th Floor, Barik Building, Chittagong. Tel : +88 02333315926-7.</textarea>
             </div>
         </div>
     </div><!-- end row -->

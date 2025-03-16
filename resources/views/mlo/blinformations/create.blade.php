@@ -278,7 +278,7 @@
             <div class="col-xl-6 col-md-6 px-1">
                 <div class="input-group input-group-sm">
                     <span class="input-group-addon"> MLO Address <span class="text-danger">*</span> </span>
-                    <textarea id="mloaddress" name="mloaddress" class="form-control" rows="1" maxlength="512" readonly tabindex="-1">{{ old("mloaddress") ? old("mloaddress") : (!empty($mloblinformation) ? $mloblinformation->mloaddress : "CANDF TOWER, 4TH FLOOR, AGRABAD, CHITTAGONG, BANGLADESH") }}</textarea>
+                    <textarea id="mloaddress" name="mloaddress" class="form-control" rows="1" maxlength="512" readonly tabindex="-1">{{ old("mloaddress") ? old("mloaddress") : (!empty($mloblinformation) ? $mloblinformation->mloaddress : "Admin Future Park, 5th Floor, Barik Building, Chittagong. Tel : +88 02333315926-7.") }}</textarea>
                 </div>
             </div>
 

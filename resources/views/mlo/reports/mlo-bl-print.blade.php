@@ -124,7 +124,7 @@
     <header>
         <h6 id="companyName" class=""> Magnetism Tech Ltd </h6>
         <p class=""> <small>AIN: 301080083; <span style="margin-left: 5px">LICENSE NO: 0083/2008</span></small> </p>
-        <p class=""> <small>CNF TOWER 4TH FLOOR, AGRABAD C/A, CHITTAGONG, BANGLADESH.</small> </p>
+        <p class=""> <small>Admin Future Park, 5th Floor, Barik Building, Chittagong. Tel : +88 02333315926-7.</small> </p>
 
         <h6 id="importGeneral"> IMPORT GENERAL MANIFEST</h6>
 
