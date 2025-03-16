@@ -1,4 +1,4 @@
-@extends('layouts.layout')
+@extends('layouts.new-layout')
 
 @if($formType=='edit')
     @section('title', 'Edit Delay Reason')
@@ -11,7 +11,7 @@
         <div class="row">
             <div class="col-lg-12">
                 <div class="float-left">
-                    <h2 class="h2-responsive font-weight-bolder text-dark">@if($formType=='edit') Edit @else  Add New  @endif Reason</h2>
+                    <h4 class="h2-responsive font-weight-bolder text-dark">@if($formType=='edit') Edit @else  Add New  @endif Reason</h4>
                 </div>
                 <div class="float-right">
                     <a href="{{ url('delayreasons') }}"> <button type="button" class="btn btn-sm btn-amber float-right"><i class="fas fa-backward fa-2x"></i></button></a>
