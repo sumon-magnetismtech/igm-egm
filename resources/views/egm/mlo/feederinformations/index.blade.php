@@ -155,9 +155,9 @@
                                             <a href="{{ url('egmMloblxmldownload/' . $feederInfo->id) }}" data-toggle="tooltip"
                                                 title="Download XML" class="mt-1 btn btn-outline-dark"><i
                                                     class="fas fa-download"></i> XML</a>
-                                            <a href="{{ url("egmMlofeederinformations/$feederInfo->id/containerList") }}"
+                                            {{-- <a href="{{ url("egmMlofeederinformations/$feederInfo->id/containerList") }}"
                                                 data-toggle="tooltip" title="Download Container List"
-                                                class="mt-1 btn btn-outline-dark"><i class="fas fa-download"></i> CNT</a>
+                                                class="mt-1 btn btn-outline-dark"><i class="fas fa-download"></i> CNT</a> --}}
                                             <a href="{{ url("egmMloprintAllBLByFeederID/$feederInfo->id/all") }}"
                                                 target="_blank" data-toggle="tooltip" title="Print All IGM"
                                                 class="mt-1 btn btn-outline-dark"><i class="fas fa-print"></i> IGM</a>
