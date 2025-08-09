@@ -15,7 +15,6 @@
     <link rel="stylesheet" type="text/css" href="{{ asset('css/bootstrap.min.css') }}">
     <link rel="stylesheet" type="text/css" href="{{ asset('css/style.css') }}">
 </head>
-
 <body class="fix-menu">
 <!-- Pre-loader start -->
 <div class="theme-loader">
@@ -35,13 +34,28 @@
                     <form class="md-float-material" method="POST" action="{{ route('login') }}">
                         @csrf
                         <div class="text-center d-none d-lg-block">
-                            <h2 style="color: white"> Magnetism Tech Ltd Ltd.</h2>
-                            {{--                            <img src="../files/assets/images/logo.png" alt="logo.png"> --}}
+                            <h2 style="color:white;">Shipping and Logistics Online Desk</h2>
                         </div>
+                        {{-- <div class="text-center d-none d-lg-block">
+                            <img src="{{ asset('/img/Magnetism-Logo.png') }}" height="100px" alt="logo.png" style="margin-right: .7rem;">
+                            <img src="{{ asset('/img/ctgport.png') }}" width="100px" alt="logo.png">
+                        </div> --}}
+                        {{-- <div class="d-flex justify-content-between align-items-center w-100" style="max-width: 500px; margin: 0 auto;">
+                            <div style="">
+                                <img src="{{ asset('/img/Magnetism-Logo.png') }}" style="height: 100px; width: auto; max-width: 100%;" alt="logo.png">
+                            </div>
+                            <div style="flex: 1; text-align: right;">
+                                <img src="{{ asset('/img/ctgport.png') }}" style="width: 100px; height: auto; max-width: 100%;" alt="logo.png">
+                            </div>
+                        </div> --}}
                         <div class="auth-box">
                             <div class="row m-b-20">
-                                <div class="col-md-12">
+                                <div class="col-md-12 d-flex justify-content-between align-items-center w-100">
                                     <h3 class="text-left txt-primary">Sign In</h3>
+                                    <div style="">
+                                        <img src="{{ asset('/img/Magnetism-Logo.png') }}" style="height: 40px; width: auto; max-width: 100%;" alt="logo.png">
+                                        <img src="{{ asset('/img/ctgport.png') }}" style="width: 40px; height: auto; max-width: 100%;" alt="logo.png">
+                                    </div>
                                 </div>
                             </div>
                             <hr/>
