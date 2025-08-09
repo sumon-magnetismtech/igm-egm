@@ -188,7 +188,7 @@
         <div class="pullRight">
             <div id="doInfo">
                 <br><br><br><br> <br><br>
-                <p> D/O No. <strong>QCLOGMLO-{{ $deliveryInfo->id }}</strong> </p>
+                <p> D/O No. <strong>{{ $deliveryInfo->id }}</strong> </p>
                 <p> ISSUE DATE.
                     <strong>{{ $deliveryInfo->DO_Date ? date('d-M-Y', strtotime($deliveryInfo->DO_Date)) : null }}</strong>
                 </p>
@@ -274,7 +274,7 @@
                 src="data:image/png;base64, {{ base64_encode(
                     SimpleSoftwareIO\QrCode\Facades\QrCode::format('png')->size(100)->generate(
                             'BL: ' . $deliveryInfo->moneyReceipt->bolRef .
-                            "\nDO: QCLOGMLO-" . $deliveryInfo->id .
+                            "\nDO: " . $deliveryInfo->id .
                             "\nIssue Date: " . date('d-m-Y', strtotime($deliveryInfo->DO_Date)) .
                             "\nClient: " . $deliveryInfo->moneyReceipt->client->cnfagent,
                         ),
@@ -284,7 +284,7 @@
                 src="data:image/png;base64,{{ base64_encode(
                     SimpleSoftwareIO\QrCode\Facades\QrCode::format('png')->size(100)->generate(
                         'BL: ' . $deliveryInfo->moneyReceipt->bolRef .
-                        "\nDO: QCLOGMLO-" . $deliveryInfo->id .
+                        "\nDO: " . $deliveryInfo->id .
                         "\nIssue Date: " . date('d-m-Y', strtotime($deliveryInfo->DO_Date)) .
                         "\nClient: " . $deliveryInfo->moneyReceipt->client->cnfagent
                     )

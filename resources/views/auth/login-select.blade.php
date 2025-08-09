@@ -90,7 +90,7 @@
     </div>
     <!-- Pre-loader end -->
 
-    <section class="login bg-primary">
+    <section class="login bg-primary" style="background-image: url('{{ asset("img/igm-egm_bg.png") }}'); background-size: cover; background-repeat: no-repeat; background-position: center;">
         <div class="container">
             <div class="row justify-content-center">
                 <div class="col-md-6 col-12">

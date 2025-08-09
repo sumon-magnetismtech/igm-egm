@@ -210,7 +210,7 @@
                 @foreach ($groupByPrincipal as $moneyReceipt)
                     <tr>
                         <td style="text-align: center">{{ $loop->iteration }}</td>
-                        <td>QCLOGMLO-{{ $moneyReceipt->id }}</td>
+                        <td>{{ $moneyReceipt->id }}</td>
                         <td style="text-align: center">
                             <nobr>{{ date('d-m-Y', strtotime($moneyReceipt->issueDate)) }}</nobr>
                         </td>

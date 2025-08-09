@@ -170,7 +170,7 @@
         </div>
         <div class="pullLeft" style="width: 500px;">
             <p> SL NO.<strong>
-                    QCLOGMLO-{{ $moneyReceipt->id }}{{ $moneyReceipt->extensionNo ? "-EX-$moneyReceipt->extensionNo" : null }}</strong>
+                    {{ $moneyReceipt->id }}{{ $moneyReceipt->extensionNo ? "-EX-$moneyReceipt->extensionNo" : null }}</strong>
             </p>
             <p> Received with thanks from M/s. <strong class="textUpper"> {{ $moneyReceipt->client->cnfagent }}</strong>
             </p>

@@ -72,7 +72,7 @@
             @foreach($deliveryOrders as $key => $deliveryOrder)
                 <tr>
                     <td>{{$deliveryOrders->firstItem()+$key}}</td>
-                    <td> QCLOGMLO-{{$deliveryOrder->id}} </td>
+                    <td> {{$deliveryOrder->id}} </td>
                     <td>
                         <div class="icon-btn">
                             <a target="_blank" href="{{ url('egmMloMoneyReceiptPdf/'.$deliveryOrder->moneyReceipt->id)}}" data-toggle="tooltip" title="Money Receipt" class="btn btn-success">{{$deliveryOrder->moneyReceipt->id}}</a>

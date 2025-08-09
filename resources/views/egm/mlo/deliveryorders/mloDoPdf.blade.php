@@ -188,7 +188,7 @@
         <div class="pullRight">
             <div id="doInfo">
                 <br><br><br><br> <br><br>
-                <p> D/O No. <strong>QCLOGMLO-{{ $deliveryInfo->id }}</strong> </p>
+                <p> D/O No. <strong>{{ $deliveryInfo->id }}</strong> </p>
                 <p> ISSUE DATE.
                     <strong>{{ $deliveryInfo->DO_Date ? date('d-M-Y', strtotime($deliveryInfo->DO_Date)) : null }}</strong>
                 </p>
@@ -272,7 +272,7 @@
         <div id="barcode">
             <img
                 src="data:image/png;base64,{{ base64_encode(QrCode::format('png')->size(100)->generate(
-                    'BL: ' . $deliveryInfo->moneyReceipt->bolRef . "\nDO: QCLOGMLO-" .
+                    'BL: ' . $deliveryInfo->moneyReceipt->bolRef . "\nDO: " .
                     $deliveryInfo->id . "\nIssue Date: " .
                     date('d-m-Y', strtotime($deliveryInfo->DO_Date)) . "\nClient: " .
                     $deliveryInfo->moneyReceipt->client->cnfagent
