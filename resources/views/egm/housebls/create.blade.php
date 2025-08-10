@@ -664,7 +664,7 @@
     <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
     <script>
         var i = {!! json_encode(
-            old('addmore') ? count(old('addmore')) : (!empty($egmhousebl) ? $egmhousebl->containers->count() - 1 : 0),
+            old('addmore') ? count(old('addmore')) : (!empty($egmhousebl) ? $egmhousebl->containers->count() - 1 : 0)
         ) !!};
 
         function addContainer() {
