@@ -25,8 +25,8 @@ Route::group(['middleware' => ['auth', 'preventBackHistory']], function () {
     Route::post('egmcontainersBulkUpdate', 'EgmHouseBlController@containersBulkUpdate')->name('egmcontainersBulkUpdate');
 
     //Housebl Extra Controler
-    Route::get('/getIgm/{igmno}', 'EgmHouseBlController@getIgmByIgmNo');
-    Route::get('/getIgmByMbl/{mblno}', 'EgmHouseBlController@getIgmByMblNo');
+    Route::get('/getEgm/{igmno}', 'EgmHouseBlController@getIgmByIgmNo');
+    Route::get('/getEgmByMbl/{mblno}', 'EgmHouseBlController@getIgmByMblNo');
     Route::get('hblPdf/{hblid}', 'EgmHouseBlController@hblPdf')->name('hblPdf');
     Route::get('egm-searchFrdLetter', 'EgmHouseBlController@searchFrdLetter')->name('egmsearchFrdLetter');
     Route::get('egm-extensionLetter', 'EgmHouseBlController@extensionLetter')->name('egmextensionLetter');

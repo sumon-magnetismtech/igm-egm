@@ -14,7 +14,6 @@
         table.fixed td {
             overflow: hidden;
         }
-
     </style>
 @endsection
 @section('breadcrumb-title')
@@ -49,8 +48,8 @@
             <div class="input-group input-group-sm">
                 <span class="input-group-addon"> IGM </span>
                 <input type="text" id="igmno" name="igm" class="form-control"
-                    value="{{ old('igm') ? old('igm') : (!empty($egmhousebl) ? $egmhousebl->igm : null) }}" onchange="loadIgm()"
-                    required {{ old('igm') ? '' : 'autofocus' }} autocomplete="off">
+                    value="{{ old('igm') ? old('igm') : (!empty($egmhousebl) ? $egmhousebl->igm : null) }}"
+                    onchange="loadIgm()" required {{ old('igm') ? '' : 'autofocus' }} autocomplete="off">
             </div>
         </div>
         <div class="col-xl-3 col-md-6 px-1">
@@ -97,7 +96,7 @@
             <div class="input-group input-group-sm">
                 <span class="input-group-addon"> Departure Date </span>
                 <input type="text" id="departure" name="departure" class="form-control"
-                    value="{{ old('departure')? old('departure'): (!empty($egmhousebl)? ($egmhousebl->masterbl->departure? date('d-m-Y', strtotime($egmhousebl->masterbl->departure)): null): null) }}"
+                    value="{{ old('departure') ? old('departure') : (!empty($egmhousebl) ? ($egmhousebl->masterbl->departure ? date('d-m-Y', strtotime($egmhousebl->masterbl->departure)) : null) : null) }}"
                     required autocomplete="off" tabindex="-1" readonly>
             </div>
         </div>
@@ -105,7 +104,7 @@
             <div class="input-group input-group-sm">
                 <span class="input-group-addon"> Arrival Date </span>
                 <input type="text" id="arrival" name="arrival" class="form-control"
-                    value="{{ old('arrival')? old('arrival'): (!empty($egmhousebl)? ($egmhousebl->masterbl->arrival? date('d-m-Y', strtotime($egmhousebl->masterbl->arrival)): null): null) }}"
+                    value="{{ old('arrival') ? old('arrival') : (!empty($egmhousebl) ? ($egmhousebl->masterbl->arrival ? date('d-m-Y', strtotime($egmhousebl->masterbl->arrival)) : null) : null) }}"
                     required autocomplete="off" tabindex="-1" readonly>
             </div>
         </div>
@@ -113,7 +112,7 @@
             <div class="input-group input-group-sm">
                 <span class="input-group-addon"> Berthing Date </span>
                 <input type="text" id="berthing" name="berthing" class="form-control"
-                    value="{{ old('berthing')? old('berthing'): (!empty($egmhousebl)? ($egmhousebl->masterbl->berthing? date('d-m-Y', strtotime($egmhousebl->masterbl->berthing)): null): null) }}"
+                    value="{{ old('berthing') ? old('berthing') : (!empty($egmhousebl) ? ($egmhousebl->masterbl->berthing ? date('d-m-Y', strtotime($egmhousebl->masterbl->berthing)) : null) : null) }}"
                     required autocomplete="off" tabindex="-1" readonly>
             </div>
         </div>
@@ -216,8 +215,8 @@
             <div class="input-group input-group-sm xl-mr-5">
                 <span class="input-group-addon">Consig. BIN <span class="text-danger">*</span> </span>
                 <input type="hidden" id="consignee_status" value="0" name="consignee_status">
-                <input type="text" list="consigneeBins" class="form-control mr-xl-5" id="consigneebin" name="consigneebin"
-                    onchange="loadConsigneeBin()"
+                <input type="text" list="consigneeBins" class="form-control mr-xl-5" id="consigneebin"
+                    name="consigneebin" onchange="loadConsigneeBin()"
                     value="{{ old('consigneebin') ? old('consigneebin') : (!empty($egmhousebl) ? $egmhousebl->consigneebin : null) }}"
                     autocomplete="off" required>
                 <datalist id="consigneeBins">
@@ -269,8 +268,7 @@
             </div>
             <div class="input-group input-group-sm">
                 <span class="input-group-addon"> Notify Address <span class="text-danger">*</span> </span>
-                <textarea id="notifyaddress" name="notifyaddress" class="form-control" rows="2" required
-                    tabindex="-1">{{ old('notifyaddress') ? old('notifyaddress') : (!empty($egmhousebl) ? $egmhousebl->notifyaddress : null) }}</textarea>
+                <textarea id="notifyaddress" name="notifyaddress" class="form-control" rows="2" required tabindex="-1">{{ old('notifyaddress') ? old('notifyaddress') : (!empty($egmhousebl) ? $egmhousebl->notifyaddress : null) }}</textarea>
             </div>
         </div>
 
@@ -286,8 +284,8 @@
         <div class="col-xl-3 col-md-6 px-1">
             <div class="input-group input-group-sm">
                 <span class="input-group-addon"> Total Package <span class="text-danger">*</span></span>
-                <input type="number" class="form-control" id="nofpackage" name="packageno" min="0" step="1"
-                    pattern="[0-9]" onkeypress="return !(event.charCode == 46)"
+                <input type="number" class="form-control" id="nofpackage" name="packageno" min="0"
+                    step="1" pattern="[0-9]" onkeypress="return !(event.charCode == 46)"
                     value="{{ old('packageno') ? old('packageno') : (!empty($egmhousebl) ? $egmhousebl->packageno : null) }}"
                     autocomplete="off" required>
             </div>
@@ -335,7 +333,8 @@
         <div class="col-xl-3 offset-xl-2 col-md-6 px-1">
             <div class="input-group input-group-sm">
                 <span class="input-group-addon"> Measurement <span class="text-danger">*</span> </span>
-                <input type="number" id="measurement" name="measurement" min="0" step="0.01" class="form-control"
+                <input type="number" id="measurement" name="measurement" min="0" step="0.01"
+                    class="form-control"
                     value="{{ old('measurement') ? old('measurement') : (!empty($egmhousebl) ? $egmhousebl->measurement : null) }}"
                     required autocomplete="off">
             </div>
@@ -385,15 +384,13 @@
         <div class="col-xl-6 col-md-6 px-1">
             <div class="input-group input-group-sm">
                 <span class="input-group-addon" style="background-color:#314b44!important;"> DO Note </span>
-                <textarea id="notefordo" name="note" class="form-control bg-light text-danger font-weight-bold"
-                    tabindex="-1">{{ old('note') ? old('note') : (!empty($egmhousebl) ? $egmhousebl->note : null) }}</textarea>
+                <textarea id="notefordo" name="note" class="form-control bg-light text-danger font-weight-bold" tabindex="-1">{{ old('note') ? old('note') : (!empty($egmhousebl) ? $egmhousebl->note : null) }}</textarea>
             </div>
         </div>
         <div class="col-xl-6 col-md-6 px-1">
             <div class="input-group input-group-sm">
                 <span class="input-group-addon" style="background-color: #3D9CDD!important;"> BL Note </span>
-                <textarea class="form-control bg-light text-danger font-weight-bold" id="blNote" name="blNote"
-                    tabindex="-1">{{ old('blNote') ? old('blNote') : (!empty($egmhousebl) ? $egmhousebl->blNote : null) }}</textarea>
+                <textarea class="form-control bg-light text-danger font-weight-bold" id="blNote" name="blNote" tabindex="-1">{{ old('blNote') ? old('blNote') : (!empty($egmhousebl) ? $egmhousebl->blNote : null) }}</textarea>
             </div>
         </div>
     </div> <!-- end row -->
@@ -405,7 +402,8 @@
                 file</button>
         </div>
         <div class="col-md-6 px-1 my-1">
-            <button type="button" class="btn btn-warning btn-block" id="addContainerBtn" tabindex="-1"> Add/Hide Container
+            <button type="button" class="btn btn-warning btn-block" id="addContainerBtn" tabindex="-1"> Add/Hide
+                Container
             </button>
         </div>
     </div> <!-- end row -->
@@ -447,8 +445,8 @@
                             <input type="checkbox" class="border-checkbox" id="qccontainer" name="qccontainer"
                                 value="{{ $egmhousebl->qccontainer }}" checked tabindex="-1">
                         @else
-                            <input type="checkbox" class="border-checkbox" id="qccontainer" name="qccontainer" value="QC"
-                                tabindex="-1">
+                            <input type="checkbox" class="border-checkbox" id="qccontainer" name="qccontainer"
+                                value="QC" tabindex="-1">
                         @endif
                         <label class="border-checkbox-label" for="qccontainer">QC Container</label>
                     </div>
@@ -458,8 +456,8 @@
                 <div class="border-checkbox-section">
                     <div class="border-checkbox-group border-checkbox-group-danger">
                         <input type="checkbox" class="border-checkbox" id="dgstatus" name="dg"
-                            {{ (old('dg') ? 'checked' : !empty($egmhousebl->dg)) ? 'checked' : null }} onclick="return false;"
-                            tabindex="-1">
+                            {{ (old('dg') ? 'checked' : !empty($egmhousebl->dg)) ? 'checked' : null }}
+                            onclick="return false;" tabindex="-1">
                         <label class="border-checkbox-label text-danger" for="dgstatus">DG Status</label>
                     </div>
                 </div>
@@ -538,7 +536,8 @@
                                         value="{{ $addmore['sealno'] }}" class="form-control form-control-sm sealno" />
                                 </td>
                                 <td><input type="text" name="addmore[{{ $key }}][pkgno]"
-                                        value="{{ $addmore['pkgno'] }}" class="form-control form-control-sm pkgno" /></td>
+                                        value="{{ $addmore['pkgno'] }}" class="form-control form-control-sm pkgno" />
+                                </td>
                                 <td><input type="text" name="addmore[{{ $key }}][grosswt]"
                                         value="{{ $addmore['grosswt'] }}"
                                         class="form-control form-control-sm containerGrossWeight" /></td>
@@ -664,7 +663,9 @@
 @section('script')
     <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
     <script>
-        var i = {!! json_encode(old('addmore') ? count(old('addmore')) : (!empty($egmhousebl) ? $egmhousebl->containers->count() - 1 : 0)) !!};
+        var i = {!! json_encode(
+            old('addmore') ? count(old('addmore')) : (!empty($egmhousebl) ? $egmhousebl->containers->count() - 1 : 0),
+        ) !!};
 
         function addContainer() {
             $("#containerTable tbody").append(`
@@ -744,7 +745,7 @@
 
         function loadIgm() {
             let formType = "{{ $formType }}";
-            let url = '{{ url('getIgm') }}/' + document.getElementById('igmno').value;
+            let url = '{{ url('getEgm') }}/' + document.getElementById('igmno').value;
             if (formType == 'edit') {
                 let UserConfirmation = confirm("Do you want to change the IGM Number for this BL");
                 console.log(UserConfirmation);
@@ -817,7 +818,7 @@
         } //loadIgm
 
         function loadIgmByMbl() {
-            let url = '{{ url('getIgmByMbl') }}/' + document.getElementById('mblno').value;
+            let url = '{{ url('getEgmByMbl') }}/' + document.getElementById('mblno').value;
             fetch(url)
                 .then((resp) => resp.json())
                 .then(function(mblno) {
@@ -1319,7 +1320,9 @@
 
         $(document).ready(function() {
             $('#uploadBtn').click(function() {
-                if (confirm("By pressing OK Button all container data will be erased which created manually!")) {
+                if (confirm(
+                        "By pressing OK Button all container data will be erased which created manually!"
+                        )) {
                     $('#addContainer').hide();
                     $('#fileUploadArea').show();
                     $("#addContainerBtn").removeClass("btn-warning").addClass("btn-outline-warning");
